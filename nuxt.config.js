@@ -52,5 +52,35 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    publicPath: '/nuxt/',
+    extend(config) {
+      const svgRule = config.module.rules.find((rule) => rule.test.test('.svg'))
+      svgRule.test = /\.(png|jpe?g|gif|webp)$/
+      config.module.rules.push({
+        test: /\.svg$/,
+        oneOf: [
+          {
+            resourceQuery: /inline/,
+            use: [
+              {
+                loader: 'vue-svg-loader',
+                options: {
+                  svgo: {
+                    plugins: [{ cleanupIDs: false }],
+                  },
+                },
+              },
+            ],
+          },
+          {
+            loader: 'file-loader',
+            query: {
+              name: 'assets/[name].[hash:8].[ext]',
+            },
+          },
+        ],
+      })
+    },
+  },
 }

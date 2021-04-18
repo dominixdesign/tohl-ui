@@ -11,11 +11,7 @@
           <div class="absolute left-0 flex-shrink-0 lg:static">
             <a href="#">
               <span class="sr-only">Workflow</span>
-              <img
-                class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-primary-300.svg"
-                alt="Workflow"
-              />
+              <layout-logo class="h-8" />
             </a>
           </div>
 
@@ -45,68 +41,82 @@
             </button>
 
             <!-- Profile dropdown -->
-            <div class="ml-4 relative flex-shrink-0">
-              <div>
-                <button
-                  id="user-menu-button"
-                  type="button"
-                  class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
-                  aria-expanded="false"
-                  aria-haspopup="true"
+            <tools-on-click-outside
+              :do="closeUserNav"
+              :ignore="$refs.menu"
+              :active="userMenuOpen"
+            >
+              <div class="ml-4 relative flex-shrink-0">
+                <div>
+                  <button
+                    id="user-menu-button"
+                    type="button"
+                    class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    @click="toggleUserNav"
+                  >
+                    <span class="sr-only">Open user menu</span>
+                    <img
+                      class="h-8 w-8 rounded-full"
+                      src="https://www.my-tohl.org/tohl/img/teams/BRA_m.png"
+                      alt=""
+                    />
+                  </button>
+                </div>
+                <transition
+                  appear
+                  enter-active-class="transition ease-out duration-100"
+                  enter-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
                 >
-                  <span class="sr-only">Open user menu</span>
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixqx=L5Rp4lUpRR&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </button>
+                  <slot
+                    v-if="userMenuOpen"
+                    :isOpen="userMenuOpen"
+                    :close="closeUserNav"
+                    :toggle="toggleUserNav"
+                    name="menu"
+                  >
+                    <!-- Active: "bg-gray-100", Not Active: "" -->
+                    <nav
+                      class="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu-button"
+                      tabindex="-1"
+                    >
+                      <a
+                        id="user-menu-item-0"
+                        href="#"
+                        class="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                        tabindex="-1"
+                        >Your Profile</a
+                      >
+                      <a
+                        id="user-menu-item-1"
+                        href="#"
+                        class="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                        tabindex="-1"
+                        >Settings</a
+                      >
+                      <a
+                        id="user-menu-item-2"
+                        href="#"
+                        class="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                        tabindex="-1"
+                        >Sign out</a
+                      >
+                    </nav>
+                  </slot>
+                </transition>
               </div>
-
-              <!--
-              Dropdown menu, show/hide based on menu state.
-
-              Entering: ""
-                From: ""
-                To: ""
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
-              <div
-                class="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="user-menu-button"
-                tabindex="-1"
-              >
-                <!-- Active: "bg-gray-100", Not Active: "" -->
-                <a
-                  id="user-menu-item-0"
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabindex="-1"
-                  >Your Profile</a
-                >
-                <a
-                  id="user-menu-item-1"
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabindex="-1"
-                  >Settings</a
-                >
-                <a
-                  id="user-menu-item-2"
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabindex="-1"
-                  >Sign out</a
-                >
-              </div>
-            </div>
+            </tools-on-click-outside>
           </div>
 
           <!-- Search -->
@@ -481,64 +491,32 @@
         </div>
       </div>
     </main>
-    <footer>
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
-        <div
-          class="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left"
-        >
-          <span class="block sm:inline">&copy; 2021 TOHL</span>
-        </div>
-      </div>
-    </footer>
+    <layout-footer />
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+export default {
+  data() {
+    return {
+      userMenuOpen: false,
+    }
+  },
+  computed: {
+    logo() {
+      return () =>
+        import(
+          /* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`
+        )
+    },
+  },
+  methods: {
+    toggleUserNav() {
+      this.userMenuOpen = !this.userMenuOpen
+    },
+    closeUserNav() {
+      this.userMenuOpen = false
+    },
+  },
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
+</script>

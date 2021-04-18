@@ -11,6 +11,10 @@ module.exports = {
       backgroundImage: (theme) => ({
         header: "url('/background.jpg')",
       }),
+      scale: {
+        200: '2',
+        250: '2.5',
+      },
       colors: {
         primary: {
           DEFAULT: '#0061AF',
