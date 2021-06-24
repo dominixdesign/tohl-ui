@@ -29,6 +29,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/color-mode',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
@@ -49,6 +50,9 @@ export default {
     manifest: {
       lang: 'en',
     },
+  },
+  colorMode: {
+    classSuffix: '',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

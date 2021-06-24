@@ -1,9 +1,5 @@
 <template>
-  <component
-    :is="logo"
-    aria-hidden="true"
-    class="w-auto flex-shrink-0 transform scale-150 translate-x-3 translate-y-1"
-  />
+  <component :is="logo" aria-hidden="true" class="w-auto transform scale-150" />
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 module.exports = {
   mode: 'jit',
+  darkMode: 'class',
   purge: [
     './components/**/*.{js,jsx,ts,tsx,vue}',
     './layouts/**/*.{js,jsx,ts,tsx,vue}',
