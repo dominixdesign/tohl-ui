@@ -1,0 +1,64 @@
+<template>
+  <!-- Static sidebar for desktop -->
+  <div
+    class="
+      hidden
+      bg-header bg-no-repeat bg-cover bg-center
+      md:flex md:flex-shrink-0
+      shadow
+      border-r border-gray-700
+    "
+  >
+    <div class="flex flex-col w-80">
+      <!-- Sidebar component, swap this element with another sidebar if you like -->
+      <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+        <div class="flex items-center flex-shrink-0 px-4">
+          <layout-logo class="h-12 m-auto my-6" />
+        </div>
+        <div class="mt-5 flex-1 flex flex-col">
+          <nav class="flex-1 px-2 space-y-1">
+            <!-- Current: "bg-indigo-800 text-white", Default: "" -->
+            <a
+              v-for="entry in nav"
+              :key="entry"
+              href="#"
+              class="
+                group
+                flex
+                items-center
+                px-2
+                py-2
+                text-sm
+                font-medium
+                rounded-sm
+              "
+              :class="
+                active === entry
+                  ? 'bg-secondary-800 text-white'
+                  : 'text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
+              "
+            >
+              {{ entry }}
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'StaticNav',
+  props: {
+    nav: {
+      type: Array,
+      default: () => [],
+    },
+    active: {
+      type: String,
+      default: () => '',
+    },
+  },
+}
+</script>

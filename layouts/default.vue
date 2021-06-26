@@ -1,266 +1,29 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-900">
-    <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-    <div
-      class="fixed inset-0 flex z-40 md:hidden"
-      role="dialog"
-      aria-modal="true"
-    >
-      <!--
-      Off-canvas menu overlay, show/hide based on off-canvas menu state.
+    <LayoutNavOffCanvasNav
+      :nav="nav"
+      :active="active"
+      :open="openNav"
+      :handler-show="showNav"
+      :handler-hide="hideNav"
+    />
+    <LayoutNavStaticNav :nav="nav" :active="active" />
 
-      Entering: "transition-opacity ease-linear duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "transition-opacity ease-linear duration-300"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
-      <div
-        class="fixed inset-0 bg-gray-600 bg-opacity-75"
-        aria-hidden="true"
-      ></div>
-
-      <!--
-      Off-canvas menu, show/hide based on off-canvas menu state.
-
-      Entering: "transition ease-in-out duration-300 transform"
-        From: "-translate-x-full"
-        To: "translate-x-0"
-      Leaving: "transition ease-in-out duration-300 transform"
-        From: "translate-x-0"
-        To: "-translate-x-full"
-    -->
-      <div
-        class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary-700"
-      >
-        <!--
-        Close button, show/hide based on off-canvas menu state.
-
-        Entering: "ease-in-out duration-300"
-          From: "opacity-0"
-          To: "opacity-100"
-        Leaving: "ease-in-out duration-300"
-          From: "opacity-100"
-          To: "opacity-0"
-      -->
-        <div class="absolute top-0 right-0 -mr-12 pt-2">
-          <button
-            type="button"
-            class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          >
-            <span class="sr-only">Close sidebar</span>
-            <!-- Heroicon name: outline/x -->
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <div class="flex-shrink-0 flex items-center px-4">
-          <img
-            class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-            alt="Workflow"
-          />
-        </div>
-        <div class="mt-5 flex-1 h-0 overflow-y-auto">
-          <nav class="px-2 space-y-1">
-            <!-- Current: "bg-indigo-800 text-white", Default: "text-indigo-100 hover:bg-indigo-600" -->
-            <a
-              href="#"
-              class="bg-indigo-800 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/home -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                />
-              </svg>
-              Dashboard
-            </a>
-
-            <a
-              href="#"
-              class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/users -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-              Team
-            </a>
-
-            <a
-              href="#"
-              class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/folder -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                />
-              </svg>
-              Projects
-            </a>
-
-            <a
-              href="#"
-              class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/calendar -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              Calendar
-            </a>
-
-            <a
-              href="#"
-              class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/inbox -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                />
-              </svg>
-              Documents
-            </a>
-
-            <a
-              href="#"
-              class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-            >
-              <!-- Heroicon name: outline/chart-bar -->
-              <svg
-                class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
-              Reports
-            </a>
-          </nav>
-        </div>
-      </div>
-
-      <div class="flex-shrink-0 w-14" aria-hidden="true">
-        <!-- Dummy element to force sidebar to shrink to fit close icon -->
-      </div>
-    </div>
-
-    <!-- Static sidebar for desktop -->
-    <div
-      class="hidden bg-header bg-no-repeat bg-cover bg-center md:flex md:flex-shrink-0 shadow border-r border-gray-700"
-    >
-      <div class="flex flex-col w-80">
-        <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
-          <div class="flex items-center flex-shrink-0 px-4">
-            <layout-logo class="h-12 m-auto my-6" />
-          </div>
-          <div class="mt-5 flex-1 flex flex-col">
-            <nav class="flex-1 px-2 space-y-1">
-              <!-- Current: "bg-indigo-800 text-white", Default: "" -->
-              <a
-                v-for="entry in nav"
-                :key="entry"
-                href="#"
-                class="group flex items-center px-2 py-2 text-sm font-medium rounded-sm"
-                :class="
-                  active === entry
-                    ? 'bg-secondary-800 text-white'
-                    : 'text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
-                "
-              >
-                {{ entry }}
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
       <div class="relative z-10 flex-shrink-0 flex h-16 bg-primary-700 shadow">
         <button
           type="button"
-          class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+          class="
+            px-4
+            border-r border-gray-200
+            text-gray-500
+            focus:outline-none
+            focus:ring-2
+            focus:ring-inset
+            focus:ring-indigo-500
+            md:hidden
+          "
+          @click="showNav"
         >
           <span class="sr-only">Open sidebar</span>
           <!-- Heroicon name: outline/menu-alt-2 -->
@@ -284,7 +47,17 @@
           <div class="flex-1 flex"></div>
           <div class="ml-4 flex items-center md:ml-6">
             <button
-              class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="
+                bg-white
+                p-1
+                rounded-full
+                text-gray-400
+                hover:text-gray-500
+                focus:outline-none
+                focus:ring-2
+                focus:ring-offset-2
+                focus:ring-indigo-500
+              "
             >
               <span class="sr-only">View notifications</span>
               <!-- Heroicon name: outline/bell -->
@@ -311,7 +84,18 @@
                 <button
                   id="user-menu-button"
                   type="button"
-                  class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  class="
+                    max-w-xs
+                    bg-white
+                    flex
+                    items-center
+                    text-sm
+                    rounded-full
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
                   aria-expanded="false"
                   aria-haspopup="true"
                 >
@@ -335,7 +119,19 @@
                 To: "transform opacity-0 scale-95"
             -->
               <div
-                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                class="
+                  origin-top-right
+                  absolute
+                  right-0
+                  mt-2
+                  w-48
+                  rounded-md
+                  shadow-lg
+                  py-1
+                  bg-white
+                  ring-1 ring-black ring-opacity-5
+                  focus:outline-none
+                "
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
@@ -375,7 +171,23 @@
                   <button
                     id="darkmode"
                     type="button"
-                    class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="
+                      relative
+                      inline-flex
+                      flex-shrink-0
+                      h-6
+                      w-11
+                      border-2 border-transparent
+                      rounded-full
+                      cursor-pointer
+                      transition-colors
+                      ease-in-out
+                      duration-200
+                      focus:outline-none
+                      focus:ring-2
+                      focus:ring-offset-2
+                      focus:ring-indigo-500
+                    "
                     :class="
                       $colorMode.preference === 'dark'
                         ? 'bg-primary-700'
@@ -385,7 +197,20 @@
                   >
                     <span
                       aria-hidden="true"
-                      class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                      class="
+                        pointer-events-none
+                        inline-block
+                        h-5
+                        w-5
+                        rounded-full
+                        bg-white
+                        shadow
+                        transform
+                        ring-0
+                        transition
+                        ease-in-out
+                        duration-200
+                      "
                       :class="
                         $colorMode.preference === 'dark'
                           ? 'translate-x-5'
@@ -417,6 +242,7 @@ export default {
   data() {
     return {
       userMenuOpen: false,
+      openNav: false,
       active: 'Liga',
       nav: [
         'Startseite',
@@ -441,6 +267,12 @@ export default {
   methods: {
     toggleUserNav() {
       this.userMenuOpen = !this.userMenuOpen
+    },
+    showNav() {
+      this.openNav = true
+    },
+    hideNav() {
+      this.openNav = false
     },
     closeUserNav() {
       this.userMenuOpen = false
