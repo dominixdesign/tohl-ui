@@ -94,7 +94,7 @@
               "
               @click="showNavBar = false"
             >
-              <span class="sr-only">Close sidebar</span>
+              <span class="sr-only">Navigation schließen</span>
               <!-- Heroicon name: outline/x -->
               <svg
                 class="h-6 w-6 text-white"
@@ -115,7 +115,7 @@
           </div>
 
           <div class="flex-shrink-0 flex items-center px-4">
-            <layout-logo class="h-12 m-auto my-6" />
+            <layout-logo class="h-16 m-auto my-6" />
           </div>
           <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
