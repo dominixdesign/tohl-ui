@@ -4,17 +4,17 @@ module.exports = {
   purge: [
     './components/**/*.{js,jsx,ts,tsx,vue}',
     './layouts/**/*.{js,jsx,ts,tsx,vue}',
-    './pages/**/*.{js,jsx,ts,tsx,vue}',
+    './pages/**/*.{js,jsx,ts,tsx,vue}'
   ],
   plugins: [require('@tailwindcss/forms')],
   theme: {
     extend: {
       backgroundImage: (theme) => ({
-        header: "url('/background.jpg')",
+        header: "url('/background.jpg')"
       }),
       scale: {
         200: '2',
-        250: '2.5',
+        250: '2.5'
       },
       colors: {
         primary: {
@@ -28,7 +28,7 @@ module.exports = {
           600: '#00457C',
           700: '#002849',
           800: '#000C16',
-          900: '#000000',
+          900: '#000000'
         },
         secondary: {
           DEFAULT: '#B92727',
@@ -41,9 +41,9 @@ module.exports = {
           600: '#8F1E1E',
           700: '#651515',
           800: '#3B0C0C',
-          900: '#110303',
-        },
-      },
-    },
-  },
+          900: '#110303'
+        }
+      }
+    }
+  }
 }
