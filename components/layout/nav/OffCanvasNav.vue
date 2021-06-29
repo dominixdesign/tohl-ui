@@ -155,35 +155,38 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'OffCanvasNav',
   props: {
-    nav: {
-      type: Array,
-      default: () => [],
-    },
     active: {
       type: String,
-      default: () => '',
+      default: () => ''
     },
     open: {
       type: Boolean,
-      default: () => false,
+      default: () => false
     },
     handlerShow: {
       type: Function,
-      default: () => false,
+      default: () => false
     },
     handlerHide: {
       type: Function,
-      default: () => false,
-    },
+      default: () => false
+    }
+  },
+  computed: {
+    ...mapState({
+      nav: (state) => state.navigation.mainNav
+    })
   },
   data() {
     return {
       showNav: this.open,
-      showNavBar: false,
+      showNavBar: false
     }
-  },
+  }
 }
 </script>

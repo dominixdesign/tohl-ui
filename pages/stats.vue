@@ -1,15 +1,6 @@
 <template>
   <div>
-    <h2>Startseite</h2>
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
-    Lor3em<br />
+    <h2>Statistiken</h2>
     Lor3em<br />
     Lor3em<br />
     Lor3em<br />

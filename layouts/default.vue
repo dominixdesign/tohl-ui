@@ -1,5 +1,15 @@
 <template>
-  <div class="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-900">
+  <div
+    class="
+      h-screen
+      flex
+      overflow-hidden
+      bg-gray-100
+      dark:bg-gray-900
+      text-gray-900
+      dark:text-gray-200
+    "
+  >
     <LayoutNavOffCanvasNav
       :nav="nav"
       :active="active"
@@ -10,7 +20,21 @@
     <LayoutNavStaticNav :nav="nav" :active="active" />
 
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
-      <div class="relative z-10 flex-shrink-0 flex h-16 bg-primary-700 shadow">
+      <div
+        class="
+          relative
+          z-10
+          flex-shrink-0 flex
+          h-16
+          bg-primary-700
+          shadow
+          transform-none
+          md:transform
+          rotate-1
+          -translate-y-5
+          border-b-8 border-secondary-500 border-opacity-80
+        "
+      >
         <button
           type="button"
           class="
@@ -47,7 +71,17 @@
           <div class="flex-1 flex">
             <layout-logo class="h-6 m-auto mx-auto my-5 md:hidden" />
           </div>
-          <div class="ml-4 flex items-center md:ml-6">
+          <div
+            class="
+              ml-4
+              flex
+              items-center
+              md:ml-6
+              transform-none
+              md:transform
+              -rotate-1
+            "
+          >
             <LayoutNavProfileDropdown />
           </div>
         </div>
@@ -69,17 +103,7 @@ export default {
   data() {
     return {
       openNav: false,
-      active: 'Liga',
-      nav: [
-        'Startseite',
-        'Liga',
-        'Statistiken',
-        'Teams',
-        'Spieler',
-        'Office',
-        'Lines',
-        'Forum'
-      ]
+      active: 'Liga'
     }
   },
   computed: {
@@ -90,7 +114,8 @@ export default {
         )
     },
     ...mapState({
-      colormode: (state) => state.layout.colormode
+      colormode: (state) => state.layout.colormode,
+      nav: (state) => state.navigation.mainNav
     })
   },
   watch: {

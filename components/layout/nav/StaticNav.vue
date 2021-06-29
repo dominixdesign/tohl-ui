@@ -18,10 +18,10 @@
         <div class="mt-5 flex-1 flex flex-col">
           <nav class="flex-1 px-2 space-y-1">
             <!-- Current: "bg-indigo-800 text-white", Default: "" -->
-            <a
+            <NuxtLink
               v-for="entry in nav"
               :key="entry"
-              href="#"
+              :to="entry.path"
               class="
                 group
                 flex
@@ -33,13 +33,13 @@
                 rounded-sm
               "
               :class="
-                active === entry
+                active === entry.path
                   ? 'bg-secondary-800 text-white'
                   : 'text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
               "
             >
-              {{ entry }}
-            </a>
+              {{ entry.title }}
+            </NuxtLink>
           </nav>
         </div>
       </div>
@@ -48,17 +48,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'StaticNav',
-  props: {
-    nav: {
-      type: Array,
-      default: () => [],
-    },
-    active: {
-      type: String,
-      default: () => '',
-    },
-  },
+  computed: {
+    ...mapState({
+      nav: (state) => state.navigation.mainNav,
+      active: (state) => state.route.path
+    })
+  }
 }
 </script>
