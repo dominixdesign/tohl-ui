@@ -20,7 +20,7 @@
             <!-- Current: "bg-indigo-800 text-white", Default: "" -->
             <NuxtLink
               v-for="entry in nav"
-              :key="entry"
+              :key="entry.path"
               :to="entry.path"
               class="
                 group

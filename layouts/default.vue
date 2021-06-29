@@ -26,6 +26,7 @@
           z-10
           flex-shrink-0 flex
           h-16
+          mb-10
           bg-primary-700
           shadow
           transform-none
@@ -35,6 +36,18 @@
           border-b-8 border-secondary-500 border-opacity-80
         "
       >
+        <h2
+          class="
+            font-serif
+            text-4xl
+            font-black font-headline
+            uppercase
+            transform
+            translate-y-16 translate-x-3
+          "
+        >
+          Statistiken
+        </h2>
         <button
           type="button"
           class="

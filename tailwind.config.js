@@ -8,6 +8,9 @@ module.exports = {
   ],
   plugins: [require('@tailwindcss/forms')],
   theme: {
+    fontFamily: {
+      headline: ['Exo', 'ui-sans-serif', 'system-ui']
+    },
     extend: {
       backgroundImage: (theme) => ({
         header: "url('/background.jpg')"
