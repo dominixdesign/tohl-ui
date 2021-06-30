@@ -29,25 +29,10 @@
           mb-10
           bg-primary-700
           shadow
-          transform-none
-          md:transform
-          rotate-1
-          -translate-y-5
           border-b-8 border-secondary-500 border-opacity-80
         "
       >
-        <h2
-          class="
-            font-serif
-            text-4xl
-            font-black font-headline
-            uppercase
-            transform
-            translate-y-16 translate-x-3
-          "
-        >
-          Statistiken
-        </h2>
+        <LayoutBreadcrumb />
         <button
           type="button"
           class="

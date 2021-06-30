@@ -17,7 +17,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap'
+        href: 'https://fonts.googleapis.com/css2?family=Exo&display=swap'
       }
     ]
   },
@@ -42,12 +42,25 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    'nuxt-vuex-router-sync'
+    'nuxt-vuex-router-sync',
+    'nuxt-i18n'
   ],
+
+  i18n: {
+    locales: ['de'],
+    defaultLocale: 'de',
+    vueI18n: {
+      fallbackLocale: 'de',
+      messages: {
+        de: {
+          league: 'Die Liga',
+          stats: 'Statistiken'
+        }
+      }
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
