@@ -3,7 +3,8 @@
   <div
     class="
       hidden
-      bg-header bg-no-repeat bg-cover bg-center
+      bg-dizzle-light
+      dark:bg-dizzle
       md:flex md:flex-shrink-0
       shadow
       border-r border-gray-700
@@ -35,12 +36,22 @@
               :class="
                 active === entry.path
                   ? 'bg-secondary-800 text-white'
-                  : 'text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
+                  : 'text-gray-800 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
               "
             >
               {{ entry.title }}
             </NuxtLink>
           </nav>
+          <div
+            class="
+              overflow-hidden
+              border-b-8 border-t-8 border-gray-700
+              h-16
+              text-gray-700
+            "
+          >
+            <layout-elements-dazzle />
+          </div>
         </div>
       </div>
     </div>

@@ -27,7 +27,8 @@
           flex-shrink-0 flex
           h-16
           mb-10
-          bg-primary-700
+          bg-dizzle-light
+          dark:bg-dizzle
           shadow
           border-b-8 border-secondary-500 border-opacity-80
         "

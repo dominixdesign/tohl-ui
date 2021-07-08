@@ -13,11 +13,22 @@ module.exports = {
     },
     extend: {
       backgroundImage: (theme) => ({
-        header: "url('/background.jpg')"
+        dizzle:
+          "linear-gradient(to right, rgba(0, 12, 22, 0.9) 65%, rgba(0, 12, 22, 0.0)), url('/dazzle.svg')",
+        'dizzle-light':
+          "linear-gradient(to right, rgba(249, 250, 251, 1.0) 50%, rgba(249, 250, 251, 0.9) 65%, rgba(249, 250, 251, 0.6)), url('/dazzle-light.svg')"
       }),
       scale: {
         200: '2',
         250: '2.5'
+      },
+      borderWidth: {
+        10: '10px',
+        12: '12px',
+        14: '14px',
+        16: '16px',
+        18: '18px',
+        20: '20px'
       },
       colors: {
         primary: {
