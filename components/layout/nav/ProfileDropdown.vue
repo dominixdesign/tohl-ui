@@ -59,7 +59,7 @@
         aria-labelledby="user-menu-button"
         tabindex="-1"
       >
-        <div class="py-1" role="none">
+        <div class="py-1" role="none" v-if="isLoggedIn">
           <!-- Active: "bg-gray-100", Not Active: "" -->
           <a
             id="user-menu-item-0"
@@ -86,6 +86,17 @@
             role="menuitem"
             tabindex="-1"
             >Sign out</a
+          >
+        </div>
+        <div class="py-1" role="none" v-else>
+          <a
+            id="user-menu-item-2"
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700"
+            role="menuitem"
+            tabindex="-1"
+            @click="showLoginModal"
+            >Login</a
           >
         </div>
         <div class="py-1" role="none">
@@ -143,21 +154,34 @@
         </div>
       </div>
     </transition>
+    <layout-modals-login :show="loginModal" @close="loginModal = false" />
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'ProfileDropdown',
+  data() {
+    return {
+      loginModal: false
+    }
+  },
   computed: {
+    ...mapGetters({
+      isLoggedIn: 'user/isLoggedIn'
+    }),
     ...mapState({
       profileOpen: (state) => state.layout.profileOpen,
       colormode: (state) => state.layout.colormode
     })
   },
   methods: {
+    showLoginModal() {
+      this.hide()
+      this.loginModal = true
+    },
     ...mapMutations({
       show: 'layout/openProfile',
       hide: 'layout/closeProfile',

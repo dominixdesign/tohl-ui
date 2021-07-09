@@ -92,6 +92,7 @@
         </div>
       </main>
     </div>
+    <portal-target name="modals" />
   </div>
 </template>
 

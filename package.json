@@ -19,6 +19,7 @@
     "nuxt": "^2.15.3",
     "nuxt-i18n": "^6.27.2",
     "nuxt-vuex-router-sync": "^0.0.3",
+    "portal-vue": "^2.1.7",
     "tailwindcss-dark-mode": "^1.1.7",
     "vue-svg-loader": "^0.16.0"
   },

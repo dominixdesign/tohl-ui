@@ -184,7 +184,6 @@ export default {
   },
   data() {
     return {
-      showNav: this.open,
       showNavBar: false
     }
   }

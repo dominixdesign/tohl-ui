@@ -44,6 +44,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    'portal-vue/nuxt',
     'nuxt-vuex-router-sync',
     'nuxt-i18n'
   ],
