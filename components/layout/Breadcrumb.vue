@@ -3,7 +3,7 @@
     <li class="font-serif font-headline font-extralight uppercase">
       <NuxtLink to="/">TOHL</NuxtLink>
     </li>
-    <li class="pr-2">
+    <li class="pr-2" v-if="crumbs[0].path !== '/'">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5 translate-x-1 -translate-y-0.5 transform"
@@ -53,6 +53,7 @@ export default {
           })
         }
       })
+      console.log({ crumbs })
       return crumbs
     }
   }

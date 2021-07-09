@@ -42,16 +42,6 @@
               {{ entry.title }}
             </NuxtLink>
           </nav>
-          <div
-            class="
-              overflow-hidden
-              border-b-8 border-t-8 border-gray-700
-              h-16
-              text-gray-700
-            "
-          >
-            <layout-elements-dazzle />
-          </div>
         </div>
       </div>
     </div>
