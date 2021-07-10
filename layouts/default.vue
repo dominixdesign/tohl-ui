@@ -44,7 +44,7 @@
             focus:ring-2
             focus:ring-inset
             focus:ring-indigo-500
-            md:hidden
+            lg:hidden
           "
           @click="showNav"
         >
@@ -68,16 +68,16 @@
         </button>
         <div class="flex-1 px-4 flex justify-between">
           <div class="flex-1 flex">
-            <layout-logo class="h-6 m-auto mx-auto my-5 md:hidden" />
+            <layout-logo class="h-6 m-auto mx-auto my-5 lg:hidden" />
           </div>
           <div
             class="
               ml-4
               flex
               items-center
-              md:ml-6
+              lg:ml-6
               transform-none
-              md:transform
+              lg:transform
               -rotate-1
             "
           >

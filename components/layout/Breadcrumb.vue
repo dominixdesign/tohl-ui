@@ -1,5 +1,5 @@
 <template>
-  <ol class="px-6 flex-shrink-0 flex items-end">
+  <ol class="px-6 flex-shrink-0 items-end hidden lg:flex">
     <li class="font-serif font-headline font-extralight uppercase">
       <NuxtLink to="/">TOHL</NuxtLink>
     </li>

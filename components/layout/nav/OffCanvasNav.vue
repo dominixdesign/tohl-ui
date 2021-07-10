@@ -1,22 +1,11 @@
 <template>
-  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
   <transition @after-enter="showNavBar = true">
     <div
       v-if="open"
-      class="fixed inset-0 flex z-40 md:hidden"
+      class="fixed inset-0 flex z-40 lg:hidden"
       role="dialog"
       aria-modal="true"
     >
-      <!--
-          Off-canvas menu overlay, show/hide based on off-canvas menu state.
-
-          Entering: "transition-opacity ease-linear duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-          Leaving: "transition-opacity ease-linear duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
       <transition
         enter-active-class="transition-opacity ease-linear duration-300"
         leave-active-class="transition-opacity ease-linear duration-300"
@@ -27,22 +16,12 @@
       >
         <div
           v-if="showNavBar"
-          class="fixed inset-0 bg-gray-600 bg-opacity-75"
+          class="fixed inset-0 bg-gray-600 dark:bg-primary-800 bg-opacity-75"
           aria-hidden="true"
-          @click="showNavBar = false"
+          @click="hideNavBar"
         ></div>
       </transition>
 
-      <!--
-          Off-canvas menu, show/hide based on off-canvas menu state.
-
-          Entering: ""
-            From: ""
-            To: ""
-          Leaving: ""
-            From: ""
-            To: ""
-        -->
       <transition
         enter-active-class="transition ease-in-out duration-300 transform"
         leave-active-class="transition ease-in-out duration-300 transform"
@@ -61,21 +40,12 @@
             w-full
             pt-5
             pb-4
-            bg-header bg-no-repeat bg-cover bg-center
+            bg-dizzle-light
+            dark:bg-dizzle
             shadow
             border-r border-gray-700
           "
         >
-          <!--
-            Close button, show/hide based on off-canvas menu state.
-
-            Entering: "ease-in-out duration-300"
-              From: "opacity-0"
-              To: "opacity-100"
-            Leaving: "ease-in-out duration-300"
-              From: "opacity-100"
-              To: "opacity-0"
-          -->
           <div class="absolute top-0 right-0 -mr-12 pt-2">
             <button
               type="button"
@@ -118,31 +88,7 @@
             <layout-logo class="h-16 m-auto my-6" />
           </div>
           <div class="mt-5 flex-1 h-0 overflow-y-auto">
-            <nav class="px-2 space-y-1">
-              <a
-                v-for="entry in nav"
-                :key="entry"
-                href="#"
-                class="
-                  text-white
-                  group
-                  flex
-                  items-center
-                  px-2
-                  py-2
-                  text-base
-                  font-medium
-                  rounded-md
-                "
-                :class="
-                  active === entry
-                    ? 'bg-secondary-800 text-white'
-                    : 'text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
-                "
-              >
-                {{ entry }}
-              </a>
-            </nav>
+            <layout-nav-inner :routeAction="hideNavBar" />
           </div>
         </div>
       </transition>
@@ -160,10 +106,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'OffCanvasNav',
   props: {
-    active: {
-      type: String,
-      default: () => ''
-    },
     open: {
       type: Boolean,
       default: () => false
@@ -177,14 +119,14 @@ export default {
       default: () => false
     }
   },
-  computed: {
-    ...mapState({
-      nav: (state) => state.navigation.mainNav
-    })
-  },
   data() {
     return {
       showNavBar: false
+    }
+  },
+  methods: {
+    hideNavBar() {
+      this.showNavBar = false
     }
   }
 }
