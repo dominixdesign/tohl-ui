@@ -42,12 +42,16 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios',
+    '@nuxtjs/apollo',
     '@nuxtjs/pwa',
     'portal-vue/nuxt',
     'nuxt-vuex-router-sync',
     'nuxt-i18n'
   ],
+
+  router: {
+    middleware: 'isAuth'
+  },
 
   i18n: {
     locales: ['de'],
@@ -63,8 +67,16 @@ export default {
     }
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  apollo: {
+    // Sets up the apollo client endpoints
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:3000/graphql',
+        authenticationType: 'Bearer',
+        tokenName: 'apollo-token'
+      }
+    }
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

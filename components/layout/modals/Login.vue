@@ -37,10 +37,10 @@
       </div>
       <div>
         <h3 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          TOHL GM Login
+          Manager Login
         </h3>
       </div>
-      <div class="mt-8 space-y-6">
+      <form v-on:submit.prevent="login" class="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
@@ -123,7 +123,7 @@
               "
             />
             <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-              Remember me
+              eingeloggt bleiben
             </label>
           </div>
 
@@ -132,13 +132,18 @@
               href="#"
               class="font-medium text-primary-600 hover:text-primary-500"
             >
-              Forgot your password?
+              Passwort vergessen?
             </a>
           </div>
         </div>
-
+        <layout-elements-alert v-if="error">
+          <h3 class="text-sm font-medium text-red-800">
+            Anmeldung fehlgeschlagen.
+          </h3>
+        </layout-elements-alert>
         <div>
           <button
+            type="submit"
             class="
               group
               relative
@@ -159,7 +164,6 @@
               focus:ring-offset-2
               focus:ring-primary-500
             "
-            @click.stop="login"
           >
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
@@ -180,27 +184,46 @@
             Einloggen
           </button>
         </div>
-      </div>
+      </form>
     </template>
   </layout-modals-modal>
 </template>
 
 <script>
+import authLoginGql from '~/queries/auth/login.gql'
+
 export default {
   name: 'ModalLogin',
   props: ['show'],
   data() {
     return {
       username: null,
-      password: null
+      password: null,
+      error: false
     }
   },
   methods: {
     close() {
       this.$emit('close')
     },
-    login() {
-      console.log(this.username, this.password)
+    async login() {
+      this.error = false
+      const credentials = {
+        username: this.username,
+        password: this.password
+      }
+      try {
+        const res = await this.$apollo
+          .mutate({
+            mutation: authLoginGql,
+            variables: credentials
+          })
+          .then(({ data }) => data)
+        await this.$apolloHelpers.onLogin(res.login.access_token)
+        this.close()
+      } catch (e) {
+        this.error = true
+      }
     }
   }
 }

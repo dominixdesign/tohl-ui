@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     triggerRoute() {
-      console.log('trigger', this.routeAction)
       if (typeof this.routeAction === 'function') {
         this.routeAction()
       }

@@ -1,7 +1,6 @@
 export const state = () => {
   return {
     username: null,
-    token: null,
     mail: null
   }
 }
