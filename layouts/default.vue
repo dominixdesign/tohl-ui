@@ -11,13 +11,11 @@
     "
   >
     <LayoutNavOffCanvasNav
-      :nav="nav"
-      :active="active"
       :open="openNav"
       :handler-show="showNav"
       :handler-hide="hideNav"
     />
-    <LayoutNavStaticNav :nav="nav" :active="active" />
+    <LayoutNavStaticNav />
 
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
       <div
@@ -102,8 +100,7 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      openNav: false,
-      active: 'Liga'
+      openNav: false
     }
   },
   computed: {
@@ -114,8 +111,7 @@ export default {
         )
     },
     ...mapState({
-      colormode: (state) => state.layout.colormode,
-      nav: (state) => state.navigation.mainNav
+      colormode: (state) => state.layout.colormode
     })
   },
   watch: {

@@ -1,7 +1,7 @@
 <template>
   <layout-modals-modal :show="show" @close="close">
     <template v-slot:default="slotProps">
-      <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+      <div class="block absolute top-0 right-0 pt-4 pr-4">
         <button
           type="button"
           class="
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between">
+        <div class="sm:flex items-center justify-between">
           <div class="flex items-center">
             <input
               id="remember-me"
@@ -127,7 +127,7 @@
             </label>
           </div>
 
-          <div class="text-sm">
+          <div class="text-sm mt-4 sm:mt-0">
             <a
               href="#"
               class="font-medium text-primary-600 hover:text-primary-500"
