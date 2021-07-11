@@ -111,6 +111,7 @@
           <div class="flex items-center">
             <input
               id="remember-me"
+              :model="rememberme"
               name="remember-me"
               type="checkbox"
               class="
@@ -190,8 +191,6 @@
 </template>
 
 <script>
-import authLoginGql from '~/queries/auth/login.gql'
-
 export default {
   name: 'ModalLogin',
   props: ['show'],
@@ -199,6 +198,7 @@ export default {
     return {
       username: null,
       password: null,
+      rememberme: false,
       error: false
     }
   },
@@ -210,16 +210,11 @@ export default {
       this.error = false
       const credentials = {
         username: this.username,
-        password: this.password
+        password: this.password,
+        refresh: this.rememberme
       }
       try {
-        const res = await this.$apollo
-          .mutate({
-            mutation: authLoginGql,
-            variables: credentials
-          })
-          .then(({ data }) => data)
-        await this.$apolloHelpers.onLogin(res.login.access_token)
+        this.$authApi.login(credentials)
         this.close()
       } catch (e) {
         this.error = true

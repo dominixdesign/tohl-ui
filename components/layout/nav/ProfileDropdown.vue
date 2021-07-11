@@ -169,9 +169,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      isLoggedIn: 'user/isLoggedIn'
-    }),
+    isLoggedIn() {
+      return this.$authService.isLoggedIn()
+    },
     ...mapState({
       profileOpen: (state) => state.layout.profileOpen,
       colormode: (state) => state.layout.colormode

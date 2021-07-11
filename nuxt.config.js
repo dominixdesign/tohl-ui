@@ -26,7 +26,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['plugins/clickOutsideDirective.js'],
+  plugins: ['plugins/auth.js', 'plugins/clickOutsideDirective.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

@@ -1,5 +1,9 @@
-mutation managerLogin($username: String!, $password: String!) {
-  login(username: $username, password: $password) {
+mutation managerLogin(
+  $username: String!
+  $password: String!
+  $refresh: Boolean
+) {
+  login(username: $username, password: $password, refresh: $refresh) {
     access_token
     refresh_token
   }
