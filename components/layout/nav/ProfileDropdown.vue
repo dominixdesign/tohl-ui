@@ -170,6 +170,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
+      console.log('isLoggedIn', this.$authService.isLoggedIn())
       return this.$authService.isLoggedIn()
     },
     ...mapState({

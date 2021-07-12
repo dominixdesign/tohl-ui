@@ -1,9 +1,17 @@
 import { AuthService } from './auth.class'
 
 export default async ({ app }, inject) => {
-  const authApi = new AuthService(app)
+  const authService = new AuthService(app)
 
+  // check if current token is still valid
   const token = await app.$apolloHelpers.getToken()
-  console.log({ token })
-  inject('authApi', authApi)
+  if (token) {
+    try {
+      await authService.setToken(token)
+    } catch (err) {
+      await authService.refreshLogin()
+    }
+  }
+
+  inject('authService', authService)
 }
