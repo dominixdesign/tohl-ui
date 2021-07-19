@@ -3,8 +3,9 @@ export default ({ app, error, route }) => {
   const hasToken = !!app.$apolloHelpers.getToken()
   if (!hasToken) {
     error({
-      errorCode: 503,
-      message: 'You are not allowed to see this'
+      statusCode: 503,
+      message: 'Zugang verweigert',
+      sub: 'Man muss ein angemeldeter GM sein, um diese Seite sehen zu können.'
     })
   }
 }

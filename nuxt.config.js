@@ -49,10 +49,6 @@ export default {
     'nuxt-i18n'
   ],
 
-  router: {
-    middleware: 'isAuth'
-  },
-
   i18n: {
     locales: ['de'],
     defaultLocale: 'de',
