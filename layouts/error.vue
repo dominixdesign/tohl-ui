@@ -55,6 +55,34 @@
             >
               Zur Startseite
             </NuxtLink>
+            <button
+              @click="loginModal = true"
+              v-if="error.statusCode === 403"
+              class="
+                inline-flex
+                items-center
+                px-4
+                py-2
+                border border-transparent
+                text-sm
+                font-medium
+                rounded-md
+                shadow-sm
+                text-white
+                bg-secondary-500
+                hover:bg-secondary-300
+                focus:outline-none
+                focus:ring-2
+                focus:ring-offset-2
+                focus:ring-secondary-500
+              "
+            >
+              Login
+            </button>
+            <layout-modals-login
+              :show="loginModal"
+              @close="loginModal = false"
+            />
           </div>
         </div>
       </main>
@@ -64,6 +92,11 @@
 
 <script>
 export default {
-  props: ['error']
+  props: ['error'],
+  data() {
+    return {
+      loginModal: false
+    }
+  }
 }
 </script>
