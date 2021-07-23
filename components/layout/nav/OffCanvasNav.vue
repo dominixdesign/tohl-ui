@@ -84,12 +84,17 @@
             </button>
           </div>
 
-          <div class="flex-shrink-0 flex items-center px-4">
+          <div class="z-10 flex-shrink-0 flex items-center px-4">
             <layout-logo class="h-16 m-auto my-6" />
           </div>
-          <div class="mt-5 flex-1 h-0 overflow-y-auto">
+          <div class="z-10 mt-5 flex-1 h-0 overflow-y-auto">
             <layout-nav-inner :routeAction="hideNavBar" />
           </div>
+          <nuxt-img
+            class="opacity-20 fixed bottom-0 z-0"
+            src="/trophy.png"
+            sizes="sm:320px"
+          />
         </div>
       </transition>
 
