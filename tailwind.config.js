@@ -14,9 +14,9 @@ module.exports = {
     extend: {
       backgroundImage: (theme) => ({
         dizzle:
-          "linear-gradient(to right, rgba(0, 12, 22, 0.9) 65%, rgba(0, 12, 22, 0.0)), url('/dazzle.svg')",
+          "linear-gradient(to right, rgba(0, 12, 22, 1.0) 65%, rgba(0, 12, 22, 0.8)), url('/dazzle.svg')",
         'dizzle-light':
-          "linear-gradient(to right, rgba(249, 250, 251, 1.0) 50%, rgba(249, 250, 251, 0.9) 65%, rgba(249, 250, 251, 0.6)), url('/dazzle-light.svg')"
+          "linear-gradient(to right, rgba(249, 250, 251, 1.0) 50%, rgba(249, 250, 251, 0.95) 65%, rgba(249, 250, 251, 0.9)), url('/dazzle-light.svg')"
       }),
       scale: {
         200: '2',

@@ -20,6 +20,7 @@
           <layout-nav-inner />
         </div>
       </div>
+      <nuxt-img src="/trophy.png" sizes="sm:320px" />
     </div>
   </div>
 </template>
