@@ -1,7 +1,11 @@
 export const state = () => ({
   mainNav: [
     { title: 'Startseite', path: '/' },
-    { title: 'Liga', path: '/league' },
+    {
+      title: 'Liga',
+      path: '/league',
+      children: [{ title: 'Tabelle', path: '/standings' }]
+    },
     { title: 'Statistiken', path: '/stats' },
     { title: 'Teams', path: '/teams' },
     { title: 'Spieler', path: '/players' },
