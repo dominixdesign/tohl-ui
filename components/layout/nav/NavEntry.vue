@@ -3,23 +3,13 @@
     <!-- Current: "bg-gray-100 text-gray-900", Default: "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
     <button
       v-if="entry.children"
-      @click="submenuOpen = !submenuOpen"
+      @click="submenuOpen ? handler.closeSubmenu() : handler.openSubmenu(index)"
       type="button"
-      class="
-        group
-        w-full
-        flex
-        items-center
-        pr-2
-        py-2
-        text-sm
-        font-medium
-        text-gray-800
-        dark:text-gray-200
-        hover:text-gray-200 hover:bg-secondary-600
-        transform
-        hover:translate-x-1
-        transition-transform
+      class="group w-full flex items-center pr-2 py-2 text-sm font-medium"
+      :class="
+        isActiveElement
+          ? 'bg-secondary-800 text-white'
+          : 'text-gray-800 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
       "
       :aria-controls="`sub-menu-1${entry.title}`"
       :aria-expanded="submenuOpen"
@@ -48,8 +38,12 @@
     </button>
     <!-- Expandable link section, show/hide based on state. -->
     <div class="space-y-1" :id="`sub-menu-1${entry.title}`" v-if="submenuOpen">
-      <a
+      <NuxtLink
+        v-for="sub in entry.children"
+        :key="sub.title"
         href="#"
+        :to="sub.path"
+        @click.native="triggerRoute"
         class="
           group
           w-full
@@ -60,73 +54,16 @@
           py-2
           text-sm
           font-medium
-          text-gray-600
-          rounded-md
-          hover:text-gray-900 hover:bg-gray-50
+          opacity-80
+        "
+        :class="
+          isActiveSubElement(sub.path)
+            ? 'bg-secondary-800 text-white'
+            : 'text-gray-800 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
         "
       >
-        Overview
-      </a>
-
-      <a
-        href="#"
-        class="
-          group
-          w-full
-          flex
-          items-center
-          pl-10
-          pr-2
-          py-2
-          text-sm
-          font-medium
-          text-gray-600
-          rounded-md
-          hover:text-gray-900 hover:bg-gray-50
-        "
-      >
-        Members
-      </a>
-
-      <a
-        href="#"
-        class="
-          group
-          w-full
-          flex
-          items-center
-          pl-10
-          pr-2
-          py-2
-          text-sm
-          font-medium
-          text-gray-600
-          rounded-md
-          hover:text-gray-900 hover:bg-gray-50
-        "
-      >
-        Calendar
-      </a>
-
-      <a
-        href="#"
-        class="
-          group
-          w-full
-          flex
-          items-center
-          pl-10
-          pr-2
-          py-2
-          text-sm
-          font-medium
-          text-gray-600
-          rounded-md
-          hover:text-gray-900 hover:bg-gray-50
-        "
-      >
-        Settings
-      </a>
+        {{ sub.title }}
+      </NuxtLink>
     </div>
     <NuxtLink
       v-if="!entry.children"
@@ -144,7 +81,7 @@
         rounded-sm
       "
       :class="
-        active === entry.path
+        isActiveElement
           ? 'bg-secondary-800 text-white'
           : 'text-gray-800 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
       "
@@ -155,14 +92,40 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'NavEntry',
   props: {
-    entry: Object
+    entry: Object,
+    opensub: Number,
+    index: Number,
+    handler: Object
   },
-  data() {
-    return {
-      submenuOpen: false
+  computed: {
+    ...mapState({
+      active: (state) => state.route.path
+    }),
+    submenuOpen() {
+      return this.index === this.opensub
+    },
+    isActiveElement() {
+      const id = this.entry.path.split('/').pop()
+      if (id === '') {
+        return this.active === this.entry.path
+      }
+      return this.active.split('/').includes(id)
+    }
+  },
+  methods: {
+    triggerRoute() {
+      if (typeof this.routeAction === 'function') {
+        this.routeAction()
+      }
+    },
+    isActiveSubElement(path) {
+      const id = path.split('/').pop()
+      return this.active.split('/').includes(id)
     }
   }
 }

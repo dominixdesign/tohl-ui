@@ -1,6 +1,13 @@
 <template>
   <nav class="flex-1 px-2 space-y-1">
-    <layout-nav-entry v-for="entry in nav" :key="entry.path" :entry="entry" />
+    <layout-nav-entry
+      v-for="(entry, index) in nav"
+      :key="entry.path"
+      :entry="entry"
+      :opensub="opensub"
+      :index="index"
+      :handler="{ openSubmenu, closeSubmenu }"
+    />
   </nav>
 </template>
 
@@ -12,6 +19,11 @@ export default {
   props: {
     routeAction: { type: Function }
   },
+  data() {
+    return {
+      opensub: null
+    }
+  },
   computed: {
     ...mapState({
       nav: (state) => state.navigation.mainNav,
@@ -19,10 +31,11 @@ export default {
     })
   },
   methods: {
-    triggerRoute() {
-      if (typeof this.routeAction === 'function') {
-        this.routeAction()
-      }
+    openSubmenu(key) {
+      this.opensub = key
+    },
+    closeSubmenu() {
+      this.opensub = null
     }
   }
 }
