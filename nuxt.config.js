@@ -60,7 +60,8 @@ export default {
       messages: {
         de: {
           league: 'Die Liga',
-          stats: 'Statistiken'
+          stats: 'Statistiken',
+          standings: 'Tabelle'
         }
       }
     }
