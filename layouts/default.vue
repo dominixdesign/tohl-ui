@@ -4,17 +4,13 @@
       h-screen
       flex
       overflow-hidden
-      bg-gray-100
+      bg-gray-50
       dark:bg-gray-900
       text-gray-900
       dark:text-gray-200
     "
   >
-    <LayoutNavOffCanvasNav
-      :open="openNav"
-      :handler-show="showNav"
-      :handler-hide="hideNav"
-    />
+    <LayoutNavOffCanvasNav :open="openNav" :handler-show="showNav" :handler-hide="hideNav" />
     <LayoutNavStaticNav />
 
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
@@ -24,7 +20,7 @@
           z-10
           flex-shrink-0 flex
           h-16
-          mb-10
+          mb-0
           bg-dizzle-light
           dark:bg-dizzle
           shadow
@@ -38,10 +34,7 @@
             px-4
             border-r border-gray-500
             text-gray-500
-            focus:outline-none
-            focus:ring-2
-            focus:ring-inset
-            focus:ring-indigo-500
+            focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500
             lg:hidden
           "
           @click="showNav"
@@ -68,26 +61,14 @@
           <div class="flex-1 flex">
             <layout-logo class="h-6 m-auto mx-auto my-5 lg:hidden" />
           </div>
-          <div
-            class="
-              ml-4
-              flex
-              items-center
-              lg:ml-6
-              transform-none
-              lg:transform
-              -rotate-1
-            "
-          >
+          <div class="ml-4 flex items-center lg:ml-6 transform-none lg:transform -rotate-1">
             <LayoutNavProfileDropdown />
           </div>
         </div>
       </div>
 
       <main class="flex-1 relative overflow-y-auto focus:outline-none">
-        <div class="p-6">
-          <Nuxt />
-        </div>
+        <Nuxt />
       </main>
     </div>
     <portal-target name="modals" />
@@ -106,9 +87,7 @@ export default {
   computed: {
     logo() {
       return () =>
-        import(
-          /* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`
-        )
+        import(/* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`)
     },
     ...mapState({
       colormode: (state) => state.layout.colormode
