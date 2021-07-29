@@ -53,17 +53,11 @@ export default {
   ],
 
   i18n: {
-    locales: ['de'],
+    locales: [{ code: 'de', iso: 'de-DE', file: 'de.js' }],
     defaultLocale: 'de',
+    langDir: '~/texts/',
     vueI18n: {
-      fallbackLocale: 'de',
-      messages: {
-        de: {
-          league: 'Die Liga',
-          stats: 'Statistiken',
-          standings: 'Tabelle'
-        }
-      }
+      fallbackLocale: 'de'
     }
   },
 
