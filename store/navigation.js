@@ -1,4 +1,5 @@
 export const state = () => ({
+  season: 'TOHL11',
   mainNav: [
     { title: 'Startseite', path: '/' },
     {
@@ -6,7 +7,7 @@ export const state = () => ({
       path: '/league',
       children: [
         { title: 'Ergebnisse', path: '/league/results' },
-        { title: 'Tabelle', path: '/league/standings' },
+        { title: 'Tabelle', path: '/${season}/league/standings/league' },
         { title: 'Spielplan', path: '/league/schedule' },
         { title: 'Trades', path: '/league/trades' },
         { title: 'Verletzungen', path: '/league/injuries' },
@@ -24,4 +25,8 @@ export const state = () => ({
   ]
 })
 
-export const mutations = {}
+export const mutations = {
+  setSeason(season) {
+    state.season = season
+  }
+}

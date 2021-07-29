@@ -42,20 +42,9 @@
         v-for="sub in entry.children"
         :key="sub.title"
         href="#"
-        :to="sub.path"
+        :to="getPath(sub.path)"
         @click.native="triggerRoute"
-        class="
-          group
-          w-full
-          flex
-          items-center
-          pl-10
-          pr-2
-          py-2
-          text-sm
-          font-medium
-          opacity-80
-        "
+        class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium opacity-80"
         :class="
           isActiveSubElement(sub.path)
             ? 'bg-secondary-800 text-white'
@@ -67,19 +56,9 @@
     </div>
     <NuxtLink
       v-if="!entry.children"
-      :to="entry.path"
+      :to="getPath(entry.path)"
       @click.native="triggerRoute"
-      class="
-        group
-        flex
-        items-center
-        pl-7
-        pr-2
-        py-2
-        text-sm
-        font-medium
-        rounded-sm
-      "
+      class="group flex items-center pl-7 pr-2 py-2 text-sm font-medium rounded-sm"
       :class="
         isActiveElement
           ? 'bg-secondary-800 text-white'
@@ -92,6 +71,7 @@
 </template>
 
 <script>
+import { template } from 'lodash-es'
 import { mapState } from 'vuex'
 
 export default {
@@ -104,7 +84,8 @@ export default {
   },
   computed: {
     ...mapState({
-      active: (state) => state.route.path
+      active: (state) => state.route.path,
+      season: (state) => state.navigation.season
     }),
     submenuOpen() {
       return this.index === this.opensub
@@ -126,6 +107,11 @@ export default {
     isActiveSubElement(path) {
       const id = path.split('/').pop()
       return this.active.split('/').includes(id)
+    },
+    getPath(path) {
+      const compiled = template(path)
+      console.log(compiled({ season: this.season }))
+      return compiled({ season: this.season })
     }
   }
 }

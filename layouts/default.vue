@@ -72,6 +72,7 @@
       </main>
     </div>
     <portal-target name="modals" />
+    <portal-target name="slide" />
   </div>
 </template>
 

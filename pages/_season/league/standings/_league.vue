@@ -30,6 +30,7 @@
               </nuxt-link>
             </nav>
           </div>
+          <layout-elements-season-button />
         </div>
       </div>
       <div

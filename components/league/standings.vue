@@ -3,7 +3,7 @@
     <thead
       class="
         sticky
-        z-50
+        z-20
         top-0
         bg-primary-500
         dark:bg-primary-700
@@ -32,6 +32,11 @@
       </tr>
     </thead>
     <tbody>
+      <tr v-if="error">
+        <td colspan="12" class="text-secondary-500 text-center font-medium py-4">
+          Tabelle kann nicht geladen werden.
+        </td>
+      </tr>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <tr
         v-if="$apollo.loading"
@@ -119,6 +124,11 @@ export default {
     title: String,
     filter: Object
   },
+  data() {
+    return {
+      error: false
+    }
+  },
   apollo: {
     standings: {
       query: QUERY_LEAGUE_STANDINGS,
@@ -128,7 +138,10 @@ export default {
           order: { column: 'points', order: 'DESC' }
         }
       },
-      update: ({ teamstats }) => teamstats
+      update: ({ teamstats }) => teamstats,
+      error() {
+        this.error = true
+      }
     }
   }
 }
