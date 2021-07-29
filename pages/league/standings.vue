@@ -159,7 +159,7 @@
                   dark:text-gray-200
                 "
               >
-                <div class="flex">
+                <div class="flex items-center">
                   <team-logo-small :teamid="row.team.teamid" /><span>{{ row.team.teamsim }}</span>
                 </div>
               </td>
