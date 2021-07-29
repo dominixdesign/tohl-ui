@@ -110,6 +110,7 @@
           <thead
             class="
               sticky
+              z-50
               top-0
               bg-primary-500
               dark:bg-primary-700
