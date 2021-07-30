@@ -110,7 +110,6 @@ export default {
     },
     getPath(path) {
       const compiled = template(path)
-      console.log(compiled({ season: this.season }))
       return compiled({ season: this.season })
     }
   }

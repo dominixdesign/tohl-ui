@@ -26,7 +26,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setSeason(season) {
+  setSeason(state, season) {
     state.season = season
   }
 }

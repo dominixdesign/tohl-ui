@@ -28,9 +28,10 @@
               >
                 {{ $t(table) }}
               </nuxt-link>
+              <div class="flex-grow" />
+              <layout-elements-season-button class="self-center" />
             </nav>
           </div>
-          <layout-elements-season-button />
         </div>
       </div>
       <div
