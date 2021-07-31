@@ -40,7 +40,11 @@
                   <div class="px-4 sm:px-6">
                     <div class="flex items-start justify-between">
                       <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                        Saison wählen
+                        <component
+                          :is="logo"
+                          aria-hidden="true"
+                          class="h-6 mr-2 fill-current float-left text-primary-800"
+                        />Saison wählen
                       </h2>
                       <div class="ml-3 h-7 flex items-center">
                         <button
@@ -78,15 +82,41 @@
                   </div>
                   <div class="mt-6 relative flex-1 px-4 sm:px-6">
                     <!-- Replace with your content -->
-                    <nav class="space-y-1">
-                      <nuxt-link
-                        v-for="season in seasons"
-                        class="py-1 px-2 cursor-pointer"
-                        :key="season"
-                        :to="getLink(season)"
-                      >
-                        {{ season }}
-                      </nuxt-link>
+                    <nav>
+                      <div v-for="season in seasons" :key="season" class="mt-5 first:mt-0">
+                        <p
+                          class="
+                            text-gray-300
+                            ml-2
+                            w-full
+                            border-b-2
+                            pb-2
+                            border-gray-100
+                            text-md
+                            uppercase
+                            font-normal
+                          "
+                        >
+                          {{ season }}
+                        </p>
+                        <nuxt-link
+                          v-for="(title, type) in types"
+                          :key="`${season}-${type}`"
+                          class="
+                            mx-2
+                            py-2
+                            px-3
+                            cursor-pointer
+                            block
+                            text-primary-500
+                            hover:bg-gray-200 hover:border-gray-300
+                            border-b border-gray-200
+                          "
+                          :to="getLink(season + type)"
+                        >
+                          {{ title }}
+                        </nuxt-link>
+                      </div>
                     </nav>
                     <!-- /End replace -->
                   </div>
@@ -109,12 +139,28 @@ export default {
   data() {
     return {
       seasons: ['TOHL11', 'TOHL12'],
+      types: { pre: 'Pre-Season', '': 'Hauptrunde', PLF: 'Playoffs' },
       showContent: false
+    }
+  },
+  computed: {
+    logo() {
+      return () =>
+        import(/* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`)
     }
   },
   methods: {
     getLink(season) {
       return this.$route.fullPath.replace(`/${this.$route.params.season}/`, `/${season}/`)
+    },
+    getType(season) {
+      if (season.indexOf('pre') >= 0) {
+        return 'Pre-Season'
+      }
+      if (season.indexOf('PLF') >= 0) {
+        return 'Playoffs'
+      }
+      return 'Hauptrunde'
     }
   }
 }

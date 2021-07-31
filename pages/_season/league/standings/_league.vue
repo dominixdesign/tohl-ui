@@ -9,7 +9,11 @@
               <nuxt-link
                 v-for="table in ['league', 'conferences', 'divisions']"
                 :key="table"
-                :to="`/${season}/league/standings/${table}`"
+                :to="
+                  table === 'league'
+                    ? `/${season}/league/standings/`
+                    : `/${season}/league/standings/${table}`
+                "
                 class="
                   border-transparent
                   hover:text-primary-200 hover:border-primary-200
@@ -57,7 +61,7 @@
 export default {
   async asyncData({ params, i18n }) {
     const season = params.season
-    const league = params.league
+    let league = params.league
     let tables
     if (league === 'conferences') {
       tables = [
@@ -72,7 +76,8 @@ export default {
         { title: 'Corona', filter: { division: 'corona' } }
       ]
     } else {
-      tables = [{ title: i18n.t(league) }]
+      tables = [{ title: i18n.t('league') }]
+      league = 'league'
     }
 
     return { season, league, tables }
