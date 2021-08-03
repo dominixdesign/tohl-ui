@@ -1,5 +1,5 @@
 <template>
-  <component :is="teamlogo" aria-hidden="true" class="w-8 h-8 transform scale-110" />
+  <component :is="teamlogo" aria-hidden="true" class="w-9 h-9" />
 </template>
 
 <script>

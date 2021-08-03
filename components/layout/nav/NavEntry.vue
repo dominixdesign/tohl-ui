@@ -41,7 +41,6 @@
       <NuxtLink
         v-for="sub in entry.children"
         :key="sub.title"
-        href="#"
         :to="getPath(sub.path)"
         @click.native="triggerRoute"
         class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium opacity-80"
@@ -105,8 +104,7 @@ export default {
       }
     },
     isActiveSubElement(path) {
-      const id = path.split('/').pop()
-      return this.active.split('/').includes(id)
+      return this.active.includes(this.getPath(path))
     },
     getPath(path) {
       const compiled = template(path)
