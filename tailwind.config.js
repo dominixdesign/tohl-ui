@@ -33,6 +33,9 @@ module.exports = {
         18: '18px',
         20: '20px'
       },
+      zIndex: {
+        9: 9
+      },
       colors: {
         primary: {
           DEFAULT: '#0061AF',

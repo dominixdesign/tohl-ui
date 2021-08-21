@@ -13,10 +13,7 @@
           items-center
           text-sm
           rounded-full
-          focus:outline-none
-          focus:ring-2
-          focus:ring-offset-2
-          focus:ring-indigo-500
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
         "
         aria-expanded="false"
         aria-haspopup="true"
@@ -118,10 +115,7 @@
                 transition-colors
                 ease-in-out
                 duration-200
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-indigo-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
               "
               :class="colormode === 'dark' ? 'bg-primary-700' : 'bg-gray-200'"
               role="switch"
@@ -142,9 +136,7 @@
                   ease-in-out
                   duration-200
                 "
-                :class="
-                  colormode === 'dark' ? 'translate-x-5' : 'translate-x-0'
-                "
+                :class="colormode === 'dark' ? 'translate-x-5' : 'translate-x-0'"
               ></span>
             </button>
             <span id="darkmode-label" class="ml-3">
