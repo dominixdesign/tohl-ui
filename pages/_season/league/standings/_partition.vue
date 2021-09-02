@@ -25,7 +25,7 @@
                   text-sm
                 "
                 :class="
-                  table === league
+                  table === partition
                     ? 'text-primary-200 border-primary-200 font-bold'
                     : 'text-primary-400'
                 "
@@ -61,14 +61,14 @@
 export default {
   async asyncData({ params, i18n }) {
     const season = params.season
-    let league = params.league
+    let partition = params.partition
     let tables
-    if (league === 'conferences') {
+    if (partition === 'conferences') {
       tables = [
         { title: 'Funkturm', filter: { conference: 'funkturm' } },
         { title: 'Kirchturm', filter: { conference: 'kirchturm' } }
       ]
-    } else if (league === 'divisions') {
+    } else if (partition === 'divisions') {
       tables = [
         { title: 'Kindl', filter: { division: 'kindl' } },
         { title: 'Heineken', filter: { division: 'heineken' } },
@@ -77,10 +77,10 @@ export default {
       ]
     } else {
       tables = [{ title: i18n.t('league') }]
-      league = 'league'
+      partition = 'league'
     }
 
-    return { season, league, tables }
+    return { season, partition, tables }
   },
   data() {
     return {
