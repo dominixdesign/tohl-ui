@@ -3,5 +3,6 @@ export default {
   stats: 'Statistiken',
   standings: 'Tabelle',
   conferences: 'Conferences',
-  divisions: 'Divisions'
+  divisions: 'Divisions',
+  schedule: 'Spielplan'
 }

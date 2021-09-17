@@ -1,27 +1,16 @@
 <template>
-  <component
-    :is="logo"
+  <TohlLogo
     aria-hidden="true"
-    class="
-      w-auto
-      transform
-      scale-150
-      fill-current
-      text-primary-600
-      dark:text-white
-    "
+    class="w-auto transform scale-150 fill-current text-primary-600 dark:text-white"
   />
 </template>
 
 <script>
+import TohlLogo from '~/assets/logo-white-small.svg?inline'
+
 export default {
-  computed: {
-    logo() {
-      return () =>
-        import(
-          /* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`
-        )
-    }
+  components: {
+    TohlLogo
   }
 }
 </script>

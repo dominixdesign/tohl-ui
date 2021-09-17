@@ -8,7 +8,7 @@ export const state = () => ({
       children: [
         { title: 'Ergebnisse', path: '/${season}/league/results' },
         { title: 'Tabelle', path: '/${season}/league/standings/' },
-        { title: 'Spielplan', path: '/league/schedule' },
+        { title: 'Spielplan', path: '/${season}/league/schedule' },
         { title: 'Trades', path: '/league/trades' },
         { title: 'Verletzungen', path: '/league/injuries' },
         { title: 'Farm Teams', path: '/league/farm' },

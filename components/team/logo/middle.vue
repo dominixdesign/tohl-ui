@@ -1,6 +1,6 @@
 <template>
-  <component
-    :is="teamlogo"
+  <img
+    :src="require(`~/assets/teams/${teamid}.svg`)"
     aria-hidden="true"
     class="w-20 h-20 p-2 rounded-full bg-white border border-gray-100 shadow"
   />
@@ -9,13 +9,7 @@
 <script>
 export default {
   props: {
-    teamid: String
-  },
-  computed: {
-    teamlogo() {
-      return () =>
-        import(/* webpackChunkName: `icon/[request]` */ `~/static/teams/${this.teamid}.svg?inline`)
-    }
+    teamid: { type: String }
   }
 }
 </script>
