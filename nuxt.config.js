@@ -26,7 +26,12 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['plugins/auth.js', 'plugins/clickOutsideDirective.js', 'plugins/routeToStore.js'],
+  plugins: [
+    'plugins/auth.js',
+    'plugins/clickOutsideDirective.js',
+    'plugins/routeToStore.js',
+    'plugins/virtualScroller.js'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -86,5 +91,17 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     publicPath: '/nuxt/'
+  },
+
+  router: {
+    scrollBehavior(to) {
+      if (to.hash) {
+        return window.scrollTo({
+          top: document.querySelector(to.hash).offsetTop + window.innerHeight,
+          behavior: 'smooth'
+        })
+      }
+      return window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 }
