@@ -38,7 +38,15 @@ module.exports = {
         20: '20px'
       },
       zIndex: {
+        '-1': '-1',
+        1: 1,
         9: 9
+      },
+      width: {
+        '10plus': 'calc(100% + 10px)'
+      },
+      height: {
+        '10plus': 'calc(100% + 10px)'
       },
       colors: {
         primary: {
