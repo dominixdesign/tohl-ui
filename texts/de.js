@@ -4,5 +4,18 @@ export default {
   standings: 'Tabelle',
   conferences: 'Conferences',
   divisions: 'Divisions',
-  schedule: 'Spielplan'
+  schedule: 'Spielplan',
+  goals: 'Tore',
+  points: 'Punkte',
+  assists: 'Vorlagen',
+  plusminus: '+/-',
+  pim: 'Strafminuten',
+  hits: 'Hits',
+  shots: 'Schüsse',
+  icetime: 'Eiszeit',
+  gaa: 'GAA',
+  shutout: 'Shutouts',
+  savepercentage: 'Save%',
+  offense: 'Stürmer',
+  defense: 'Verteidiger'
 }

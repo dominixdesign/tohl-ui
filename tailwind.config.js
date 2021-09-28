@@ -37,10 +37,16 @@ module.exports = {
         18: '18px',
         20: '20px'
       },
+      minWidth: {
+        20: '5rem'
+      },
       zIndex: {
         '-1': '-1',
         1: 1,
         9: 9
+      },
+      maxWidth: {
+        xxs: '120px'
       },
       width: {
         '10plus': 'calc(100% + 10px)'

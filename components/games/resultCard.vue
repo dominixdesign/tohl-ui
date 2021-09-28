@@ -11,6 +11,7 @@
       divide-y divide-gray-600
       dark:divide-white
       divide-opacity-20 divide-dashed
+      overflow-hidden
     "
   >
     <div class="flex-1 flex flex-col p-6 pb-1">
