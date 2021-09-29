@@ -33,7 +33,7 @@ export const state = () => ({
         { title: 'MVP', path: '/${season}/stats/mvp' }
       ]
     },
-    { title: 'Teams', path: '/teams' },
+    { title: 'Teams', path: '/${season}/teams' },
     { title: 'Spieler', path: '/players' },
     { title: 'Office', path: '/office' },
     { title: 'Lines', path: '/lines' },
