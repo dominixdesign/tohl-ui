@@ -17,5 +17,19 @@ export default {
   shutout: 'Shutouts',
   savepercentage: 'Save%',
   offense: 'Stürmer',
-  defense: 'Verteidiger'
+  defense: 'Verteidiger',
+  goalies: 'Torhüter',
+  leader: {
+    goals: '0 Tore | Ein Tor | {count} Tore',
+    points: '0 Punkte | Ein Punkt | {count} Punkte',
+    assists: '0 Assists | Ein Assist | {count} Assists',
+    plusminus: '+/- 0 | +1 | +{count}',
+    pim: '0 Strafminuten | Eine Strafminute | {count} Strafminuten',
+    hits: '0 Hits | Ein Hit | {count} Hits',
+    shots: '0 Schüsse | Ein Schuss | {count} Schüsse',
+    icetime: 'Keine Eiszeit | Ein Minute Eiszeit | {count} Minuten Eiszeit',
+    gaa: '{count} Gegentore pro Spiel',
+    shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
+    savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
+  }
 }

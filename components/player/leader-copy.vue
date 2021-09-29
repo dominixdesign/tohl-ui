@@ -1,70 +1,55 @@
 <template>
-  <div
-    v-if="leader"
-    class="
-      col-span-1
-      flex flex-col
-      text-center
-      bg-white
-      dark:bg-gray-600
-      rounded-lg
-      shadow
-      divide-y divide-gray-600
-      dark:divide-white
-      divide-opacity-20 divide-dashed
-      overflow-hidden
-    "
-  >
-    <div class="flex-1 flex flex-col pt-4 pr-4 pb-1">
-      <div class="flex w-full items-center flex-row pb-3">
-        <div
-          class="
-            flex-grow
-            text-left
-            leading-3
-            p-2
-            overflow-hidden overflow-ellipsis
-            text-primary-700
-            dark:text-white
-          "
-        >
-          <span class="first text-sm">{{ leader.player.display_fname }}</span
-          ><br />
-          <span class="font-bold text-xl uppercase whitespace-nowrap">
-            {{ leader.player.display_lname }}</span
-          >
-        </div>
-        <div
-          class="
-            flex-none
-            w-20
-            min-w-20
-            h-20
-            p-2
-            rounded-full
-            bg-white
-            border-2 border-gray-100
-            shadow
-            bg-no-repeat bg-cover
-            relative
-          "
-          :style="`
-          background-image: url(https://my-tohl.org/img/player/${leader.player.id}.jpg);
-          border-color: ${backgroundColor(leader.team.teamid)};
-          `"
-        >
-          <team-logo-middle
-            :teamid="leader.team.teamid"
-            class="transform scale-50 min-w-20 absolute -bottom-1/2 -right-1/2"
-          />
-        </div>
+  <div class="flex flex-col items-end w-full h-44">
+    <div
+      v-if="leader"
+      class="
+        flex flex-col
+        items-center
+        h-full
+        justify-between
+        w-full
+        box-border
+        border-8
+        rounded-md
+        shadow-md
+        border-gray-600
+        bg-right-bottom bg-no-repeat bg-40 bg-white
+        dark:bg-gray-600
+      "
+      :style="`
+        background-image: url(https://my-tohl.org/img/player/${leader.player.id}.jpg);
+        `"
+    >
+      <div class="w-full px-4">
+        <span class="text-2xl font-bold">{{ $t(sortby) }}</span>
       </div>
-    </div>
-    <div>
-      <div class="flex">
-        <div class="w-0 flex-1 flex-col flex items-center">
-          <span class="text-sm uppercase">{{ $tc(`leader.${sortby}`, leader[sortby]) }}</span>
+      <div class="flex items-end justify-start flex-row pb-4 px-4 w-full text-left">
+        <div class="w-full flex flex-col">
+          <team-logo-small class="mb-2 block" :teamid="leader.team.teamid" />
+          <div class="flex">
+            <span class="self-end min-w-7 inline-block relative w-auto z-1 whitespace-nowrap"
+              ><span
+                class="opacity-75 absolute -top-1 -left-1 -z-1 w-10plus h-10plus"
+                :style="`background-color: ${backgroundColor(leader.team.teamid)};`"
+              ></span
+              ><span
+                class="max-w-xxs overflow-ellipsis overflow-hidden block"
+                :style="`color: ${foregroundColor(leader.team.teamid)}`"
+                ><span class="first">{{ leader.player.display_fname }}</span
+                ><span class="font-bold"> {{ leader.player.display_lname }}</span></span
+              ></span
+            >
+          </div>
         </div>
+        <span
+          class="text-3xl mb-0 ml-auto justify-self-end relative w-auto z-1"
+          :style="`color: ${foregroundColor(leader.team.teamid)};`"
+          ><span
+            class="opacity-75 absolute -top-1 -left-1 -z-1 w-10plus h-10plus"
+            :style="`background-color: ${backgroundColor(leader.team.teamid)};`"
+          ></span
+          >{{ leader[sortby] }}</span
+        >
       </div>
     </div>
   </div>
@@ -111,12 +96,14 @@ export default {
         }
       `,
       variables() {
+        console.log('where', this.where)
         return {
           order: { column: this.sortby, order: this.sortby === 'gaa' ? 'ASC' : 'DESC' },
           where: JSON.stringify(this.where)
         }
       },
       update: ({ playerstats }) => {
+        console.log(playerstats)
         if (playerstats.length === 1) {
           return playerstats[0]
         }

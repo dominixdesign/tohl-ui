@@ -149,6 +149,11 @@ export default {
         import(/* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`)
     }
   },
+  watch: {
+    $route() {
+      this.showContent = false
+    }
+  },
   methods: {
     getLink(season) {
       return this.$route.fullPath.replace(`/${this.$route.params.season}/`, `/${season}/`)

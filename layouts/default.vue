@@ -62,6 +62,7 @@
             <layout-logo class="h-6 m-auto mx-auto my-5 lg:hidden" />
           </div>
           <div class="ml-4 flex items-center lg:ml-6 transform-none lg:transform -rotate-1">
+            <layout-elements-season-button class="self-center" />
             <LayoutNavProfileDropdown />
           </div>
         </div>
