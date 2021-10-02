@@ -29,7 +29,7 @@
       <div class="flex">
         <div class="w-0 flex-1 flex">
           <nuxt-link
-            :to="`/${season}/team/${team.teamid}/roster`"
+            :to="`/${season}/team/${team.teamsim}/roster`"
             class="
               relative
               -mr-px
