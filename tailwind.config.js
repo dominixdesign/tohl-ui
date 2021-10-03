@@ -1,3 +1,5 @@
+var flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
@@ -6,7 +8,28 @@ module.exports = {
     './layouts/**/*.{js,jsx,ts,tsx,vue}',
     './pages/**/*.{js,jsx,ts,tsx,vue}'
   ],
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    ({ addUtilities, e, theme, variants }) => {
+      let colors = flattenColorPalette(theme('borderColor'))
+      delete colors['default']
+
+      // Replace or Add custom colors
+      if (this.theme?.extend?.colors !== undefined) {
+        colors = Object.assign(colors, this.theme.extend.colors)
+      }
+
+      const colorMap = Object.keys(colors).map((color) => ({
+        [`.border-t-${color}`]: { borderTopColor: colors[color] },
+        [`.border-r-${color}`]: { borderRightColor: colors[color] },
+        [`.border-b-${color}`]: { borderBottomColor: colors[color] },
+        [`.border-l-${color}`]: { borderLeftColor: colors[color] }
+      }))
+      const utilities = Object.assign({}, ...colorMap)
+
+      addUtilities(utilities, variants('borderColor'))
+    }
+  ],
   theme: {
     fontFamily: {
       headline: ['Exo', 'ui-sans-serif', 'system-ui']

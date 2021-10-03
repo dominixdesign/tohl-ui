@@ -17,12 +17,22 @@
         <th
           v-for="col in cols"
           scope="col"
-          class="px-2 xl:px-4 py-3 cursor-pointer"
+          class="px-1 xl:px-2 py-3 cursor-pointer whitespace-nowrap"
           @click="() => sortColumn(col)"
           :key="'headline-' + col"
           :class="col === 'name' ? 'text-left' : ''"
         >
           {{ $t(`column.${col}`) }}
+          <span
+            class="w-1 h-1 inline-block border-4 border-transparent"
+            :class="
+              sortCol === col && direction === 'asc'
+                ? 'border-t-primary-100'
+                : sortCol === col && direction === 'desc'
+                ? 'border-b-primary-100'
+                : ''
+            "
+          ></span>
         </th>
       </tr>
     </thead>
@@ -78,6 +88,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { get } from 'lodash-es'
 
 export default {
   props: {
@@ -178,15 +189,20 @@ export default {
   },
   methods: {
     sortColumn(col) {
-      console.log(col)
+      if (this.sortCol === col) {
+        this.direction = this.direction === 'asc' ? 'desc' : 'asc'
+      } else {
+        this.direction = 'asc'
+      }
       this.sortCol = col
-      this.direction = 'desc'
       this.updateRoster()
     },
     updateRoster() {
       let sorting = this.sortCol
-      if (sorting === 'name' || !sorting) {
+      if (sorting === 'name') {
         sorting = 'lname'
+      } else {
+        sorting = 'seasondata.' + sorting
       }
       console.log({ sorting })
       const filtertedRoster = [...this.roster]
@@ -202,12 +218,14 @@ export default {
           }
           return true
         })
-      // TODO lodash pick um seasondata daten zu bekommen pick(a, 'lname') || pick(a, 'seasondata.sp')
       this.filtertedRoster = filtertedRoster.sort((a, b) => {
-        if (a[sorting] > b[sorting]) return 1
-        if (a[sorting] < b[sorting]) return -1
+        if (get(a, sorting) > get(b, sorting)) return 1
+        if (get(a, sorting) < get(b, sorting)) return -1
         return 0
       })
+      if (this.direction === 'asc') {
+        this.filtertedRoster.reverse()
+      }
     }
   }
 }
