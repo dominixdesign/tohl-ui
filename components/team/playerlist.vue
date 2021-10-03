@@ -14,28 +14,16 @@
       "
     >
       <tr class="text-base">
-        <th scope="col" class="px-2 xl:px-4 py-3">#</th>
-        <th scope="col" class="px-2 xl:px-4 py-3"></th>
-        <th scope="col" class="px-2 xl:px-4 py-3">PO</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">CD</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">IJ</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">IT</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">SP</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">ST</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">EN</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">DU</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">DI</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">SK</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">PA</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">PC</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">DF</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">SC</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">EX</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">LD</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">OV</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">Age</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">CT</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">Salary</th>
+        <th
+          v-for="col in cols"
+          scope="col"
+          class="px-2 xl:px-4 py-3 cursor-pointer"
+          @click="() => sortColumn(col)"
+          :key="'headline-' + col"
+          :class="col === 'name' ? 'text-left' : ''"
+        >
+          {{ $t(`column.${col}`) }}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -67,87 +55,21 @@
         </td>
       </tr>
       <tr
-        v-for="(row, index) in roster"
+        v-for="(row, index) in filtertedRoster"
         class="text-sm text-right"
         :class="index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
         :key="row.fname + row.lname"
       >
-        <td class="py-1 pl-2 whitespace-nowrap text-gray-900 dark:text-gray-200">
-          {{ row.seasondata.number }}
-        </td>
         <td
-          class="
-            px-3
-            md:px-6
-            py-1
-            whitespace-nowrap
-            text-left
-            font-medium
-            text-gray-900
-            dark:text-gray-200
-          "
+          v-for="col in cols"
+          class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
+          :key="row.fname + row.lname + col"
         >
-          {{ row.display_fname }} {{ row.display_lname }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.pos }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.cd }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.ij }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.it }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.sp }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.st }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.en }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.du }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.di }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.sk }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.pa }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.pc }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.df }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.sc }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.ex }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.ld }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.ov }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.age }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.ct }}
-        </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
-          {{ row.seasondata.salary }}
+          <span v-if="col === 'name'">
+            {{ row.display_fname }} <span class="font-medium">{{ row.display_lname }}</span>
+          </span>
+          <span v-else-if="col === 'salary'"> ${{ row.seasondata.salary.toLocaleString() }} </span>
+          <span v-else>{{ row.seasondata[col] }}</span>
         </td>
       </tr>
     </tbody>
@@ -160,13 +82,42 @@ import gql from 'graphql-tag'
 export default {
   props: {
     season: String,
+    selectedRoster: String,
+    positions: Set,
     team: String,
     title: String,
     filter: Object
   },
   data() {
     return {
-      error: false
+      error: false,
+      cols: [
+        'number',
+        'name',
+        'pos',
+        'cd',
+        'ij',
+        'it',
+        'sp',
+        'st',
+        'en',
+        'du',
+        'di',
+        'sk',
+        'pa',
+        'pc',
+        'df',
+        'sc',
+        'ex',
+        'ld',
+        'ov',
+        'age',
+        'contract',
+        'salary'
+      ],
+      filtertedRoster: [],
+      sortCol: 'name',
+      direction: 'desc'
     }
   },
   apollo: {
@@ -179,7 +130,11 @@ export default {
             display_fname
             display_lname
             seasondata(season: $season) {
+              roster
               number
+              age
+              salary
+              contract
               pos
               cd
               ij
@@ -211,6 +166,48 @@ export default {
       error() {
         this.error = true
       }
+    }
+  },
+  watch: {
+    positions(positions) {
+      this.updateRoster()
+    },
+    roster(newRoster) {
+      this.updateRoster()
+    }
+  },
+  methods: {
+    sortColumn(col) {
+      console.log(col)
+      this.sortCol = col
+      this.direction = 'desc'
+      this.updateRoster()
+    },
+    updateRoster() {
+      let sorting = this.sortCol
+      if (sorting === 'name' || !sorting) {
+        sorting = 'lname'
+      }
+      console.log({ sorting })
+      const filtertedRoster = [...this.roster]
+        .filter((p) => {
+          if (this.selectedRoster) {
+            return p.seasondata.roster === this.selectedRoster
+          }
+          return true
+        })
+        .filter((p) => {
+          if (this.positions) {
+            return this.positions.has(p.seasondata.pos)
+          }
+          return true
+        })
+      // TODO lodash pick um seasondata daten zu bekommen pick(a, 'lname') || pick(a, 'seasondata.sp')
+      this.filtertedRoster = filtertedRoster.sort((a, b) => {
+        if (a[sorting] > b[sorting]) return 1
+        if (a[sorting] < b[sorting]) return -1
+        return 0
+      })
     }
   }
 }

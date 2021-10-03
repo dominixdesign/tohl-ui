@@ -31,5 +31,29 @@ export default {
     gaa: '{count} Gegentore pro Spiel',
     shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
     savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
+  },
+  column: {
+    number: '#',
+    name: 'Spieler',
+    pos: 'po',
+    cd: 'cd',
+    ij: 'ij',
+    it: 'it',
+    sp: 'sp',
+    st: 'st',
+    en: 'en',
+    du: 'du',
+    di: 'di',
+    sk: 'sk',
+    pa: 'pa',
+    pc: 'pc',
+    df: 'df',
+    sc: 'sc',
+    ex: 'ex',
+    ld: 'ld',
+    ov: 'ov',
+    age: 'age',
+    contract: 'ct',
+    salary: 'gehalt'
   }
 }
