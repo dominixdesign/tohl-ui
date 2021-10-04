@@ -19,6 +19,11 @@ export default {
   offense: 'Stürmer',
   defense: 'Verteidiger',
   goalies: 'Torhüter',
+  rosters: {
+    all: 'Alle Spieler',
+    pro: 'Pro-Team',
+    farm: 'Farm-Team'
+  },
   leader: {
     goals: '0 Tore | Ein Tor | {count} Tore',
     points: '0 Punkte | Ein Punkt | {count} Punkte',

@@ -1,5 +1,5 @@
 <template>
-  <table class="relative min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+  <table class="font-headline relative min-w-full divide-y divide-gray-200 dark:divide-gray-600">
     <thead
       class="
         sticky
@@ -46,7 +46,7 @@
       <tr
         v-if="$apollo.loading"
         v-for="n in 6"
-        :key="`standing-${n}`"
+        :key="`roster-${n}`"
         :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
       >
         <!-- eslint-enable -->
@@ -66,8 +66,8 @@
       </tr>
       <tr
         v-for="(row, index) in filtertedRoster"
-        class="text-sm text-right"
         :class="index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
+        class="text-sm text-right dark:hover:bg-primary-700 hover:bg-gray-100"
         :key="row.fname + row.lname"
       >
         <td
@@ -76,8 +76,16 @@
           :key="row.fname + row.lname + col"
         >
           <span v-if="col === 'name'">
-            {{ row.display_fname }} <span class="font-medium">{{ row.display_lname }}</span>
+            {{ row.display_fname }} <span class="font-bold">{{ row.display_lname }}</span>
           </span>
+          <span v-if="col === 'number'" class="italic">
+            {{ row.seasondata.number }}
+          </span>
+          <player-status
+            v-else-if="col === 'cd'"
+            :cd="parseInt(row.seasondata.cd)"
+            :ij="row.seasondata.ij"
+          />
           <span v-else-if="col === 'salary'"> ${{ row.seasondata.salary.toLocaleString() }} </span>
           <span v-else>{{ row.seasondata[col] }}</span>
         </td>
@@ -107,7 +115,6 @@ export default {
         'name',
         'pos',
         'cd',
-        'ij',
         'it',
         'sp',
         'st',
@@ -207,7 +214,7 @@ export default {
       console.log({ sorting })
       const filtertedRoster = [...this.roster]
         .filter((p) => {
-          if (this.selectedRoster) {
+          if (this.selectedRoster && this.selectedRoster !== 'all') {
             return p.seasondata.roster === this.selectedRoster
           }
           return true
