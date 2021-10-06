@@ -71,7 +71,7 @@ export default {
     // Sets up the apollo client endpoints
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:3000/graphql',
+        httpEndpoint: process.env.GRAPHQL_API_URL || 'https://api.my-tohl.org/data/graphql',
         authenticationType: 'Bearer',
         tokenName: 'apollo-token'
       }
