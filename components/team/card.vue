@@ -134,15 +134,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     team: Object
   },
   computed: {
-    ...mapState({
-      season: (state) => state.navigation.season
+    ...mapGetters({
+      season: 'navigation/season'
     }),
     backgroundColor() {
       return this.$store.getters['teams/backgroundByTeam'](this.team.teamid)

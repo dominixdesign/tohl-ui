@@ -71,7 +71,7 @@
 
 <script>
 import { template } from 'lodash-es'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'NavEntry',
@@ -82,9 +82,11 @@ export default {
     handler: Object
   },
   computed: {
+    ...mapGetters({
+      season: 'navigation/season'
+    }),
     ...mapState({
-      active: (state) => state.route.path,
-      season: (state) => state.navigation.season
+      active: (state) => state.route.path
     }),
     submenuOpen() {
       return this.index === this.opensub

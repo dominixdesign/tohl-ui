@@ -30,7 +30,8 @@ export default {
     'plugins/auth.js',
     'plugins/clickOutsideDirective.js',
     'plugins/routeToStore.js',
-    'plugins/virtualScroller.js'
+    'plugins/virtualScroller.js',
+    { src: '~/plugins/vuex-persist', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,7 +47,7 @@ export default {
   ],
 
   image: {
-    // Options
+    provider: 'static'
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules

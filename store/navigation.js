@@ -1,5 +1,6 @@
 export const state = () => ({
-  season: 'TOHL11',
+  season: null,
+  availableSeasons: [],
   mainNav: [
     { title: 'Startseite', path: '/' },
     {
@@ -44,5 +45,17 @@ export const state = () => ({
 export const mutations = {
   setSeason(state, season) {
     state.season = season
+  },
+  setAvailableSeasons(state, seasons) {
+    state.availableSeasons = seasons
+  }
+}
+
+export const getters = {
+  season(state) {
+    if (state.season) {
+      return state.season
+    }
+    return [...state.availableSeasons].pop()
   }
 }

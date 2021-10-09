@@ -1,9 +1,6 @@
 export const state = () => {
   let colormode
-  if (
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  ) {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     colormode = 'dark'
   } else {
     colormode = 'light'

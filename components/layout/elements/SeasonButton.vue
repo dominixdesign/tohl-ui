@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -48,8 +48,8 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      season: (state) => state.navigation.season
+    ...mapGetters({
+      season: 'navigation/season'
     })
   },
   methods: {
