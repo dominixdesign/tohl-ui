@@ -68,6 +68,13 @@ export default {
     }
   },
 
+  loadingIndicator: {
+    name: '~/loading-indicator.html',
+    color1: '#0061AF',
+    color2: '#B92727',
+    background: '#111827'
+  },
+
   apollo: {
     // Sets up the apollo client endpoints
     clientConfigs: {
