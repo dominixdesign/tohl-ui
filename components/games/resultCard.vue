@@ -26,7 +26,7 @@
         <team-logo-middle :teamid="game.away.teamid" />
       </div>
     </div>
-    <div class="grid grid-cols-3 py-3">
+    <div class="grid grid-cols-3 py-3" v-if="this.game.stars.length > 0">
       <div v-for="(star, index) in ['first', 'second', 'third']" :key="star" class="flex flex-col">
         <div class="flex flex-row justify-center h-5">
           <icons-star
