@@ -99,8 +99,10 @@
                         >
                           {{ season }}
                         </p>
+                        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                         <nuxt-link
                           v-for="(title, type) in types"
+                          v-if="availableSeasons.indexOf(season + type) >= 0"
                           :key="`${season}-${type}`"
                           class="
                             mx-2
@@ -116,6 +118,7 @@
                         >
                           {{ title }}
                         </nuxt-link>
+                        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
                       </div>
                     </nav>
                     <!-- /End replace -->
@@ -131,6 +134,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { uniqBy } from 'lodash-es'
+
 export default {
   props: {
     close: Function,
@@ -144,6 +150,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      availableSeasons: (state) => state.navigation.availableSeasons
+    }),
     logo() {
       return () =>
         import(/* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`)
@@ -152,6 +161,12 @@ export default {
   watch: {
     $route() {
       this.showContent = false
+    },
+    availableSeasons: {
+      handler: function (newSeasons) {
+        this.seasons = uniqBy(newSeasons, (s) => s.substr(0, 6))
+      },
+      immediate: true
     }
   },
   methods: {
