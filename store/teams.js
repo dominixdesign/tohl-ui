@@ -22,10 +22,28 @@ export const state = () => ({
     ali: { f: '#73BF44', b: '#E00885' },
     voo: { f: '#B7AB94', b: '#C52839' },
     bro: { f: '#000', b: '#7D241E' }
-  }
+  },
+  names: {}
 })
 
+export const mutations = {
+  teamName(state, { teamObj, season }) {
+    const names = state.names[season] || {}
+    names[teamObj.teamid] = {
+      full_name: teamObj.full_name,
+      teamid: teamObj.teamid,
+      teamsim: teamObj.teamsim
+    }
+    state.names = {
+      [season]: names,
+      ...state.names
+    }
+  }
+}
+
 export const getters = {
+  name: (state) => (teamid, season) =>
+    state.names[season] && state.names[season][teamid] ? state.names[season][teamid] : false,
   colorsByTeam: (state) => (team) => state.colors[team],
   foregroundByTeam: (state) => (team) => state.colors[team]?.f,
   backgroundByTeam: (state) => (team) => state.colors[team]?.b

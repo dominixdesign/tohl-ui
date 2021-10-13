@@ -73,6 +73,11 @@
         <td
           v-for="col in cols"
           class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
+          :class="
+            sortCol === col
+              ? 'bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700 hover:bg-gray-100'
+              : ''
+          "
           :key="row.fname + row.lname + col"
         >
           <span v-if="col === 'name'">

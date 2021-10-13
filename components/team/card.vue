@@ -20,7 +20,7 @@
     >
       <div class="flex justify-center items-center flex-row pb-3">
         <team-logo-middle :teamid="team.teamid" class="flex-none" />
-        <div class="font-bold text-4xl p-2 flex-grow">
+        <div class="font-bold text-4xl p-2 flex-grow uppercase font-headline">
           {{ team.teamsim }}
         </div>
       </div>
@@ -29,7 +29,7 @@
       <div class="flex">
         <div class="w-0 flex-1 flex">
           <nuxt-link
-            :to="`/${season}/team/${team.teamsim}/roster`"
+            :to="`/${season}/team/${team.teamid}/roster`"
             class="
               relative
               -mr-px
@@ -86,9 +86,10 @@
               viewBox="0 0 20 20"
               aria-hidden="true"
             >
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
               <path
                 fill-rule="evenodd"
-                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
                 clip-rule="evenodd"
               />
             </svg>
@@ -121,7 +122,7 @@
             >
               <path
                 fill-rule="evenodd"
-                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                 clip-rule="evenodd"
               />
             </svg>
