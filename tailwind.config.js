@@ -32,7 +32,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      headline: ['Exo', 'ui-sans-serif', 'system-ui']
+      headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui']
     },
     extend: {
       backgroundImage: (theme) => ({

@@ -7,7 +7,7 @@
         top-0
         bg-primary-500
         dark:bg-primary-700
-        text-primary-50 text-right text-xs
+        text-primary-50 text-right text-base
         dark:text-primary-200
         uppercase
         tracking-wider
@@ -67,7 +67,7 @@
       <tr
         v-for="(row, index) in filtertedRoster"
         :class="index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
-        class="text-sm text-right dark:hover:bg-primary-700 hover:bg-gray-100"
+        class="text-base text-right dark:hover:bg-primary-700 hover:bg-gray-100"
         :key="row.fname + row.lname"
       >
         <td
