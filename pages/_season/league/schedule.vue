@@ -1,10 +1,9 @@
 <template>
   <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games && games.games">
     <league-gameday
-      v-for="gameday in gamedays"
       :key="gameday"
-      :gameday="gameday"
-      :games="gamedayGames[gameday]"
+      :gameday="currentGameday"
+      :games="gamedayGames[currentGameday]"
     />
   </div>
 </template>
@@ -26,13 +25,22 @@ export default {
       return Object.keys(this.gamedayGames)
         .map(parseInt)
         .sort((a, b) => a - b)
+    },
+    currentGameday() {
+      const filteredGames = this.games.games.filter((g) => g.goalshome !== null)
+      console.log(filteredGames)
+      return Math.max.apply(
+        Math,
+        filteredGames.map((g) => g.gameday)
+      )
     }
   },
   apollo: {
     games: {
       query: gql`
-        query getLastGameday($season: String!) {
+        query getGamedays($season: String!) {
           games(season: $season) {
+            id: game
             home {
               teamsim
               teamid

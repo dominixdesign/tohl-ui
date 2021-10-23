@@ -63,7 +63,9 @@
     <div>
       <div class="flex">
         <div class="w-0 flex-1 flex-col flex items-center">
-          <span class="text-sm uppercase">{{ $tc(`leader.${sortby}`, leader[sortby]) }}</span>
+          <span class="font-medium uppercase font-headline text-lg">{{
+            $tc(`leader.${sortby}`, leader[sortby])
+          }}</span>
         </div>
       </div>
     </div>

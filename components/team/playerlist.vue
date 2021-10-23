@@ -58,9 +58,9 @@
         <td class="px-2 xl:px-4 py-1">
           <div class="bg-gray-200 dark:bg-primary-700 w-40 h-6 animate-pulse rounded-sm" />
         </td>
-        <td v-for="c in 10" :key="`standins-${n}-${c}`" class="px-2 xl:px-4 py-1">
+        <td v-for="c in 19" :key="`standins-${n}-${c}`" class="px-2 xl:px-4 py-1">
           <div
-            class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
+            class="bg-gray-200 dark:bg-primary-700 w-6 h-6 animate-pulse float-right rounded-sm"
           />
         </td>
       </tr>
