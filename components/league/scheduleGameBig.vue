@@ -36,7 +36,7 @@
             bottom-1
           "
         >
-          OT{{ overtimes > 1 ? overtimes : '' }}
+          OT{{ game.overtimes > 1 ? game.overtimes : '' }}
         </div>
         <div
           class="flex flex-col items-center justify-center w-11 h-14"

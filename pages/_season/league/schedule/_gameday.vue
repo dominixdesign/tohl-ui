@@ -1,9 +1,10 @@
 <template>
   <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games && games.games">
-    <league-gameday
-      :key="gameday"
-      :gameday="currentGameday"
-      :games="gamedayGames[currentGameday]"
+    <league-gameday :gameday="currentGameday" :games="gamedayGames[currentGameday]" />
+    <layout-elements-pagination
+      :max="maxGameday"
+      :current="currentGameday"
+      :basePath="`/${season}/league/schedule/`"
     />
   </div>
 </template>
@@ -15,7 +16,8 @@ import { groupBy, parseInt } from 'lodash-es'
 export default {
   async asyncData({ params, i18n }) {
     const season = params.season
-    return { season }
+    const gameday = params.gameday
+    return { season, gameday }
   },
   computed: {
     gamedayGames() {
@@ -26,9 +28,17 @@ export default {
         .map(parseInt)
         .sort((a, b) => a - b)
     },
+    maxGameday() {
+      return Math.max.apply(
+        Math,
+        this.games.games.map((g) => g.gameday)
+      )
+    },
     currentGameday() {
+      if (this.gameday) {
+        return parseInt(this.gameday)
+      }
       const filteredGames = this.games.games.filter((g) => g.goalshome !== null)
-      console.log(filteredGames)
       return Math.max.apply(
         Math,
         filteredGames.map((g) => g.gameday)
