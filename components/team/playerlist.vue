@@ -81,7 +81,7 @@
           :key="row.fname + row.lname + col"
         >
           <span v-if="col === 'name'">
-            {{ row.display_fname }} <span class="font-bold">{{ row.display_lname }}</span>
+            <player-linked-name :player="row" :season="season" />
           </span>
           <span v-if="col === 'number'" class="italic">
             {{ row.seasondata.number }}
@@ -148,6 +148,7 @@ export default {
       query: gql`
         query getRoster($team: String!, $season: ID!) {
           roster(teamsim: $team, season: $season) {
+            id
             fname
             lname
             display_fname

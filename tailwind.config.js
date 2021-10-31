@@ -32,7 +32,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui']
+      headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
+      beautiful: ['"Grey Qo"', 'cursive', 'system-ui']
     },
     extend: {
       backgroundImage: (theme) => ({
@@ -46,7 +47,8 @@ module.exports = {
         250: '2.5'
       },
       fontSize: {
-        xxs: '.6rem'
+        xxs: '.6rem',
+        playername: '2vw'
       },
       boxShadow: {
         schedule: '0 0 16px 0 rgb(0 14 20 / 30%)',

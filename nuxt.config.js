@@ -18,6 +18,10 @@ export default {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap'
       }
     ]
   },
@@ -50,6 +54,10 @@ export default {
     provider: 'static'
   },
 
+  env: {
+    GRAPHQL_API_URL: process.env.GRAPHQL_API_URL || 'https://api.my-tohl.org/data/graphql'
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/apollo',
@@ -76,13 +84,8 @@ export default {
   },
 
   apollo: {
-    // Sets up the apollo client endpoints
     clientConfigs: {
-      default: {
-        httpEndpoint: process.env.GRAPHQL_API_URL || 'https://api.my-tohl.org/data/graphql',
-        authenticationType: 'Bearer',
-        tokenName: 'apollo-token'
-      }
+      default: '~/plugins/apollo.js'
     }
   },
 
