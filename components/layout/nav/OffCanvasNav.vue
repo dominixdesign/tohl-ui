@@ -1,11 +1,6 @@
 <template>
   <transition @after-enter="showNavBar = true">
-    <div
-      v-if="open"
-      class="fixed inset-0 flex z-40 lg:hidden"
-      role="dialog"
-      aria-modal="true"
-    >
+    <div v-if="open" class="fixed inset-0 flex z-40 sm:hidden" role="dialog" aria-modal="true">
       <transition
         enter-active-class="transition-opacity ease-linear duration-300"
         leave-active-class="transition-opacity ease-linear duration-300"
@@ -57,10 +52,7 @@
                 h-10
                 w-10
                 rounded-full
-                focus:outline-none
-                focus:ring-2
-                focus:ring-inset
-                focus:ring-white
+                focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white
               "
               @click="showNavBar = false"
             >
@@ -90,11 +82,7 @@
           <div class="z-10 mt-5 flex-1 h-0 overflow-y-auto">
             <layout-nav-inner :routeAction="hideNavBar" />
           </div>
-          <nuxt-img
-            class="opacity-20 fixed bottom-0 z-0"
-            src="/trophy.png"
-            sizes="sm:320px"
-          />
+          <nuxt-img class="opacity-20 fixed bottom-0 z-0" src="/trophy.png" sizes="sm:320px" />
         </div>
       </transition>
 

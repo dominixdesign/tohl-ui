@@ -1,85 +1,122 @@
 <template>
   <div
     v-if="player"
-    class="p-6 xl:px-12 mx-auto max-w-screen-2xl flex flex-col lg:flex-row md:gap-10"
+    class="
+      p-6
+      xl:px-12
+      mx-auto
+      grid grid-cols-1
+      sm:grid-cols-2
+      md:grid-cols-3
+      2xl:grid-cols-4
+      gap-10
+    "
   >
-    <aside class="py-6 h-52 lg:w-52">
-      <div class="rounded-lg overflow-hidden shadow-lg bg-white flex flex-row lg:flex-col">
-        <div
-          class="relative z-10"
-          style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3rem))"
+    <div class="overflow-hidden p-4 relative">
+      <div
+        class="flex gap-1 text-xs uppercase border-b"
+        :style="`border-color: ${player.seasondata.team.background};`"
+      >
+        <div>
+          {{ player.seasondata.position }}
+        </div>
+        <div>@</div>
+        <div :style="`color: ${player.seasondata.team.background};`">
+          {{ player.seasondata.team.teamsim }}
+        </div>
+      </div>
+      <h2
+        class="
+          flex-grow
+          text-left
+          leading-3
+          pt-2
+          overflow-hidden overflow-ellipsis
+          text-primary-700
+          dark:text-white
+          font-headline
+        "
+      >
+        <span class="first text">{{ player.display_fname }}</span
+        ><br />
+        <span class="font-bold text-3xl uppercase whitespace-nowrap">
+          {{ player.display_lname }}</span
         >
-          <img
-            class="w-full"
-            :src="`https://my-tohl.org/img/player/${player.id}.jpg`"
-            alt="Profile image"
-          />
-        </div>
-        <div class="relative flex justify-between items-center flex-row px-6 z-50 -mt-10">
-          <p class="flex items-center text-gray-400 font-bold">
-            <player-status :cd="parseInt(player.seasondata.cd)" :ij="player.seasondata.ij" />
-          </p>
-          <div
-            class="
-              py-4
-              w-16
-              h-16
-              leading-7
-              text-6xl text-center
-              font-black
-              rounded-full
-              font-headline
-              overflow-hidden
-            "
-            :style="`background-color: ${player.seasondata.team.background}; color: ${player.seasondata.team.foreground};`"
-          >
-            {{ player.seasondata.number }}
-          </div>
-        </div>
-        <div class="pt-6 pb-8 text-gray-600 text-center">
-          <div class="text-black tracking-wide">
-            <span class="text-4xl font-beautiful">
-              {{ player.display_fname.replace(' ', '&nbsp;') }}
-            </span>
-            <div
-              class="overflow-hidden uppercase text-bold"
-              :class="player.display_lname.length > 10 ? 'text-lg' : 'text-2xl'"
-            >
-              {{ player.display_lname.replace(' ', '&nbsp;') }}
-            </div>
-          </div>
-          <p class="text-gray-400 text-sm">{{ player.seasondata.position }}</p>
-        </div>
-
-        <div class="pb-10 text-center tracking-wide flex justify-around">
-          <div class="posts">
-            <p class="text-gray-400 text-sm">Größe</p>
-            <p class="text-lg font-semibold text-primary-300">{{ player.height }}cm</p>
-          </div>
-          <div class="followers">
-            <p class="text-gray-400 text-sm">Gewicht</p>
-            <p class="text-lg font-semibold text-primary-300">{{ player.weight }}kg</p>
-          </div>
-        </div>
-      </div>
-    </aside>
-    <section class="py-6">
-      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, vitae modi, cum
-        perspiciatis quisquam quasi nihil temporibus incidunt earum nulla fugit ipsa omnis at ut
-        itaque? Odit necessitatibus aliquid reiciendis.
-      </div>
-    </section>
+      </h2>
+    </div>
+    <div class="overflow-hidden">
+      <img class="h-20 bg-white" :src="`https://my-tohl.org/img/player/${player.id}.jpg`" />
+    </div>
+    <div class="overflow-hidden">Lorem ipsum</div>
+    <div class="overflow-hidden">
+      <player-radar
+        :chartdata="{
+          labels: ['IT', 'SP', 'ST', 'EN', 'DU', 'DI', 'SK', 'PA', 'PC', 'DF', 'SC', 'EX', 'LD'],
+          datasets: [
+            {
+              label: player.display_fname + ' ' + player.display_lname,
+              backgroundColor: $hexToRgbA(player.seasondata.team.background, 0.6),
+              data: [
+                player.seasondata.it,
+                player.seasondata.sp,
+                player.seasondata.st,
+                player.seasondata.en,
+                player.seasondata.du,
+                player.seasondata.di,
+                player.seasondata.sk,
+                player.seasondata.pa,
+                player.seasondata.pc,
+                player.seasondata.df < 25 ? undefined : player.seasondata.df,
+                player.seasondata.sc < 25 ? undefined : player.seasondata.sc,
+                player.seasondata.ex,
+                player.seasondata.ld
+              ]
+            }
+          ]
+        }"
+        :options="graphOptions"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import vue from 'vue'
 import gql from 'graphql-tag'
+import { mapState } from 'vuex'
 
 export default {
   async asyncData({ params: { season, playerid } }) {
-    console.log({ season, playerid })
     return { season, playerid }
+  },
+  computed: {
+    ...mapState({
+      colormode: (state) => state.layout.colormode
+    }),
+    graphOptions() {
+      return {
+        legend: {
+          display: false
+        },
+        scale: {
+          ticks: {
+            min: 0,
+            max: 100,
+            fontColor: this.colormode === 'dark' ? 'white' : 'black',
+            showLabelBackdrop: false
+          },
+          pointLabels: {
+            fontColor: this.colormode === 'dark' ? 'white' : 'black'
+          },
+          gridLines: {
+            color: this.colormode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+          },
+          angleLines: {
+            color: this.colormode === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)'
+          }
+        }
+      }
+    }
   },
   apollo: {
     player: {

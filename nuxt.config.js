@@ -35,6 +35,7 @@ export default {
     'plugins/clickOutsideDirective.js',
     'plugins/routeToStore.js',
     'plugins/virtualScroller.js',
+    'plugins/hex.js',
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
 

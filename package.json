@@ -15,6 +15,7 @@
     "@nuxtjs/color-mode": "^2.0.10",
     "@nuxtjs/pwa": "^3.3.5",
     "@tailwindcss/forms": "^0.3.2",
+    "chart.js": "2",
     "core-js": "^3.9.1",
     "graphql-tag": "^2.12.5",
     "jsonwebtoken": "^8.5.1",
@@ -25,6 +26,7 @@
     "nuxt-vuex-router-sync": "^0.0.3",
     "portal-vue": "^2.1.7",
     "tailwindcss-dark-mode": "^1.1.7",
+    "vue-chartjs": "^3.5.1",
     "vue-svg-loader": "^0.16.0",
     "vue-virtual-scroller": "^1.0.10",
     "vuex-persist": "^3.1.3"

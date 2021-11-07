@@ -5,7 +5,7 @@
       hidden
       bg-dizzle-light
       dark:bg-dizzle
-      lg:flex lg:flex-shrink-0
+      xl:flex xl:flex-shrink-0
       shadow
       border-r border-gray-700
     "
@@ -20,11 +20,7 @@
           <layout-nav-inner />
         </div>
       </div>
-      <nuxt-img
-        class="opacity-20 fixed bottom-0 z-0"
-        src="/trophy.png"
-        sizes="sm:320px"
-      />
+      <nuxt-img class="opacity-20 fixed bottom-0 z-0" src="/trophy.png" sizes="sm:320px" />
     </div>
   </div>
 </template>
