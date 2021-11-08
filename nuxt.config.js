@@ -22,6 +22,10 @@ export default {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap'
       }
     ]
   },

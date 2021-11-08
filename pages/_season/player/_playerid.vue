@@ -1,18 +1,31 @@
 <template>
-  <div
-    v-if="player"
-    class="
-      p-6
-      xl:px-12
-      mx-auto
-      grid grid-cols-1
-      sm:grid-cols-2
-      md:grid-cols-3
-      2xl:grid-cols-4
-      gap-10
-    "
-  >
-    <div class="overflow-hidden p-4 relative">
+  <div v-if="player" class="p-6 xl:px-12 mx-auto flex flex-col sm:flex-row gap-5 flex-wrap">
+    <div class="p-4 relative">
+      <div class="flex mt-2 -space-x-3">
+        <div
+          class="
+            w-20
+            h-20
+            shadow
+            rounded-full
+            overflow-hidden
+            content-center
+            leading-6xl
+            text-6xl text-center
+            font-college font-bold
+          "
+          :style="`background-color: ${player.seasondata.team.background}; color: ${player.seasondata.team.foreground};`"
+        >
+          {{ player.seasondata.number }}
+        </div>
+        <div
+          class="w-20 h-20 rounded-full shadow bg-top bg-cover"
+          :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
+        />
+        <div>
+          <team-logo-middle :teamid="player.seasondata.team.teamid" />
+        </div>
+      </div>
       <div
         class="flex gap-1 text-xs uppercase border-b"
         :style="`border-color: ${player.seasondata.team.background};`"
@@ -44,11 +57,45 @@
         >
       </h2>
     </div>
-    <div class="overflow-hidden">
-      <img class="h-20 bg-white" :src="`https://my-tohl.org/img/player/${player.id}.jpg`" />
+    <div class="overflow-hidden flex justify-center">
+      <div
+        v-for="(skilllist, title) in skills"
+        :key="title"
+        class="justify-center p-2 box-border w-25"
+      >
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th
+                colspan="2"
+                class="
+                  bg-primary-300
+                  dark:bg-primary-700 dark:text-gray-300
+                  shadow
+                  font-thin
+                  text-xs
+                  uppercase
+                  p-1
+                  rounded-sm
+                "
+              >
+                {{ title }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="skill in skilllist" :key="`${title}-${skill}`">
+              <td class="font-headline text-center">{{ skill }}</td>
+              <td class="font-headline text-center">
+                {{ player.seasondata[skill.toLowerCase()] }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="overflow-hidden">Lorem ipsum</div>
-    <div class="overflow-hidden">
+    <div class="overflow-hidden" style="max-width: 90vw">
       <player-radar
         :chartdata="{
           labels: ['IT', 'SP', 'ST', 'EN', 'DU', 'DI', 'SK', 'PA', 'PC', 'DF', 'SC', 'EX', 'LD'],
@@ -93,6 +140,13 @@ export default {
     ...mapState({
       colormode: (state) => state.layout.colormode
     }),
+    skills() {
+      return {
+        'Physical Skills': ['IT', 'ST', 'EN', 'DU', 'SP'],
+        'Hockey Skills': ['SK', 'PA', 'PC', 'DF', 'SC'],
+        'Personal Skills': ['DI', 'EX', 'LD']
+      }
+    },
     graphOptions() {
       return {
         legend: {

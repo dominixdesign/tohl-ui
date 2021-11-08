@@ -33,7 +33,8 @@ module.exports = {
   theme: {
     fontFamily: {
       headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
-      beautiful: ['"Grey Qo"', 'cursive', 'system-ui']
+      beautiful: ['"Grey Qo"', 'cursive', 'system-ui'],
+      college: ['"Chakra Petch"', 'sans-serif', 'system-ui']
     },
     extend: {
       backgroundImage: (theme) => ({
@@ -48,7 +49,12 @@ module.exports = {
       },
       fontSize: {
         xxs: '.6rem',
-        playername: '2vw'
+        playername: '2vw',
+        '10xl': '9rem'
+      },
+      lineHeight: {
+        '6xl': '5rem',
+        '10xl': '10rem'
       },
       boxShadow: {
         schedule: '0 0 16px 0 rgb(0 14 20 / 30%)',
