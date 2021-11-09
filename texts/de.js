@@ -37,6 +37,14 @@ export default {
     shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
     savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
   },
+  playersubs: {
+    career: 'Karrieredaten',
+    farm: 'Farmstatistik',
+    gamelog: 'Spiele',
+    trades: 'Trades',
+    development: 'Entwicklung',
+    awards: 'Erfolge'
+  },
   column: {
     number: '#',
     name: 'Spieler',

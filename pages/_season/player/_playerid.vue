@@ -1,128 +1,90 @@
 <template>
-  <div v-if="player" class="p-6 xl:px-12 mx-auto flex flex-col sm:flex-row gap-5 flex-wrap">
-    <div class="p-4 relative">
-      <div class="flex mt-2 -space-x-3">
-        <div
-          class="
-            w-20
-            h-20
-            shadow
-            rounded-full
-            overflow-hidden
-            content-center
-            leading-6xl
-            text-6xl text-center
-            font-college font-bold
-          "
-          :style="`background-color: ${player.seasondata.team.background}; color: ${player.seasondata.team.foreground};`"
-        >
-          {{ player.seasondata.number }}
+  <div v-if="player">
+    <div class="dark:bg-primary-700 bg-gray-200 shadow">
+      <div class="container mx-auto p-6 flex flex-col sm:flex-row">
+        <div class="w-full sm:w-40">
+          <div
+            class="w-40 h-40 mx-auto rounded-full shadow bg-top bg-cover"
+            :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
+          />
         </div>
-        <div
-          class="w-20 h-20 rounded-full shadow bg-top bg-cover"
-          :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
-        />
-        <div>
-          <team-logo-middle :teamid="player.seasondata.team.teamid" />
+        <div class="flex-grow sm:pl-4">
+          <h2 class="uppercase text-3xl font-bold font-college text-center sm:text-left">
+            {{ player.display_fname }} {{ player.display_lname }}
+          </h2>
+          <p class="text-center sm:text-left">
+            {{ player.seasondata.position }} | #{{ player.seasondata.number }} |
+            {{ player.seasondata.team.teamsim }}
+          </p>
+          <p class="text-center sm:text-left">
+            {{ player.height }}cm | {{ player.weight }}kg |
+            {{ player.hand === 'R' ? 'Schießt mit rechts' : 'Schießt mit links' }}
+          </p>
+          <p class="text-center sm:text-left">{{ player.seasondata.age }} Jahre alt</p>
+          <p class="text-center sm:text-left">
+            Gehalt: ${{ player.seasondata.salary }} ({{ player.seasondata.contract }} Jahr(e))
+          </p>
         </div>
-      </div>
-      <div
-        class="flex gap-1 text-xs uppercase border-b"
-        :style="`border-color: ${player.seasondata.team.background};`"
-      >
-        <div>
-          {{ player.seasondata.position }}
-        </div>
-        <div>@</div>
-        <div :style="`color: ${player.seasondata.team.background};`">
-          {{ player.seasondata.team.teamsim }}
+        <div class="w-40 hidden md:block">
+          <team-logo-big :teamid="player.seasondata.team.teamid" />
         </div>
       </div>
-      <h2
-        class="
-          flex-grow
-          text-left
-          leading-3
-          pt-2
-          overflow-hidden overflow-ellipsis
-          text-primary-700
-          dark:text-white
-          font-headline
-        "
-      >
-        <span class="first text">{{ player.display_fname }}</span
-        ><br />
-        <span class="font-bold text-3xl uppercase whitespace-nowrap">
-          {{ player.display_lname }}</span
-        >
-      </h2>
     </div>
-    <div class="overflow-hidden flex justify-center">
-      <div
-        v-for="(skilllist, title) in skills"
-        :key="title"
-        class="justify-center p-2 box-border w-25"
-      >
-        <table class="w-full">
-          <thead>
-            <tr>
-              <th
-                colspan="2"
+    <div class="border-b border-secondary-500 py-4">
+      <table class="mx-auto border-collapse text-primary-900 dark:text-white">
+        <tbody>
+          <tr>
+            <td class="text-5xl font-bold" rowspan="2">{{ player.seasondata.ov }}</td>
+            <th v-for="skill in skills" :key="skill" class="uppercase">
+              {{ skill }}
+            </th>
+          </tr>
+          <tr>
+            <td v-for="skill in skills" :key="skill" class="uppercase">
+              {{ player.seasondata[skill] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
+        <div class="block">
+          <div class="border-b border-gray-200 px-2">
+            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+              <nuxt-link
+                v-for="subpage in ['career', 'farm', 'gamelog', 'trades', 'development', 'awards']"
+                :key="subpage"
+                :to="
+                  subpage === 'career'
+                    ? `/${season}/player/${playerid}/`
+                    : `/${season}/player/${playerid}/${subpage}`
+                "
                 class="
-                  bg-primary-300
-                  dark:bg-primary-700 dark:text-gray-300
-                  shadow
-                  font-thin
-                  text-xs
-                  uppercase
-                  p-1
-                  rounded-sm
+                  border-transparent
+                  hover:text-primary-200 hover:border-primary-200
+                  whitespace-nowrap
+                  py-4
+                  px-1
+                  border-b-2
+                  font-medium
+                  text-sm
+                "
+                :class="
+                  subpage === partition
+                    ? 'text-primary-200 border-primary-200 font-bold'
+                    : 'text-primary-400'
                 "
               >
-                {{ title }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="skill in skilllist" :key="`${title}-${skill}`">
-              <td class="font-headline text-center">{{ skill }}</td>
-              <td class="font-headline text-center">
-                {{ player.seasondata[skill.toLowerCase()] }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                {{ $t(`playersubs.${subpage}`) }}
+              </nuxt-link>
+            </nav>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="overflow-hidden">Lorem ipsum</div>
-    <div class="overflow-hidden" style="max-width: 90vw">
-      <player-radar
-        :chartdata="{
-          labels: ['IT', 'SP', 'ST', 'EN', 'DU', 'DI', 'SK', 'PA', 'PC', 'DF', 'SC', 'EX', 'LD'],
-          datasets: [
-            {
-              label: player.display_fname + ' ' + player.display_lname,
-              backgroundColor: $hexToRgbA(player.seasondata.team.background, 0.6),
-              data: [
-                player.seasondata.it,
-                player.seasondata.sp,
-                player.seasondata.st,
-                player.seasondata.en,
-                player.seasondata.du,
-                player.seasondata.di,
-                player.seasondata.sk,
-                player.seasondata.pa,
-                player.seasondata.pc,
-                player.seasondata.df < 25 ? undefined : player.seasondata.df,
-                player.seasondata.sc < 25 ? undefined : player.seasondata.sc,
-                player.seasondata.ex,
-                player.seasondata.ld
-              ]
-            }
-          ]
-        }"
-        :options="graphOptions"
-      />
+    <div>
+      <nuxt-child />
     </div>
   </div>
 </template>
@@ -133,19 +95,15 @@ import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
 export default {
-  async asyncData({ params: { season, playerid } }) {
-    return { season, playerid }
+  async asyncData({ params: { season, playerid, partition } }) {
+    return { season, playerid, partition }
   },
   computed: {
     ...mapState({
       colormode: (state) => state.layout.colormode
     }),
     skills() {
-      return {
-        'Physical Skills': ['IT', 'ST', 'EN', 'DU', 'SP'],
-        'Hockey Skills': ['SK', 'PA', 'PC', 'DF', 'SC'],
-        'Personal Skills': ['DI', 'EX', 'LD']
-      }
+      return ['it', 'sp', 'st', 'en', 'du', 'di', 'sk', 'pa', 'pc', 'df', 'sc', 'ex', 'ld']
     },
     graphOptions() {
       return {
@@ -183,6 +141,7 @@ export default {
             display_lname
             height
             weight
+            hand
             lname
             seasondata(season: $season) {
               team {
@@ -233,4 +192,29 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="postcss" scoped>
+td,
+th {
+  @apply font-headline;
+  @apply py-2;
+  @apply px-2;
+  @apply border;
+  @apply border-primary-600;
+}
+@media (min-width: 640px) {
+  td,
+  th {
+    @apply px-3;
+  }
+}
+th {
+  @apply bg-primary-600;
+  @apply text-white;
+}
+td {
+  @apply py-1;
+}
+td:hover {
+  @apply bg-gray-600;
+}
+</style>
