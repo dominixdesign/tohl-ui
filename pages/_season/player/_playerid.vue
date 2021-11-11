@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="border-b border-secondary-500 py-4">
+    <div class="skilltable border-b border-secondary-500 py-4">
       <table class="mx-auto border-collapse text-primary-900 dark:text-white">
         <tbody>
           <tr>
@@ -51,7 +51,7 @@
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">
           <div class="border-b border-gray-200 px-2">
-            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <nav class="container mx-auto -mb-px flex space-x-8" aria-label="Tabs">
               <nuxt-link
                 v-for="subpage in ['career', 'farm', 'gamelog', 'trades', 'development', 'awards']"
                 :key="subpage"
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="container mx-auto pt-4">
       <nuxt-child />
     </div>
   </div>
@@ -193,8 +193,8 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-td,
-th {
+.skilltable td,
+.skilltable th {
   @apply font-headline;
   @apply py-2;
   @apply px-2;
@@ -202,19 +202,19 @@ th {
   @apply border-primary-600;
 }
 @media (min-width: 640px) {
-  td,
-  th {
+  .skilltable td,
+  .skilltable th {
     @apply px-3;
   }
 }
-th {
+.skilltable th {
   @apply bg-primary-600;
   @apply text-white;
 }
-td {
+.skilltable td {
   @apply py-1;
 }
-td:hover {
+.skilltable td:hover {
   @apply bg-gray-600;
 }
 </style>
