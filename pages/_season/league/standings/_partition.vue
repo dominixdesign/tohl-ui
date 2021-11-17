@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
+  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl">
     <div class="flex flex-col space-y-6">
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">

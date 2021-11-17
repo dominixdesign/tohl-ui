@@ -18,7 +18,7 @@
         hover:bg-secondary-600 hover:border-secondary-700
       "
     >
-      <span>Saison: </span>
+      <span class="hidden sm:block">Saison: </span>
       <span class="mx-1 font-bold">{{ season }}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

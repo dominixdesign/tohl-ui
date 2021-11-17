@@ -1,5 +1,5 @@
 export default {
-  league: 'Die Liga',
+  league: 'Liga',
   stats: 'Statistiken',
   standings: 'Tabelle',
   conferences: 'Conferences',

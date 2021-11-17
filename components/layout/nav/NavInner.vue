@@ -6,6 +6,7 @@
       :entry="entry"
       :opensub="opensub"
       :index="index"
+      :routeAction="routeAction"
       :handler="{ openSubmenu, closeSubmenu }"
     />
   </nav>

@@ -13,7 +13,7 @@
     <LayoutNavOffCanvasNav :open="openNav" :handler-show="showNav" :handler-hide="hideNav" />
     <LayoutNavStaticNav />
 
-    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+    <div class="flex flex-col flex-1 overflow-hidden">
       <div
         class="
           relative

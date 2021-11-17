@@ -79,6 +79,7 @@ export default {
     entry: Object,
     opensub: Number,
     index: Number,
+    routeAction: Function,
     handler: Object
   },
   computed: {

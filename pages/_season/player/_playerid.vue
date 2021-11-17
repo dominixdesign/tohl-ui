@@ -30,18 +30,20 @@
         </div>
       </div>
     </div>
-    <div class="skilltable border-b border-secondary-500 py-4">
+    <div class="skilltable border-b border-secondary-500 py-4 overflow-y-auto px-3">
       <table class="mx-auto border-collapse text-primary-900 dark:text-white">
         <tbody>
           <tr>
-            <td class="text-5xl font-bold" rowspan="2">{{ player.seasondata.ov }}</td>
+            <td class="text-5xl font-bold hidden sm:table-cell" rowspan="2">
+              {{ player.seasondata.ov }}
+            </td>
             <th v-for="skill in skills" :key="skill" class="uppercase">
               {{ skill }}
             </th>
           </tr>
           <tr>
             <td v-for="skill in skills" :key="skill" class="uppercase">
-              {{ player.seasondata[skill] }}
+              {{ player.seasondata[skill] > 0 ? player.seasondata[skill] : '&mdash;' }}
             </td>
           </tr>
         </tbody>
@@ -197,7 +199,7 @@ export default {
 .skilltable th {
   @apply font-headline;
   @apply py-2;
-  @apply px-2;
+  @apply px-1;
   @apply border;
   @apply border-primary-600;
 }

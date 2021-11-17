@@ -31,14 +31,13 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     'plugins/auth.js',
     'plugins/clickOutsideDirective.js',
     'plugins/routeToStore.js',
-    'plugins/virtualScroller.js',
     'plugins/hex.js',
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
@@ -108,17 +107,5 @@ export default {
   buildDir: 'dist',
   build: {
     publicPath: '/nuxt/'
-  },
-
-  router: {
-    scrollBehavior(to) {
-      if (to.hash) {
-        return window.scrollTo({
-          top: document.querySelector(to.hash).offsetTop + window.innerHeight,
-          behavior: 'smooth'
-        })
-      }
-      return window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
   }
 }
