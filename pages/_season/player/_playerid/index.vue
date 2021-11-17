@@ -12,7 +12,8 @@
       <tbody v-if="playerstats">
         <tr v-for="stat of playerstats" :key="`${stat.season}-${stat.team.teamid}`">
           <td v-for="col of cols" :key="col">
-            {{ stat[col] }}
+            <span v-if="col === 'team'"><team-logo-inline :teamid="stat.team.teamid" /></span>
+            <span v-else>{{ stat[col] }}</span>
           </td>
         </tr>
       </tbody>

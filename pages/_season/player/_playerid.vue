@@ -20,7 +20,14 @@
             {{ player.height }}cm | {{ player.weight }}kg |
             {{ player.hand === 'R' ? 'Schießt mit rechts' : 'Schießt mit links' }}
           </p>
-          <p class="text-center sm:text-left">{{ player.seasondata.age }} Jahre alt</p>
+          <p class="text-center sm:text-left">
+            <span>{{ player.seasondata.age }} Jahre alt |</span>
+            <country-flag
+              :country="player.nation"
+              size="normal"
+              style="margin-bottom: -14px; margin-left: -12px"
+            />
+          </p>
           <p class="text-center sm:text-left">
             Gehalt: ${{ player.seasondata.salary }} ({{ player.seasondata.contract }} Jahr(e))
           </p>
@@ -92,6 +99,8 @@
 </template>
 
 <script>
+import CountryFlag from 'vue-country-flag'
+
 import vue from 'vue'
 import gql from 'graphql-tag'
 import { mapState } from 'vuex'
@@ -99,6 +108,9 @@ import { mapState } from 'vuex'
 export default {
   async asyncData({ params: { season, playerid, partition } }) {
     return { season, playerid, partition }
+  },
+  components: {
+    CountryFlag
   },
   computed: {
     ...mapState({
@@ -145,6 +157,7 @@ export default {
             weight
             hand
             lname
+            nation
             seasondata(season: $season) {
               team {
                 teamsim
