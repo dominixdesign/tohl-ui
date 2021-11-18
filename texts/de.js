@@ -47,6 +47,7 @@ export default {
   },
   abbr: {
     season: 'Sai.',
+    post: 'Playoffs',
     team: 'Team',
     games: 'Sp',
     goals: 'T',
