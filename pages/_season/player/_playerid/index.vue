@@ -1,10 +1,10 @@
 <template>
   <div class="statstable">
-    <h3 class="font-college font-bold text-xl">Career</h3>
-    <table>
+    <h3 class="font-college font-bold text-xl mx-auto">Career</h3>
+    <table class="mx-auto hidden md:table">
       <thead>
         <tr>
-          <th v-for="col of cols" :key="col">
+          <th v-for="col of [...cols['*'], ...cols['reg'], 'post', ...cols['plf']]" :key="col">
             {{ $t(`abbr.${col.split('.')[1] || col}`) }}
           </th>
         </tr>
@@ -12,7 +12,7 @@
       <tbody v-if="seasons">
         <tr v-for="(stat, name, index) of seasons" :key="name">
           <td
-            v-for="col of cols"
+            v-for="col of [...cols['*'], ...cols['reg'], 'post', ...cols['plf']]"
             :key="`${stat.reg.season}${stat.reg.team.teamid}${col}`"
             :class="['post', 'team'].indexOf(col) >= 0 ? '!text-left' : ''"
           >
@@ -32,6 +32,85 @@
         </tr>
       </tbody>
     </table>
+    <div class="md:hidden w-full">
+      <div class="flex gap-2">
+        <div>Regular Season</div>
+        <button
+          @click="showReg = !showReg"
+          type="button"
+          class="
+            bg-gray-200
+            relative
+            inline-flex
+            flex-shrink-0
+            h-6
+            w-11
+            border-2 border-transparent
+            rounded-full
+            cursor-pointer
+            transition-colors
+            ease-in-out
+            duration-200
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+          "
+          role="switch"
+          aria-checked="false"
+        >
+          <span class="sr-only">Playoff switch</span>
+          <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+          <span
+            aria-hidden="true"
+            class="
+              pointer-events-none
+              inline-block
+              h-5
+              w-5
+              rounded-full
+              bg-primary-500
+              shadow
+              transform
+              ring-0
+              transition
+              ease-in-out
+              duration-200
+            "
+            :class="showReg ? 'translate-x-0' : 'translate-x-5'"
+          ></span>
+        </button>
+        <div>Playoffs</div>
+      </div>
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th v-for="col of [...cols['*'], ...cols[showReg ? 'reg' : 'plf']]" :key="col">
+              {{ $t(`abbr.${col.split('.')[1] || col}`) }}
+            </th>
+          </tr>
+        </thead>
+        <tbody v-if="seasons">
+          <tr v-for="(stat, name, index) of seasons" :key="name">
+            <td
+              v-for="col of [...cols['*'], ...cols[showReg ? 'reg' : 'plf']]"
+              :key="`${stat.reg.season}${stat.reg.team.teamid}${col}`"
+              :class="['post', 'team'].indexOf(col) >= 0 ? '!text-left' : ''"
+            >
+              <span v-if="col === 'season'">{{
+                !Object.keys(seasons)[index - 1] ||
+                (Object.keys(seasons)[index - 1] &&
+                  Object.keys(seasons)[index - 1].substr(0, 6) !== name.substr(0, 6))
+                  ? name.substr(0, 6)
+                  : ''
+              }}</span>
+              <span v-else-if="col === 'team'" class="uppercase">
+                {{ stat.reg.team.teamid }}
+              </span>
+              <span v-else-if="col === 'post'">|</span>
+              <span v-else>{{ get(stat, col, '&mdash;') }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -46,24 +125,13 @@ export default {
   },
   data() {
     return {
+      showReg: true,
       seasons: {},
-      cols: [
-        'season',
-        'team',
-        'reg.games',
-        'reg.goals',
-        'reg.assists',
-        'reg.points',
-        'reg.pim',
-        'reg.plusminus',
-        'post',
-        'plf.games',
-        'plf.goals',
-        'plf.assists',
-        'plf.points',
-        'plf.pim',
-        'plf.plusminus'
-      ]
+      cols: {
+        '*': ['season', 'team'],
+        reg: ['reg.games', 'reg.goals', 'reg.assists', 'reg.points', 'reg.pim', 'reg.plusminus'],
+        plf: ['plf.games', 'plf.goals', 'plf.assists', 'plf.points', 'plf.pim', 'plf.plusminus']
+      }
     }
   },
   watch: {

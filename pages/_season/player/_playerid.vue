@@ -56,7 +56,7 @@
         </tbody>
       </table>
     </div>
-    <div>
+    <div class="w-full">
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">
           <div class="border-b border-gray-200 px-2">
@@ -92,7 +92,7 @@
         </div>
       </div>
     </div>
-    <div class="container mx-auto pt-4">
+    <div class="pt-4">
       <nuxt-child />
     </div>
   </div>
