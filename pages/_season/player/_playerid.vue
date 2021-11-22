@@ -1,6 +1,10 @@
 <template>
   <div v-if="player">
-    <div class="dark:bg-primary-700 bg-gray-200 shadow">
+    <div class="shadow relative isolate overflow-hidden">
+      <team-bg
+        :foreground="player.seasondata.team.foreground"
+        :background="player.seasondata.team.background"
+      />
       <div class="container mx-auto p-6 flex flex-col sm:flex-row">
         <div class="w-full sm:w-40">
           <div
@@ -8,19 +12,30 @@
             :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
           />
         </div>
-        <div class="flex-grow sm:pl-4">
-          <h2 class="uppercase text-3xl font-bold font-college text-center sm:text-left">
+        <div class="flex-grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
+          <h2
+            class="
+              uppercase
+              text-3xl
+              font-bold font-college
+              text-center
+              sm:text-left
+              inline-block
+              px-2
+              bg-gray-50 bg-opacity-40
+            "
+          >
             {{ player.display_fname }} {{ player.display_lname }}
           </h2>
-          <p class="text-center sm:text-left">
+          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
             {{ player.seasondata.position }} | #{{ player.seasondata.number }} |
             {{ player.seasondata.team.teamsim }}
           </p>
-          <p class="text-center sm:text-left">
+          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
             {{ player.height }}cm | {{ player.weight }}kg |
             {{ player.hand === 'R' ? 'Schießt mit rechts' : 'Schießt mit links' }}
           </p>
-          <p class="text-center sm:text-left">
+          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
             <span>{{ player.seasondata.age }} Jahre alt |</span>
             <country-flag
               :country="player.nation"
@@ -28,7 +43,7 @@
               style="margin-bottom: -14px; margin-left: -12px"
             />
           </p>
-          <p class="text-center sm:text-left">
+          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
             Gehalt: ${{ player.seasondata.salary }} ({{ player.seasondata.contract }} Jahr(e))
           </p>
         </div>
