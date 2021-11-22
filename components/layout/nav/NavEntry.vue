@@ -5,7 +5,17 @@
       v-if="entry.children"
       @click="submenuOpen ? handler.closeSubmenu() : handler.openSubmenu(index)"
       type="button"
-      class="group w-full flex items-center pr-2 py-2 text-sm font-medium"
+      class="
+        bg-gray-100
+        text-gray-900
+        rounded-md
+        py-2
+        px-3
+        inline-flex
+        items-center
+        text-sm
+        font-medium
+      "
       :class="
         isActiveElement
           ? 'bg-secondary-800 text-white'
@@ -57,7 +67,17 @@
       v-if="!entry.children"
       :to="getPath(entry.path)"
       @click.native="triggerRoute"
-      class="group flex items-center pl-7 pr-2 py-2 text-sm font-medium rounded-sm"
+      class="
+        bg-gray-100
+        text-gray-900
+        rounded-md
+        py-2
+        px-3
+        inline-flex
+        items-center
+        text-sm
+        font-medium
+      "
       :class="
         isActiveElement
           ? 'bg-secondary-800 text-white'

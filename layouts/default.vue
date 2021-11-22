@@ -1,77 +1,369 @@
 <template>
-  <div
-    class="
-      h-screen
-      flex
-      overflow-hidden
-      bg-gray-50
-      dark:bg-gray-900
-      text-gray-900
-      dark:text-gray-200
-    "
-  >
-    <LayoutNavOffCanvasNav :open="openNav" :handler-show="showNav" :handler-hide="hideNav" />
-    <LayoutNavStaticNav />
-
-    <div class="flex flex-col flex-1 overflow-hidden">
-      <div
-        class="
-          relative
-          z-10
-          flex-shrink-0 flex
-          h-16
-          mb-0
-          bg-dizzle-light
-          dark:bg-dizzle
-          shadow
-          border-b-8 border-secondary-500 border-opacity-80
-        "
-      >
-        <LayoutBreadcrumb />
-        <button
-          type="button"
-          class="
-            px-4
-            border-r border-gray-500
-            text-gray-500
-            focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500
-            lg:hidden
-          "
-          @click="showNav"
-        >
-          <span class="sr-only">Open sidebar</span>
-          <!-- Heroicon name: outline/menu-alt-2 -->
-          <svg
-            class="h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
-        </button>
-        <div class="flex-1 px-4 flex justify-between">
-          <div class="flex-1 flex">
-            <layout-logo class="h-6 m-auto mx-auto my-5 lg:hidden" />
+  <div class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-full">
+    <header class="bg-dizzle-light dark:bg-dizzle shadow">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+        <div class="relative h-16 flex justify-between">
+          <div class="relative z-10 px-2 flex lg:px-0">
+            <div class="flex-shrink-0 flex items-center">
+              <layout-logo class="h-8" />
+            </div>
           </div>
-          <div class="ml-4 flex items-center lg:ml-6 transform-none lg:transform -rotate-1">
+          <div
+            class="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0"
+          >
+            <div class="w-full sm:max-w-xs">
+              <label for="search" class="sr-only">Search</label>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                  <!-- Heroicon name: solid/search -->
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <input
+                  id="search"
+                  name="search"
+                  class="
+                    block
+                    w-full
+                    bg-white
+                    border border-gray-300
+                    rounded-md
+                    py-2
+                    pl-10
+                    pr-3
+                    text-sm
+                    placeholder-gray-500
+                    focus:outline-none
+                    focus:text-gray-900
+                    focus:placeholder-gray-400
+                    focus:ring-1
+                    focus:ring-indigo-500
+                    focus:border-indigo-500
+                    sm:text-sm
+                  "
+                  placeholder="Search"
+                  type="search"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 flex items-center lg:hidden">
+            <!-- Mobile menu button -->
+            <button
+              type="button"
+              class="
+                rounded-md
+                p-2
+                inline-flex
+                items-center
+                justify-center
+                text-gray-400
+                hover:bg-gray-100 hover:text-gray-500
+                focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500
+              "
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Open menu</span>
+              <!--
+            Icon when menu is closed.
+
+            Heroicon name: outline/menu
+
+            Menu open: "hidden", Menu closed: "block"
+          -->
+              <svg
+                class="block h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <!--
+            Icon when menu is open.
+
+            Heroicon name: outline/x
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+              <svg
+                class="hidden h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
             <layout-elements-season-button class="self-center" />
             <LayoutNavProfileDropdown />
           </div>
         </div>
+        <LayoutNavStaticNav />
+        <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900"
+        <nav class="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
+          <a
+            href="#"
+            class="
+              bg-gray-100
+              text-gray-900
+              rounded-md
+              py-2
+              px-3
+              inline-flex
+              items-center
+              text-sm
+              font-medium
+            "
+            aria-current="page"
+          >
+            Dashboard
+          </a>
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              rounded-md
+              py-2
+              px-3
+              inline-flex
+              items-center
+              text-sm
+              font-medium
+            "
+          >
+            Team
+          </a>
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              rounded-md
+              py-2
+              px-3
+              inline-flex
+              items-center
+              text-sm
+              font-medium
+            "
+          >
+            Projects
+          </a>
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              rounded-md
+              py-2
+              px-3
+              inline-flex
+              items-center
+              text-sm
+              font-medium
+            "
+          >
+            Calendar
+          </a>
+        </nav>
+         -->
       </div>
 
-      <main class="flex-1 relative overflow-y-auto focus:outline-none">
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <nav class="lg:hidden" aria-label="Global" id="mobile-menu">
+        <div class="pt-2 pb-3 px-2 space-y-1">
+          <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
+          <a
+            href="#"
+            class="bg-gray-100 text-gray-900 block rounded-md py-2 px-3 text-base font-medium"
+            aria-current="page"
+            >Dashboard</a
+          >
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              block
+              rounded-md
+              py-2
+              px-3
+              text-base
+              font-medium
+            "
+            >Team</a
+          >
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              block
+              rounded-md
+              py-2
+              px-3
+              text-base
+              font-medium
+            "
+            >Projects</a
+          >
+
+          <a
+            href="#"
+            class="
+              text-gray-900
+              hover:bg-gray-50 hover:text-gray-900
+              block
+              rounded-md
+              py-2
+              px-3
+              text-base
+              font-medium
+            "
+            >Calendar</a
+          >
+        </div>
+        <div class="border-t border-gray-200 pt-4 pb-3">
+          <div class="px-4 flex items-center">
+            <div class="flex-shrink-0">
+              <img
+                class="h-10 w-10 rounded-full"
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt=""
+              />
+            </div>
+            <div class="ml-3">
+              <div class="text-base font-medium text-gray-800">Tom Cook</div>
+              <div class="text-sm font-medium text-gray-500">tom@example.com</div>
+            </div>
+            <button
+              type="button"
+              class="
+                ml-auto
+                flex-shrink-0
+                bg-white
+                rounded-full
+                p-1
+                text-gray-400
+                hover:text-gray-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+              "
+            >
+              <span class="sr-only">View notifications</span>
+              <!-- Heroicon name: outline/bell -->
+              <svg
+                class="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-3 px-2 space-y-1">
+            <a
+              href="#"
+              class="
+                block
+                rounded-md
+                py-2
+                px-3
+                text-base
+                font-medium
+                text-gray-500
+                hover:bg-gray-50 hover:text-gray-900
+              "
+              >Your Profile</a
+            >
+
+            <a
+              href="#"
+              class="
+                block
+                rounded-md
+                py-2
+                px-3
+                text-base
+                font-medium
+                text-gray-500
+                hover:bg-gray-50 hover:text-gray-900
+              "
+              >Settings</a
+            >
+
+            <a
+              href="#"
+              class="
+                block
+                rounded-md
+                py-2
+                px-3
+                text-base
+                font-medium
+                text-gray-500
+                hover:bg-gray-50 hover:text-gray-900
+              "
+              >Sign out</a
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
+    <header class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-lg leading-6 font-semibold text-gray-900">Dashboard</h1>
+      </div>
+    </header>
+    <main>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Replace with your content -->
         <Nuxt />
-      </main>
-    </div>
+        <!-- /End replace -->
+      </div>
+    </main>
     <portal-target name="modals" />
     <portal-target name="slide" />
   </div>
