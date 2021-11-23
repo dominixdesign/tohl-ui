@@ -1,5 +1,5 @@
 <template>
-  <nav class="hidden lg:py-2 lg:flex lg:flex-row lg:space-x-8" aria-label="Global">
+  <nav class="hidden lg:py-2 lg:flex lg:flex-row lg:space-x-2 relative !pb-10" aria-label="Global">
     <layout-nav-entry
       v-for="(entry, index) in nav"
       :key="entry.path"

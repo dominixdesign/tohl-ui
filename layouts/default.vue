@@ -416,3 +416,12 @@ export default {
   }
 }
 </script>
+
+<style>
+body,
+html,
+#__nuxt,
+#__layout {
+  @apply h-full;
+}
+</style>
