@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { template } from 'lodash-es'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'NavInner',
@@ -26,17 +27,47 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      season: 'navigation/season'
+    }),
     ...mapState({
       nav: (state) => state.navigation.mainNav,
       active: (state) => state.route.path
     })
   },
+  watch: {
+    active: {
+      immediate: true,
+      handler(newActive) {
+        let openMenu = null
+        this.nav?.forEach((n, index) =>
+          n.children?.forEach((c) => {
+            if (this.isActiveElement(c.path, newActive)) {
+              openMenu = index
+            }
+          })
+        )
+        this.opensub = openMenu
+      }
+    }
+  },
   methods: {
+    isActiveElement(path, active) {
+      const id = path.split('/').pop()
+      if (id === '') {
+        return active === path
+      }
+      return active.split('/').includes(id)
+    },
     openSubmenu(key) {
       this.opensub = key
     },
     closeSubmenu() {
       this.opensub = null
+    },
+    getPath(path) {
+      const compiled = template(path)
+      return compiled({ season: this.season })
     }
   }
 }

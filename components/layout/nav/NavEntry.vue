@@ -34,7 +34,7 @@
       leave-to-class="opacity-0"
     >
       <div
-        class="space-x-1 absolute border-t border-gray-300 dark:border-gray-800 left-0 flex z-40"
+        class="space-x-2 absolute left-0 bottom-0 flex z-40"
         :id="`sub-menu-1${entry.title}`"
         v-if="submenuOpen"
       >
@@ -43,20 +43,11 @@
           :key="sub.title"
           :to="getPath(sub.path)"
           @click.native="triggerRoute"
-          class="
-            group
-            p-2
-            text-sm
-            font-medium
-            whitespace-nowrap
-            border-dashed border-r border-gray-300
-            dark:border-gray-800
-            last:border-0
-          "
+          class="group p-2 text-sm font-medium whitespace-nowrap"
           :class="
             isActiveSubElement(sub.path)
-              ? 'bg-secondary-800 text-white'
-              : 'text-gray-600 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:scale-105 transition-transform'
+              ? 'bg-secondary-800 text-gray-200'
+              : 'text-gray-600 dark:text-gray-400 hover:text-white dark:hover:text-white hover:bg-secondary-600'
           "
         >
           {{ sub.title.replace(' ', '&nbsp;') }}
@@ -112,7 +103,6 @@ export default {
   },
   methods: {
     triggerRoute() {
-      this.handler.closeSubmenu()
       if (typeof this.routeAction === 'function') {
         this.routeAction()
       }
