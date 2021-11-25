@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl">
+  <div class="py-2 max-w-screen-2xl">
     <div class="flex flex-col space-y-6">
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">
@@ -36,12 +36,14 @@
           </div>
         </div>
       </div>
-      <div
-        v-for="table in tables"
-        :key="table.title"
-        class="bg-gray-100 dark:bg-primary-800 xl:shadow"
-      >
-        <league-standings :season="season" :title="table.title" :filter="table.filter" />
+      <div class="grid-cols-1 xl:grid-cols-2 gap-3" :class="tables.length > 1 ? 'grid' : ''">
+        <div
+          v-for="table in tables"
+          :key="table.title"
+          class="bg-gray-100 dark:bg-primary-800 xl:shadow"
+        >
+          <league-standings :season="season" :title="table.title" :filter="table.filter" />
+        </div>
       </div>
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow p-6" v-if="!$apollo.loading">
         <h3 class="font-serif font-headline font-extralight uppercase pb-4 text-xl">Legende</h3>

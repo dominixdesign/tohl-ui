@@ -19,16 +19,16 @@
             {{ title }}
           </h3>
         </th>
-        <th scope="col" class="px-2 xl:px-4 py-3">GP</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">W</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">L</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">T</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">P</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">GF</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">GA</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">DF</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">Win%</th>
-        <th scope="col" class="px-2 xl:px-4 py-3">Streak</th>
+        <th scope="col" class="px-2 py-3">GP</th>
+        <th scope="col" class="px-2 py-3">W</th>
+        <th scope="col" class="px-2 py-3">L</th>
+        <th scope="col" class="px-2 py-3">T</th>
+        <th scope="col" class="px-2 py-3">P</th>
+        <th scope="col" class="px-2 py-3">GF</th>
+        <th scope="col" class="px-2 py-3">GA</th>
+        <th scope="col" class="px-2 py-3">DF</th>
+        <th scope="col" class="px-2 py-3">Win%</th>
+        <th scope="col" class="px-2 py-3">Strk</th>
       </tr>
     </thead>
     <tbody>
@@ -45,15 +45,15 @@
         :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
       >
         <!-- eslint-enable -->
-        <td class="px-2 xl:px-4 py-1">
+        <td class="px-2 py-1">
           <div
             class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
           />
         </td>
-        <td class="px-2 xl:px-4 py-1">
+        <td class="px-2 py-1">
           <div class="bg-gray-200 dark:bg-primary-700 w-40 h-6 animate-pulse rounded-sm" />
         </td>
-        <td v-for="c in 10" :key="`standins-${n}-${c}`" class="px-2 xl:px-4 py-1">
+        <td v-for="c in 10" :key="`standins-${n}-${c}`" class="px-2 py-1">
           <div
             class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
           />
@@ -69,44 +69,35 @@
           {{ index + 1 }}.
         </td>
         <td
-          class="
-            px-3
-            md:px-6
-            py-1
-            whitespace-nowrap
-            text-left
-            font-medium
-            text-gray-900
-            dark:text-gray-200
-          "
+          class="px-3 py-1 whitespace-nowrap text-left font-medium text-gray-900 dark:text-gray-200"
         >
           <team-small :team="row.team" />
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.games }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.wins }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.loss }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.ties }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.points }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.goalsfor }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.goalsagainst }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.diff }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{
             Number(row.winp).toLocaleString(undefined, {
               style: 'percent',
@@ -114,7 +105,7 @@
             })
           }}
         </td>
-        <td class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
+        <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.streak }}
         </td>
       </tr>
