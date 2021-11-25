@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-full">
     <header class="bg-dizzle-light dark:bg-dizzle shadow">
-      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8">
         <div class="relative h-16 flex justify-between">
           <div class="relative z-10 px-2 flex lg:px-0">
             <div class="flex-shrink-0 flex items-center">
@@ -363,6 +363,7 @@
         <Nuxt />
         <!-- /End replace -->
       </div>
+      <nuxt-img class="opacity-20 fixed bottom-0 z-0" src="/trophy.png" sizes="sm:320px" />
     </main>
     <portal-target name="modals" />
     <portal-target name="slide" />
