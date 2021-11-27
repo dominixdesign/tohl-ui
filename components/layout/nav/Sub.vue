@@ -20,17 +20,16 @@
         class="
           group
           pt-2
-          pb-2
           px-2
           text-sm
           font-medium
           whitespace-nowrap
-          border-0
-          hover:text-white hover:bg-secondary-700
+          border-b-8 border-transparent
+          hover:text-white hover:bg-secondary-700 hover:border-secondary-700
         "
         :class="
           isActiveSubElement(sub.path)
-            ? 'border-secondary-700 pb-0 border-b-8'
+            ? 'border-secondary-700'
             : 'border-transparent text-gray-600 dark:text-gray-400 '
         "
       >
