@@ -203,4 +203,8 @@ html,
   transform: rotate(45deg);
   transform-origin: 185% -5% 0;
 }
+
+body.mobilemenu-open {
+  overflow: hidden;
+}
 </style>
