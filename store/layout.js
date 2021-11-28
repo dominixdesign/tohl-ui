@@ -7,6 +7,7 @@ export const state = () => {
   }
   return {
     sidebarOpen: false,
+    navOpen: false,
     profileOpen: false,
     colormode
   }
@@ -18,6 +19,12 @@ export const mutations = {
   },
   closeSidebar(state) {
     state.sidebarOpen = false
+  },
+  openNav(state) {
+    state.navOpen = true
+  },
+  closeNav(state) {
+    state.navOpen = false
   },
   openProfile(state) {
     state.profileOpen = true
