@@ -1,8 +1,8 @@
 <template>
-  <div class="flex items-center bg-gray-100 dark:bg-primary-900 mb-2 hover:shadow-schedule">
+  <div class="flex items-center bg-gray-100 dark:bg-primary-900 mb-1 sm:mb-2 hover:shadow-schedule">
     <div class="flex-grow w-24">
       <div class="flex items-center justify-end">
-        <div>{{ game.home.teamsim }}</div>
+        <div class="hidden sm:block">{{ game.home.teamsim }}</div>
         <team-logo-small class="mx-3" :teamid="game.home.teamid" />
       </div>
     </div>
@@ -54,7 +54,7 @@
     <div class="flex-grow w-24">
       <div class="flex items-center justify-start">
         <team-logo-small class="mx-3" :teamid="game.away.teamid" />
-        <div>{{ game.away.teamsim }}</div>
+        <div class="hidden sm:block">{{ game.away.teamsim }}</div>
       </div>
     </div>
     <nuxt-link :to="boxscoreLink" class="flex p-2 content-center">

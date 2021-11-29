@@ -36,11 +36,14 @@
           </div>
         </div>
       </div>
-      <div class="grid-cols-1 xl:grid-cols-2 gap-3" :class="tables.length > 1 ? 'grid' : ''">
+      <div
+        class="grid-cols-1 xl:grid-cols-2 gap-3 max-w-full"
+        :class="tables.length > 1 ? 'grid' : ''"
+      >
         <div
           v-for="table in tables"
           :key="table.title"
-          class="bg-gray-100 dark:bg-primary-800 xl:shadow"
+          class="bg-gray-100 dark:bg-primary-800 xl:shadow w-full overflow-auto"
         >
           <league-standings :season="season" :title="table.title" :filter="table.filter" />
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games && games.games">
+  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games && games.games">
     <league-gameday :gameday="currentGameday" :games="gamedayGames[currentGameday]" />
     <layout-elements-pagination
       :max="maxGameday"

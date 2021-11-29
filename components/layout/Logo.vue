@@ -1,7 +1,7 @@
 <template>
   <TohlLogo
     aria-hidden="true"
-    class="w-auto transform scale-150 fill-current text-primary-600 dark:text-white"
+    class="w-auto transform scale-100 sm:scale-150 fill-current text-primary-600 dark:text-white"
   />
 </template>
 

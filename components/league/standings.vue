@@ -1,5 +1,5 @@
 <template>
-  <table class="relative min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+  <table class="relative w-full min-w-full divide-y divide-gray-200 dark:divide-gray-600">
     <thead
       class="
         sticky
@@ -31,7 +31,7 @@
         <th scope="col" class="px-2 py-3">Strk</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="font-headline">
       <tr v-if="error">
         <td colspan="12" class="text-secondary-500 text-center font-medium py-4">
           Tabelle kann nicht geladen werden.
@@ -65,13 +65,39 @@
         :class="index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
         :key="row.team.teamsim"
       >
-        <td class="py-4 pl-2 whitespace-nowrap text-gray-900 dark:text-gray-200">
+        <td class="py-2 pl-2 whitespace-nowrap text-gray-900 dark:text-gray-200">
           {{ index + 1 }}.
         </td>
         <td
-          class="px-3 py-1 whitespace-nowrap text-left font-medium text-gray-900 dark:text-gray-200"
+          class="
+            hidden
+            sm:table-cell
+            px-3
+            py-1
+            whitespace-nowrap
+            text-left
+            font-medium
+            text-gray-900
+            dark:text-gray-200
+          "
         >
           <team-small :team="row.team" />
+        </td>
+        <td
+          class="
+            table-cell
+            sm:hidden
+            px-3
+            py-1
+            uppercase
+            whitespace-nowrap
+            text-left
+            font-medium
+            text-gray-900
+            dark:text-gray-200
+          "
+        >
+          {{ row.team.teamid }}
         </td>
         <td class="px-2 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400">
           {{ row.games }}
