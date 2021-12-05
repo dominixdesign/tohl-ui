@@ -8,7 +8,7 @@
     leave-to-class="opacity-0"
   >
     <div
-      class="space-x-2 absolute left-0 bottom-0 flex z-40"
+      class="space-x-2 absolute left-0 bottom-0 flex"
       v-if="submenuOpen"
       :key="`submenu-${opensub}`"
     >
