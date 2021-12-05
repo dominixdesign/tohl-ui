@@ -36,8 +36,8 @@
                   class="
                     block
                     w-full
-                    bg-white
-                    border border-gray-300
+                    bg-white bg-opacity-20
+                    border border-gray-800
                     rounded-md
                     py-2
                     pl-10
@@ -72,11 +72,11 @@
         <h1 class="text-lg leading-6 font-semibold text-gray-900">Dashboard</h1>
       </div>
     </header>
-    <main class="pb-10">
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main class="pb-10 isolate">
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 z-1">
         <Nuxt />
       </div>
-      <nuxt-img class="opacity-20 fixed bottom-0 z-0" src="/trophy.png" sizes="sm:320px" />
+      <nuxt-img class="opacity-20 fixed bottom-0 -z-1" src="/trophy.png" sizes="sm:320px" />
     </main>
     <LayoutNavOffCanvasNav />
     <footer

@@ -57,7 +57,7 @@
         <div class="hidden sm:block">{{ game.away.teamsim }}</div>
       </div>
     </div>
-    <nuxt-link :to="boxscoreLink" class="flex p-2 content-center">
+    <nuxt-link :to="boxscoreLink" class="flex p-2 content-center" v-if="isGameOver">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -84,6 +84,9 @@ export default {
   computed: {
     boxscoreLink() {
       return `/${this.game.season}/game/${this.game.id}`
+    },
+    isGameOver() {
+      return this.game.goalshome > 0 || this.game.goalsaway > 0
     }
   }
 }

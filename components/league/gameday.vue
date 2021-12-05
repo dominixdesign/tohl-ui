@@ -1,6 +1,6 @@
 <template>
   <div :id="`gameday-${gameday}`">
-    <div class="my-3 text-lg font-bold">{{ gameday }}. Spieltag</div>
+    <div class="my-3 text-lg font-bold">{{ title || `${gameday}. Spieltag` }}</div>
     <league-schedule-game-big v-for="game in games" :key="game.game" :game="game" />
   </div>
 </template>
@@ -9,6 +9,7 @@
 export default {
   props: {
     gameday: Number,
+    title: String,
     games: []
   }
 }
