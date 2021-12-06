@@ -15,7 +15,7 @@
       "
       :style="`border-color: ${leader.team.background}`"
     >
-      <div class="mx-auto p-1 sm:p-2 flex flex-col sm:flex-row">
+      <div class="mx-auto p-2 flex flex-row">
         <div class="w-24">
           <div
             class="
@@ -47,7 +47,7 @@
               whitespace-nowrap
             "
           >
-            <span class="text-lg">{{
+            <span class="text-lg block sm:inline">{{
               leader.player.display_lname.length + leader.player.display_fname.length > 18
                 ? leader.player.display_fname[0] + '.'
                 : leader.player.display_fname
@@ -57,7 +57,8 @@
           <p
             class="
               uppercase
-              text-3xl
+              text-2xl
+              sm:text-3xl
               font-bold font-headline
               text-center
               inline-block
