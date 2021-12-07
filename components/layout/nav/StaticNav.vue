@@ -1,5 +1,9 @@
 <template>
-  <nav class="hidden lg:py-2 lg:flex lg:flex-row lg:space-x-2 relative !pb-10" aria-label="Global">
+  <nav
+    class="hidden lg:py-2 lg:flex lg:flex-row lg:space-x-2 relative !pb-10"
+    aria-label="Global"
+    id="menu__not-fixed"
+  >
     <layout-nav-entry
       v-for="(entry, index) in nav"
       :key="entry.path"
@@ -9,6 +13,7 @@
       :routeAction="routeAction"
       :handler="{ openSubmenu, closeSubmenu }"
     />
+
     <layout-nav-sub :opensub="opensub" :entries="entries" :routeAction="routeAction" />
   </nav>
 </template>

@@ -1,7 +1,9 @@
 <template>
   <div class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-full">
-    <header class="bg-dizzle-light dark:bg-dizzle shadow">
-      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8">
+    <header class="bg-dizzle-light dark:bg-dizzle shadow fixed w-full z-40">
+      <div
+        class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
+      >
         <div class="relative h-16 flex justify-between">
           <div class="relative z-10 px-2 flex lg:px-0">
             <div class="flex-shrink-0 flex items-center">
@@ -67,11 +69,7 @@
         <LayoutNavStaticNav />
       </div>
     </header>
-    <header class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-lg leading-6 font-semibold text-gray-900">Dashboard</h1>
-      </div>
-    </header>
+    <header class="bg-white shadow-sm h-36" />
     <main class="pb-10 isolate">
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 z-1">
         <Nuxt />
@@ -126,6 +124,17 @@ export default {
       `,
       update: ({ seasons }) => {
         this.$store.commit('navigation/setAvailableSeasons', [...seasons].sort(seasonSorter))
+      }
+    })
+    document.addEventListener('scroll', function (e) {
+      const not_fixed = document.getElementById('menu__not-fixed')
+
+      if (window.scrollY > 100) {
+        not_fixed.classList.remove('block')
+        not_fixed.classList.add('!hidden')
+      } else {
+        not_fixed.classList.add('block')
+        not_fixed.classList.remove('!hidden')
       }
     })
   },
