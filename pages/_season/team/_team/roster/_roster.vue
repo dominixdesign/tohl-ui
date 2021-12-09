@@ -33,60 +33,18 @@
               >
                 {{ $t(`rosters.${table}`) }}
               </nuxt-link>
-              <div class="flex-grow" />
-              <div class="py-2 px-2 text-sm flex-row items-center gap-2 hidden sm:flex">
-                <div>Positionen:</div>
-                <div class="flex flex-row rounded-2xl border-2 border-primary-300 overflow-hidden">
-                  <div
-                    v-for="position of positions"
-                    :key="position"
-                    @click="() => togglePosition(position)"
-                    :class="
-                      selectedPositions.has(position)
-                        ? 'dark:bg-primary-400 bg-primary-300'
-                        : 'dark:bg-primary-700 bg-primary-50'
-                    "
-                    class="
-                      py-2
-                      px-2
-                      hover:bg-primary-300
-                      w-10
-                      text-center
-                      font-medium
-                      cursor-pointer
-                    "
-                  >
-                    {{ position }}
-                  </div>
-                </div>
-              </div>
             </nav>
           </div>
         </div>
       </div>
-      <div class="py-2 px-2 text-sm flex-row items-center gap-2 flex sm:hidden">
-        <div>Positionen:</div>
-        <div class="flex flex-row rounded-2xl border-2 border-primary-300 overflow-hidden">
-          <div
-            v-for="position of positions"
-            :key="position"
-            @click="() => togglePosition(position)"
-            :class="
-              selectedPositions.has(position)
-                ? 'dark:bg-primary-400 bg-primary-300'
-                : 'dark:bg-primary-700 bg-primary-50'
-            "
-            class="py-2 px-2 hover:bg-primary-300 w-10 text-center font-medium cursor-pointer"
-          >
-            {{ position }}
-          </div>
-        </div>
-      </div>
       <team-playerlist
+        v-for="position in ['G', 'D', 'LW', 'C', 'RW']"
+        :key="position"
         :team="team"
+        :title="$t(`positions.${position}`)"
         :season="season"
         :selectedRoster="roster"
-        :positions="selectedPositions"
+        :positions="new Set([position])"
       />
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow p-6" v-if="!$apollo.loading">
         <h3 class="font-serif font-headline font-extralight uppercase pb-4 text-xl">Legende</h3>

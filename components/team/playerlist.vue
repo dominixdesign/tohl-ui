@@ -32,7 +32,7 @@
             :key="'headline-' + col"
             :class="col === 'name' ? 'text-left' : ''"
           >
-            {{ $t(`column.${col}`) }}
+            {{ col === 'name' && title ? title : $t(`column.${col}`) }}
             <span
               class="w-1 h-1 inline-block border-4 border-transparent"
               :class="

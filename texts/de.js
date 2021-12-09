@@ -24,6 +24,13 @@ export default {
     pro: 'Pro-Team',
     farm: 'Farm-Team'
   },
+  positions: {
+    G: 'Torhüter',
+    D: 'Verteidiger',
+    LW: 'Left-Wings',
+    C: 'Center',
+    RW: 'Right-Wings'
+  },
   leader: {
     goals: '0 Tore | Ein Tor | {count} Tore',
     points: '0 Punkte | Ein Punkt | {count} Punkte',
