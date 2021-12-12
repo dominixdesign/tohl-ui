@@ -52,6 +52,11 @@ export default {
     development: 'Entwicklung',
     awards: 'Erfolge'
   },
+  seasontypes: {
+    reg: 'Regular Season',
+    plf: 'TOHL Playoffs',
+    pre: 'Pre-Season'
+  },
   abbr: {
     season: 'Sai.',
     post: 'Playoffs',
