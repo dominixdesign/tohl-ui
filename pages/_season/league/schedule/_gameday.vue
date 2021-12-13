@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games && games.games">
+  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="games">
     <div v-if="isPlayoff">
       <div class="my-3 text-xl font-bold" v-if="currentRound === 1">Conference Viertelfinale</div>
       <div class="my-3 text-xl font-bold" v-else-if="currentRound === 2">Conference Halbfinale</div>
@@ -51,12 +51,11 @@ export default {
     const season = params.season
     const gameday = params.gameday
     const isPlayoff = !!season.includes('PLF')
-    console.log({ season, gameday, isPlayoff })
     return { season, gameday, isPlayoff }
   },
   computed: {
     gamedayGames() {
-      return groupBy(this.games.games, (g) => g.gameday)
+      return groupBy(this.games, (g) => g.gameday)
     },
     gamedays() {
       return Object.keys(this.gamedayGames)
@@ -66,16 +65,16 @@ export default {
     maxGameday() {
       return Math.max.apply(
         Math,
-        this.games.games.map((g) => g.gameday)
+        this.games.map((g) => g.gameday)
       )
     },
     currentGameday() {
       if (this.gameday) {
         return parseInt(this.gameday)
       }
-      const filteredGames = this.games.games.filter((g) => g.goalshome !== null)
+      const filteredGames = this.games.filter((g) => g.goalshome !== null)
       if (filteredGames.length === 0) {
-        return this.games.games[0].gameday
+        return this.games[0].gameday
       }
       return Math.max.apply(
         Math,
@@ -120,7 +119,7 @@ export default {
           season: this.season
         }
       },
-      update: (games) => games,
+      update: (games) => games.games,
       error() {
         this.error = true
       }
