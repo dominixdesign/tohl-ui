@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="type in types" class="statstable overflow-x-auto" :key="type">
+    <div v-for="type in types" class="statstable overflow-x-auto" :key="`${season}-${type}`">
       <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
         {{ $t(`seasontypes.${type}`) }}
       </h3>
@@ -75,9 +75,8 @@ import gql from 'graphql-tag'
 import { get } from 'lodash-es'
 
 export default {
-  async asyncData({ params: { playerid } }) {
-    console.log({ playerid })
-    return { playerid }
+  async asyncData({ params: { playerid, season } }) {
+    return { playerid, season }
   },
   data() {
     return {
