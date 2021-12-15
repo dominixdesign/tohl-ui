@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <div class="pt-4">
+    <div class="p-4">
       <nuxt-child />
     </div>
   </div>

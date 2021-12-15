@@ -58,6 +58,8 @@ module.exports = {
       },
       boxShadow: {
         schedule: '0 0 16px 0 rgb(0 14 20 / 30%)',
+        pageDark: '0px 0px 80px -25px #ffffff',
+        pageLight: '0px 0px 80px -25px #000C16',
         b: '0 10px 15px -3px rgba(0, 0, 0, 1), 0 4px 6px -2px rgba(0, 0, 0, 0.1)'
       },
       borderWidth: {

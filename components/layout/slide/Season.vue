@@ -135,7 +135,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { uniqBy } from 'lodash-es'
 
 export default {
   props: {
@@ -164,7 +163,7 @@ export default {
     },
     availableSeasons: {
       handler: function (newSeasons) {
-        this.seasons = uniqBy(newSeasons, (s) => s.substr(0, 6))
+        this.seasons = Array.from(new Set(newSeasons.map((s) => s.substr(0, 6))))
       },
       immediate: true
     }

@@ -20,12 +20,12 @@
 @media (min-width: 640px) {
   .statstable td,
   .statstable th {
-    @apply px-2;
+    @apply px-2 text-sm;
   }
 }
 .statstable th {
   @apply bg-gray-200;
-  @apply text-secondary-500 text-sm;
+  @apply text-secondary-500;
 }
 .statstable td {
   @apply py-0.5;

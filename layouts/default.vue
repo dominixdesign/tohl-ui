@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-full">
-    <header class="bg-dizzle-light dark:bg-dizzle shadow fixed w-full z-40">
+  <div class="bg-dizzle-light dark:bg-dizzle bg-fixed text-gray-900 dark:text-gray-200 min-h-full">
+    <header class="bg-gray-50 dark:bg-gray-900 shadow fixed w-full z-40">
       <div
         class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
       >
@@ -70,8 +70,22 @@
       </div>
     </header>
     <header class="bg-white shadow-sm h-36" />
-    <main class="pb-10 isolate">
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 z-1">
+    <main class="isolate">
+      <div
+        class="
+          bg-gray-100
+          dark:bg-gray-800
+          max-w-7xl
+          shadow-pageLight
+          dark:shadow-pageDark
+          mx-auto
+          pt-3
+          pb-6
+          sm:px-2
+          lg:px-0
+          z-1
+        "
+      >
         <Nuxt />
       </div>
       <nuxt-img class="opacity-20 fixed bottom-0 -z-1" src="/trophy.png" sizes="sm:320px" />
