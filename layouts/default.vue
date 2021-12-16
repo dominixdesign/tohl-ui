@@ -80,7 +80,7 @@
       </div>
     </header>
     <header class="bg-white shadow-sm h-36" />
-    <main class="isolate flex-grow items-stretch justify-center">
+    <main class="isolate flex-grow items-stretch justify-center flex">
       <div
         style="width: clamp(24rem, 100vw, 80rem)"
         class="
@@ -180,6 +180,9 @@ html,
 #__nuxt,
 #__layout {
   @apply h-full;
+}
+body {
+  overflow-y: scroll;
 }
 
 .menu__toggle::before {
