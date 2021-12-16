@@ -93,7 +93,7 @@
             :key="row.fname + row.lname + col"
           >
             <span v-if="col === 'name'">
-              <player-linked-name :player="row" :season="season" />
+              <player-linked-name :player="row" />
             </span>
             <span v-if="col === 'number'" class="italic">
               {{ row.seasondata.number }}

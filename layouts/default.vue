@@ -10,7 +10,19 @@
       flex flex-col
     "
   >
-    <header class="bg-gray-50 dark:bg-gray-900 shadow fixed w-full z-40">
+    <header
+      class="
+        bg-gray-50
+        dark:bg-gray-900
+        shadow
+        fixed
+        w-full
+        z-40
+        backdrop-filter
+        bg-opacity-60
+        backdrop-blur-lg
+      "
+    >
       <div
         class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
       >
@@ -82,7 +94,7 @@
     <header class="bg-white shadow-sm h-36" />
     <main class="isolate flex-grow items-stretch justify-center flex">
       <div
-        style="width: clamp(24rem, 100vw, 80rem)"
+        style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
         class="
           bg-gray-100
           dark:bg-gray-800

@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="`/${season}/player/${player.id}`">
+  <nuxt-link :to="`/player/${player.id}`">
     {{ player.display_fname }}
     <span class="font-bold">
       {{ player.display_lname }}
@@ -10,8 +10,7 @@
 <script>
 export default {
   props: {
-    player: Object,
-    season: String
+    player: Object
   }
 }
 </script>

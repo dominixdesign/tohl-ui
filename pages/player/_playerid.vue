@@ -121,8 +121,8 @@ import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
 export default {
-  async asyncData({ params: { season, playerid, partition } }) {
-    return { season, playerid, partition }
+  async asyncData({ params: { playerid, partition } }) {
+    return { playerid, partition }
   },
   components: {
     CountryFlag
@@ -162,7 +162,7 @@ export default {
   apollo: {
     player: {
       query: gql`
-        query player($id: ID!, $season: ID) {
+        query player($id: ID!) {
           player(id: $id) {
             id
             fname
@@ -173,7 +173,7 @@ export default {
             hand
             lname
             nation
-            seasondata(season: $season) {
+            seasondata {
               team {
                 teamsim
                 teamid
@@ -209,8 +209,7 @@ export default {
       `,
       variables() {
         return {
-          id: this.playerid,
-          season: this.season
+          id: this.playerid
         }
       },
       update: ({ player }) => player,
