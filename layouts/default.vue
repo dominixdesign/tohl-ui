@@ -1,5 +1,15 @@
 <template>
-  <div class="bg-dizzle-light dark:bg-dizzle bg-fixed text-gray-900 dark:text-gray-200 min-h-full">
+  <div
+    class="
+      bg-dizzle-light
+      dark:bg-dizzle
+      bg-fixed
+      text-gray-900
+      dark:text-gray-200
+      min-h-full
+      flex flex-col
+    "
+  >
     <header class="bg-gray-50 dark:bg-gray-900 shadow fixed w-full z-40">
       <div
         class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
@@ -70,8 +80,9 @@
       </div>
     </header>
     <header class="bg-white shadow-sm h-36" />
-    <main class="isolate">
+    <main class="isolate flex-grow items-stretch justify-center">
       <div
+        style="width: clamp(24rem, 100vw, 80rem)"
         class="
           bg-gray-100
           dark:bg-gray-800
