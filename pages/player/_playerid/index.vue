@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="type in types" class="statstable overflow-x-auto" :key="`${season}-${type}`">
+    <div v-for="type in types" class="statstable overflow-x-auto" :key="`${type}`">
       <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
         {{ $t(`seasontypes.${type}`) }}
       </h3>
@@ -67,6 +67,23 @@
             </td>
           </tr>
         </tbody>
+        <tfoot v-if="seasons.career" class="border-t-4 border-double border-secondary-500">
+          <tr v-for="(stat, name) of seasons.career[type]" :key="name">
+            <td
+              v-for="col of cols"
+              :key="`career-${type}${stat.goals}${stat.assists}${col}`"
+              :class="col === 'team' ? '!text-left' : ''"
+            >
+              <span v-if="col === 'season'"></span>
+              <span v-else-if="col === 'team'" class="uppercase"> {{ name }} </span>
+              <span v-else-if="col === 'spercentage'">{{ shotpercentage(stat) || '&mdash;' }}</span>
+              <span v-else-if="col === 'averageicetime'">{{
+                averageicetime(stat) || '&mdash;'
+              }}</span>
+              <span v-else>{{ get(stat, col, '&mdash;') }}</span>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
     <div class="statstable overflow-x-auto">
@@ -117,8 +134,8 @@ import gql from 'graphql-tag'
 import { get } from 'lodash-es'
 
 export default {
-  async asyncData({ params: { playerid, season } }) {
-    return { playerid, season }
+  async asyncData({ params: { playerid } }) {
+    return { playerid }
   },
   data() {
     return {
@@ -150,21 +167,47 @@ export default {
   },
   watch: {
     playerstats(newPlayerstats) {
-      const seasons = { plf: {}, reg: {}, pre: {}, farm: {} }
+      const seasons = {
+        plf: {},
+        reg: {},
+        pre: {},
+        farm: {},
+        career: {
+          plf: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
+          reg: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
+          pre: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
+          farm: { all: {} }
+        }
+      }
       // const seasons = [...newPlayerstats.map((p) => p.season)].sort(seasonSorter)
       newPlayerstats.forEach((playerstat) => {
+        const type =
+          playerstat.season.indexOf('PLF') >= 0
+            ? 'plf'
+            : playerstat.season.indexOf('pre') >= 0
+            ? 'pre'
+            : 'reg'
         const s = playerstat.season.substr(0, 6)
-        if (!seasons[s + playerstat.team.teamid]) {
-          seasons[s + playerstat.team.teamid] = {}
+
+        seasons[type][s + playerstat.team.teamid] = playerstat
+        if (playerstat.farm_points > 0) {
+          seasons['farm'][s + playerstat.team.teamid] = playerstat
+          if (!seasons.career.farm[playerstat.team.teamid]) {
+            seasons.career.farm[playerstat.team.teamid] = playerstat
+          } else {
+          }
         }
-        if (playerstat.season.indexOf('PLF') >= 0) {
-          seasons['plf'][s + playerstat.team.teamid] = playerstat
-        } else if (playerstat.season.indexOf('pre') >= 0) {
-          seasons['pre'][s + playerstat.team.teamid] = playerstat
-          seasons['farm'][playerstat.season + playerstat.team.teamid] = playerstat
-        } else {
-          seasons['farm'][playerstat.season + playerstat.team.teamid] = playerstat
-          seasons['reg'][s + playerstat.team.teamid] = playerstat
+
+        if (!seasons.career[type][playerstat.team.teamid]) {
+          seasons.career[type][playerstat.team.teamid] = Object.fromEntries(
+            this.cols.map((col) => [col, 0])
+          )
+        }
+        for (const number of this.cols) {
+          if (!isNaN(playerstat[number])) {
+            seasons.career[type][playerstat.team.teamid][number] += playerstat[number]
+            seasons.career[type].all[number] += playerstat[number]
+          }
         }
       })
       this.seasons = seasons
