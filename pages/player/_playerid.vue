@@ -77,12 +77,10 @@
           <div class="border-b border-gray-200 px-2">
             <nav class="container mx-auto -mb-px flex space-x-8" aria-label="Tabs">
               <nuxt-link
-                v-for="subpage in ['career', 'farm', 'gamelog', 'trades', 'development', 'awards']"
+                v-for="subpage in ['career', 'gamelog', 'trades', 'development', 'awards']"
                 :key="subpage"
                 :to="
-                  subpage === 'career'
-                    ? `/${season}/player/${playerid}/`
-                    : `/${season}/player/${playerid}/${subpage}`
+                  subpage === 'career' ? `/player/${playerid}/` : `/player/${playerid}/${subpage}`
                 "
                 class="
                   border-transparent
