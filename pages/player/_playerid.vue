@@ -93,7 +93,8 @@
                   text-sm
                 "
                 :class="
-                  subpage === partition
+                  fullPath === `/player/${playerid}/${subpage}` ||
+                  (fullPath === `/player/${playerid}/` && subpage === 'career')
                     ? 'text-primary-200 border-primary-200 font-bold'
                     : 'text-primary-400'
                 "
@@ -119,11 +120,16 @@ import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
 export default {
-  async asyncData({ params: { playerid, partition } }) {
-    return { playerid, partition }
+  async asyncData({ params: { playerid }, route: { fullPath } }) {
+    return { playerid, fullPath }
   },
   components: {
     CountryFlag
+  },
+  watch: {
+    $route({ fullPath }) {
+      this.fullPath = fullPath
+    }
   },
   computed: {
     ...mapState({

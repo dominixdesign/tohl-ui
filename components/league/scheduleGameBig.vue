@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center bg-gray-100 dark:bg-primary-900 mb-1 sm:mb-2 hover:shadow-schedule">
+  <div class="flex items-center">
     <div class="flex-grow w-24">
       <div class="flex items-center justify-end">
         <div class="hidden sm:block">{{ game.home.teamsim }}</div>

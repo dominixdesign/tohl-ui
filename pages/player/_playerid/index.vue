@@ -4,18 +4,19 @@
       <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
         {{ $t(`seasontypes.${type}`) }}
       </h3>
-      <table>
+      <table v-if="seasons[type] && Object.keys(seasons[type]).length > 0">
         <thead>
           <tr>
             <th colspan="2"></th>
             <th></th>
             <th colspan="3">Scoring</th>
             <th></th>
-            <th></th>
+            <th colspan="2"></th>
             <th colspan="4">Goals</th>
             <th colspan="3">Assists</th>
             <th colspan="2">Shots</th>
             <th colspan="2">Ice Time</th>
+            <th></th>
             <th></th>
           </tr>
           <tr>
@@ -27,6 +28,7 @@
             <th>PTS</th>
             <th>+/-</th>
             <th>PIM</th>
+            <th>EJEC</th>
             <th>EV</th>
             <th>PP</th>
             <th>SH</th>
@@ -39,6 +41,7 @@
             <th>TOI</th>
             <th>ATOI</th>
             <th>HITS</th>
+            <th>INJ</th>
           </tr>
         </thead>
         <tbody v-if="seasons">
@@ -63,12 +66,15 @@
               <span v-else-if="col === 'averageicetime'">{{
                 averageicetime(stat) || '&mdash;'
               }}</span>
+              <span v-else-if="col === 'plusminus'"
+                >{{ get(stat, col, '&mdash;') > 0 ? '+' : '' }}{{ get(stat, col, '&mdash;') }}</span
+              >
               <span v-else>{{ get(stat, col, '&mdash;') }}</span>
             </td>
           </tr>
         </tbody>
         <tfoot v-if="seasons.career" class="border-t-4 border-double border-secondary-500">
-          <tr v-for="(stat, name) of seasons.career[type]" :key="name">
+          <tr class="text-gray-500" v-for="(stat, name) of seasons.career[type]" :key="name">
             <td
               v-for="col of cols"
               :key="`career-${type}${stat.goals}${stat.assists}${col}`"
@@ -83,8 +89,26 @@
               <span v-else>{{ get(stat, col, '&mdash;') }}</span>
             </td>
           </tr>
+          <tr class="font-bold">
+            <td
+              v-for="col of cols"
+              :key="`career-all-${col}`"
+              :class="col === 'team' ? '!text-left' : ''"
+            >
+              <span v-if="col === 'season'"></span>
+              <span v-else-if="col === 'team'" class="uppercase">Career</span>
+              <span v-else-if="col === 'spercentage'">{{
+                shotpercentage(seasons.career.all[type]) || '&mdash;'
+              }}</span>
+              <span v-else-if="col === 'averageicetime'">{{
+                averageicetime(seasons.career.all[type]) || '&mdash;'
+              }}</span>
+              <span v-else>{{ get(seasons.career.all[type], col, '&mdash;') }}</span>
+            </td>
+          </tr>
         </tfoot>
       </table>
+      <p v-else class="mb-4">&mdash;</p>
     </div>
     <div class="statstable overflow-x-auto">
       <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">Farm-Team Statistik</h3>
@@ -124,6 +148,19 @@
             </td>
           </tr>
         </tbody>
+        <tfoot v-if="seasons.career" class="border-t-4 border-double border-secondary-500">
+          <tr class="font-bold">
+            <td
+              v-for="col of ['season', 'team', 'farm_goals', 'farm_assists', 'farm_points']"
+              :key="`career-farm-all-${col}`"
+              :class="col === 'team' ? '!text-left' : ''"
+            >
+              <span v-if="col === 'season'"></span>
+              <span v-else-if="col === 'team'" class="uppercase">Career</span>
+              <span v-else>{{ get(seasons.career.all.farm, col, '&mdash;') }}</span>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -150,6 +187,7 @@ export default {
         'points',
         'plusminus',
         'pim',
+        'ejections',
         'evg',
         'ppg',
         'shg',
@@ -161,22 +199,30 @@ export default {
         'spercentage',
         'icetime',
         'averageicetime',
-        'hits'
+        'hits',
+        'injuries'
       ]
     }
   },
   watch: {
     playerstats(newPlayerstats) {
+      const farmCols = ['farm_goals', 'farm_assists', 'farm_points']
       const seasons = {
         plf: {},
         reg: {},
         pre: {},
         farm: {},
         career: {
-          plf: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
-          reg: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
-          pre: { all: Object.fromEntries(this.cols.map((col) => [col, 0])) },
-          farm: { all: {} }
+          all: {
+            plf: { ...Object.fromEntries(this.cols.map((col) => [col, 0])), years: 0 },
+            reg: { ...Object.fromEntries(this.cols.map((col) => [col, 0])), years: 0 },
+            pre: { ...Object.fromEntries(this.cols.map((col) => [col, 0])), years: 0 },
+            farm: { ...Object.fromEntries(farmCols.map((col) => [col, 0])), years: 0 }
+          },
+          plf: {},
+          reg: {},
+          pre: {},
+          farm: {}
         }
       }
       // const seasons = [...newPlayerstats.map((p) => p.season)].sort(seasonSorter)
@@ -191,10 +237,18 @@ export default {
 
         seasons[type][s + playerstat.team.teamid] = playerstat
         if (playerstat.farm_points > 0) {
-          seasons['farm'][s + playerstat.team.teamid] = playerstat
+          console.log(playerstat.farm_points)
+          seasons['farm'][playerstat.season + playerstat.team.teamid] = playerstat
           if (!seasons.career.farm[playerstat.team.teamid]) {
-            seasons.career.farm[playerstat.team.teamid] = playerstat
-          } else {
+            seasons.career.farm[playerstat.team.teamid] = Object.fromEntries(
+              farmCols.map((col) => [col, 0])
+            )
+          }
+          for (const number of farmCols) {
+            if (!isNaN(playerstat[number])) {
+              seasons.career.farm[playerstat.team.teamid][number] += playerstat[number]
+              seasons.career.all.farm[number] += playerstat[number]
+            }
           }
         }
 
@@ -206,10 +260,11 @@ export default {
         for (const number of this.cols) {
           if (!isNaN(playerstat[number])) {
             seasons.career[type][playerstat.team.teamid][number] += playerstat[number]
-            seasons.career[type].all[number] += playerstat[number]
+            seasons.career.all[type][number] += playerstat[number]
           }
         }
       })
+      console.log(seasons.career.all.farm)
       this.seasons = seasons
     }
   },
@@ -268,6 +323,7 @@ export default {
             ppa
             shg
             sha
+            gwg
             streak_goals_current
             streak_goals_longest
             streak_points_current
