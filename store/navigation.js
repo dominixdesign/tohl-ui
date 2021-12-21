@@ -11,7 +11,7 @@ export const state = () => ({
         { title: 'Tabelle', path: '/${season}/league/standings' },
         { title: 'Spielplan', path: '/${season}/league/schedule' },
         { title: 'Trades', path: '/league/trades' },
-        { title: 'Verletzungen', path: '/league/injuries' },
+        { title: 'Verletzungen', path: '/${season}/league/injuries' },
         { title: 'Farm Teams', path: '/league/farm' },
         { title: 'Ewige Tabelle', path: '/league/alltime' },
         { title: 'Historie', path: '/league/history' }

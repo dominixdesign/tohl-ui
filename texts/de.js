@@ -44,6 +44,7 @@ export default {
     shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
     savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
   },
+  sperre: '0 Spiele | ein Spiel | {count} Spiele',
   playersubs: {
     career: 'Karrieredaten',
     farm: 'Farmstatistik',
