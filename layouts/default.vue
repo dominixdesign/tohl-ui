@@ -92,7 +92,7 @@
         <LayoutNavStaticNav />
       </div>
     </header>
-    <header class="shadow-sm h-36" />
+    <header class="shadow-sm h-12 lg:h-36" />
     <main class="isolate flex-grow items-stretch justify-center flex">
       <div
         style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
