@@ -1,5 +1,11 @@
 mutation managerLogin($refresh_token: String!) {
   token(refresh_token: $refresh_token) {
     access_token
+    manager {
+      username
+      team {
+        teamid
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ import authTokenGql from '~/queries/auth/token.gql'
 
 export class AuthService {
   constructor(app) {
+    this.userdata = {}
     this.app = app
     this.apollo = app.apolloProvider.clients.defaultClient
   }
@@ -15,6 +16,8 @@ export class AuthService {
         variables: { username, password, refresh }
       })
       .then(({ data }) => data)
+
+    this.userdata = res.login
     if (res.login.refresh_token) {
       window.localStorage.setItem('refresh_token', res.login.refresh_token)
     }
@@ -32,6 +35,8 @@ export class AuthService {
             variables: { refresh_token: refreshToken }
           })
           .then(({ data }) => data)
+
+        this.userdata = res.token
         await this.setToken(res.token.access_token)
       } catch (e) {}
     }
@@ -43,12 +48,20 @@ export class AuthService {
       this.app.$apolloHelpers.onLogout()
       throw Error('expired')
     }
-    this.userdata = { username, roles, mail }
     this.loggedIn = true
     await this.app.$apolloHelpers.onLogin(token)
   }
 
   isLoggedIn() {
     return this.loggedIn
+  }
+
+  get username() {
+    return this.userdata.manager?.email
+  }
+
+  get teamid() {
+    console.log(this.userdata)
+    return this.userdata.manager?.team?.teamid
   }
 }
