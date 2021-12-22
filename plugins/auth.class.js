@@ -15,6 +15,9 @@ export class AuthService {
         variables: { username, password, refresh }
       })
       .then(({ data }) => data)
+    if (res.login.refresh_token) {
+      window.localStorage.setItem('refresh_token', res.login.refresh_token)
+    }
 
     await this.setToken(res.login.access_token)
   }
@@ -29,8 +32,7 @@ export class AuthService {
             variables: { refresh_token: refreshToken }
           })
           .then(({ data }) => data)
-
-        await this.setToken(res.login.access_token)
+        await this.setToken(res.token.access_token)
       } catch (e) {}
     }
   }
