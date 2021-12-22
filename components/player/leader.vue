@@ -17,8 +17,10 @@
     >
       <div class="mx-auto p-2 flex flex-row">
         <div class="w-24">
-          <div
+          <nuxt-link
+            :to="`/player/${leader.player.id}`"
             class="
+              block
               w-20
               h-20
               relative
@@ -36,7 +38,8 @@
         <div
           class="flex-grow sm:pl-4 flex flex-col pt-2 sm:place-items-start place-items-center gap-1"
         >
-          <h2
+          <nuxt-link
+            :to="`/player/${leader.player.id}`"
             class="
               font-bold font-college
               text-center
@@ -44,6 +47,7 @@
               px-2
               bg-gray-50 bg-opacity-40
               overflow-ellipsis overflow-hidden
+              text-gray-500
               whitespace-nowrap
             "
           >
@@ -53,7 +57,7 @@
                 : leader.player.display_fname
             }}</span>
             <span class="uppercase text-xl">&nbsp;{{ leader.player.display_lname }}</span>
-          </h2>
+          </nuxt-link>
           <p
             class="
               uppercase
