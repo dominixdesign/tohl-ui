@@ -36,9 +36,9 @@ export class AuthService {
   }
 
   async setToken(token) {
-    console.log({ token })
     const { username, roles, mail, exp } = jwt.decode(token)
     if (exp < parseInt(Date.now() / 1000)) {
+      this.app.$apolloHelpers.onLogout()
       throw Error('expired')
     }
     this.userdata = { username, roles, mail }
