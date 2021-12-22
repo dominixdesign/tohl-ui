@@ -1,11 +1,16 @@
 <template>
   <div v-if="development">
-    <h3>Player Development</h3>
-    <player-development :chartdata="chartdata" :options="options" />
+    <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
+      Entwicklung von {{ development.display_fname }} {{ development.display_lname }}
+    </h3>
+    <div class="max-w-3xl mx-auto">
+      <player-development :chartdata="chartdata" :options="options" :width="300" :height="300" />
+    </div>
   </div>
 </template>
 
 <script>
+import { theme } from '~/tailwind.config.js'
 import gql from 'graphql-tag'
 
 export default {
@@ -15,6 +20,7 @@ export default {
   data() {
     return {
       options: {
+        maintainAspectRatio: false,
         scales: {
           xAxes: [
             {
@@ -35,13 +41,17 @@ export default {
     development: {
       immediate: false,
       handler(devData) {
-        const datasets = devData
+        let color = 0
+        const datasets = devData.data
           .filter((s) => s.season.indexOf('PLF') === -1 && s.season.indexOf('pre') === -1)
           .map((s, index, sets) => {
+            color = color <= 900 ? color + 100 : 0
+            const schema = index % 2 === 0 ? 'primary' : 'secondary'
             if (index === 0) {
               return {
                 label: s.season,
                 borderColor: 'rgba(0,0,0,0.5)',
+                backgroundColor: theme.extend.colors[schema][color],
                 borderWidth: 1,
                 data: [
                   s.it,
@@ -65,6 +75,7 @@ export default {
               return {
                 label: s.season,
                 borderColor: 'rgba(0,0,0,0.5)',
+                backgroundColor: theme.extend.colors[schema][color],
                 borderWidth: 1,
                 data: [
                   s.it - prev.it,
@@ -113,6 +124,8 @@ export default {
         query development($id: ID!) {
           player(id: $id) {
             id
+            display_fname
+            display_lname
             data {
               season
               it
@@ -138,7 +151,7 @@ export default {
           id: this.playerid
         }
       },
-      update: ({ player }) => player.data,
+      update: ({ player }) => player,
       error() {
         this.error = true
       }
