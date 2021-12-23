@@ -9,8 +9,12 @@ export default async ({ app }, inject) => {
     try {
       await authService.setToken(token)
     } catch (err) {
+      console.log('token invalid, try refresh')
       await authService.refreshLogin()
     }
+  } else {
+    console.log('no access_token found, try refresh_token')
+    await authService.refreshLogin()
   }
 
   inject('authService', authService)
