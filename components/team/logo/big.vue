@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    teamid: { type: String }
+    teamid: { type: String, required: true }
   }
 }
 </script>
