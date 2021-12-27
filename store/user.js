@@ -16,6 +16,12 @@ export const actions = {
     commit('setMail', mail)
     commit('setRoles', roles)
     commit('setTeam', manager?.team?.teamid)
+  },
+  logout({ commit }) {
+    commit('setUsername', null)
+    commit('setMail', null)
+    commit('setRoles', [])
+    commit('setTeam', null)
   }
 }
 

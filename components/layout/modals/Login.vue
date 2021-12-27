@@ -189,7 +189,6 @@ export default {
         await this.$authService.login(credentials)
         this.close()
       } catch (e) {
-        console.log('catched', e)
         this.error = true
       }
     }

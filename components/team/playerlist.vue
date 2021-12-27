@@ -232,7 +232,6 @@ export default {
       } else {
         sorting = 'seasondata.' + sorting
       }
-      console.log({ sorting })
       const filtertedRoster = [...this.roster]
         .filter((p) => {
           if (this.selectedRoster && this.selectedRoster !== 'all') {

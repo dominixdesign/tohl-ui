@@ -170,16 +170,13 @@ export default {
     }
   },
   computed: {
-    loggedinTeam() {
-      return this.$authService.teamid
-    },
-    isLoggedIn() {
-      console.log('isLoggedIn', this.$authService.isLoggedIn())
-      return this.$authService.isLoggedIn()
-    },
+    ...mapGetters({
+      isLoggedIn: 'user/isLoggedIn'
+    }),
     ...mapState({
       profileOpen: (state) => state.layout.profileOpen,
-      colormode: (state) => state.layout.colormode
+      colormode: (state) => state.layout.colormode,
+      loggedinTeam: (state) => state.user.team
     })
   },
   methods: {

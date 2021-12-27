@@ -97,13 +97,11 @@ export default {
       update: ({ findByData }) => {
         const injuries = {}
         for (const inj of findByData) {
-          console.log(inj)
           if (!injuries[inj.team.teamid]) {
             injuries[inj.team.teamid] = []
           }
           injuries[inj.team.teamid] = [...injuries[inj.team.teamid], inj]
         }
-        console.log(injuries)
         return injuries
       },
       error() {

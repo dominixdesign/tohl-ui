@@ -3,6 +3,8 @@ import authLoginGql from '~/queries/auth/login.gql'
 import authLogoutGql from '~/queries/auth/logout.gql'
 import authTokenGql from '~/queries/auth/token.gql'
 
+let tokenTimeout
+
 export class AuthService {
   constructor(app) {
     this.app = app
@@ -11,13 +13,16 @@ export class AuthService {
 
   async logout() {
     const refresh_token = window.localStorage.getItem('refresh_token')
-    const res = await this.apollo
-      .mutate({
-        mutation: authLogoutGql,
-        variables: { refresh_token }
-      })
-      .then(({ data }) => data)
+    if (refresh_token) {
+      const res = await this.apollo
+        .mutate({
+          mutation: authLogoutGql,
+          variables: { refresh_token }
+        })
+        .then(({ data }) => data)
+    }
 
+    window.localStorage.removeItem('refresh_token')
     this.app.store.dispatch('user/logout')
     this.app.$apolloHelpers.onLogout()
   }
@@ -39,6 +44,7 @@ export class AuthService {
   }
 
   async refreshLogin() {
+    console.log('refresh login')
     const refreshToken = window.localStorage.getItem('refresh_token')
     if (refreshToken) {
       try {
@@ -51,7 +57,11 @@ export class AuthService {
 
         this.app.store.dispatch('user/login', res.token)
         await this.setToken(res.token.access_token)
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      this.logout()
     }
   }
 
@@ -61,11 +71,10 @@ export class AuthService {
       this.app.$apolloHelpers.onLogout()
       throw Error('expired')
     }
+    const expiresIn = exp - parseInt(Date.now() / 1000)
+    tokenTimeout = window.setTimeout(this.refreshLogin.bind(this), expiresIn * 1000)
+    console.log({ expiresIn, tokenTimeout })
     this.loggedIn = true
     await this.app.$apolloHelpers.onLogin(token)
-  }
-
-  isLoggedIn() {
-    return this.loggedIn
   }
 }

@@ -121,14 +121,12 @@ export default {
         }
       `,
       variables() {
-        console.log('where', this.where)
         return {
           order: { column: this.sortby, order: this.sortby === 'gaa' ? 'ASC' : 'DESC' },
           where: JSON.stringify(this.where)
         }
       },
       update: ({ playerstats }) => {
-        console.log(playerstats)
         if (playerstats.length === 1) {
           return playerstats[0]
         }
