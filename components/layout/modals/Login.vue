@@ -98,7 +98,7 @@
           <div class="flex items-center">
             <input
               id="remember-me"
-              :model="rememberme"
+              v-model="rememberme"
               name="remember-me"
               type="checkbox"
               class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
@@ -170,7 +170,7 @@ export default {
     return {
       username: null,
       password: null,
-      rememberme: false,
+      rememberme: true,
       error: false
     }
   },
@@ -186,10 +186,10 @@ export default {
         refresh: this.rememberme
       }
       try {
-        this.$authService.login(credentials)
+        await this.$authService.login(credentials)
         this.close()
       } catch (e) {
-        console.log(e)
+        console.log('catched', e)
         this.error = true
       }
     }

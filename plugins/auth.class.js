@@ -1,12 +1,25 @@
 import jwt from 'jsonwebtoken'
 import authLoginGql from '~/queries/auth/login.gql'
+import authLogoutGql from '~/queries/auth/logout.gql'
 import authTokenGql from '~/queries/auth/token.gql'
 
 export class AuthService {
   constructor(app) {
-    this.userdata = {}
     this.app = app
     this.apollo = app.apolloProvider.clients.defaultClient
+  }
+
+  async logout() {
+    const refresh_token = window.localStorage.getItem('refresh_token')
+    const res = await this.apollo
+      .mutate({
+        mutation: authLogoutGql,
+        variables: { refresh_token }
+      })
+      .then(({ data }) => data)
+
+    this.app.store.dispatch('user/logout')
+    this.app.$apolloHelpers.onLogout()
   }
 
   async login({ username, password, refresh }) {
@@ -17,7 +30,7 @@ export class AuthService {
       })
       .then(({ data }) => data)
 
-    this.userdata = res.login
+    this.app.store.dispatch('user/login', res.login)
     if (res.login.refresh_token) {
       window.localStorage.setItem('refresh_token', res.login.refresh_token)
     }
@@ -36,7 +49,7 @@ export class AuthService {
           })
           .then(({ data }) => data)
 
-        this.userdata = res.token
+        this.app.store.dispatch('user/login', res.token)
         await this.setToken(res.token.access_token)
       } catch (e) {}
     }
@@ -54,14 +67,5 @@ export class AuthService {
 
   isLoggedIn() {
     return this.loggedIn
-  }
-
-  get username() {
-    return this.userdata.manager?.email
-  }
-
-  get teamid() {
-    console.log(this.userdata)
-    return this.userdata.manager?.team?.teamid
   }
 }

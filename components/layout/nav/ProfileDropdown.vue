@@ -64,6 +64,14 @@
             class="block px-4 py-2 text-sm text-gray-700"
             role="menuitem"
             tabindex="-1"
+            >{{ loggedinTeam }}</a
+          >
+          <a
+            id="user-menu-item-0"
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700"
+            role="menuitem"
+            tabindex="-1"
             >Your Profile</a
           >
 
@@ -82,6 +90,7 @@
             class="block px-4 py-2 text-sm text-gray-700"
             role="menuitem"
             tabindex="-1"
+            @click="logout"
             >Sign out</a
           >
         </div>
@@ -161,6 +170,9 @@ export default {
     }
   },
   computed: {
+    loggedinTeam() {
+      return this.$authService.teamid
+    },
     isLoggedIn() {
       console.log('isLoggedIn', this.$authService.isLoggedIn())
       return this.$authService.isLoggedIn()
@@ -171,6 +183,9 @@ export default {
     })
   },
   methods: {
+    logout() {
+      this.$authService.logout()
+    },
     showLoginModal() {
       this.hide()
       this.loginModal = true
