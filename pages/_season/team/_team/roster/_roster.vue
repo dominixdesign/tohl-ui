@@ -47,7 +47,7 @@
         :positions="new Set([position])"
       />
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow p-6" v-if="!$apollo.loading">
-        <h3 class="font-serif font-headline font-extralight uppercase pb-4 text-xl">Legende</h3>
+        <h3 class="font-serif font-mono font-extralight uppercase pb-4 text-xl">Legende</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div v-for="(dd, dt) in legend" :key="dt">
             <span class="font-medium">{{ dt }}</span> <span>&ndash; {{ dd }}</span>

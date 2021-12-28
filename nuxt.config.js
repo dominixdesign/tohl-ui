@@ -13,21 +13,15 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  },
+
+  googleFonts: {
+    download: true,
+    families: {
+      'Ubuntu+Mono': [400, 700],
+      Yantramanav: [100, 300, 400, 500, 700, 900]
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -47,6 +41,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/google-fonts',
     '@nuxtjs/eslint-module',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',

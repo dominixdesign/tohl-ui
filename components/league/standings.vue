@@ -15,7 +15,7 @@
     >
       <tr class="text-base">
         <th colspan="2" scope="col" class="px-6 py-3 text-left">
-          <h3 class="font-serif font-headline font-extralight uppercase text-xl">
+          <h3 class="font-serif font-mono font-extralight uppercase text-xl">
             {{ title }}
           </h3>
         </th>
@@ -31,7 +31,7 @@
         <th scope="col" class="px-2 py-3">Strk</th>
       </tr>
     </thead>
-    <tbody class="font-headline">
+    <tbody class="font-mono">
       <tr v-if="error">
         <td colspan="12" class="text-secondary-500 text-center font-medium py-4">
           Tabelle kann nicht geladen werden.

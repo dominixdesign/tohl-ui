@@ -32,9 +32,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
-      beautiful: ['"Grey Qo"', 'cursive', 'system-ui'],
-      college: ['"Chakra Petch"', 'sans-serif', 'system-ui']
+      mono: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
+      sans: ['"Yantramanav"', 'sans-serif', 'system-ui']
     },
     extend: {
       backgroundImage: (theme) => ({

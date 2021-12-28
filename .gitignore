@@ -67,6 +67,8 @@ typings/
 
 # nuxt.js build output
 .nuxt
+assets/css/
+assets/fonts/
 
 # Nuxt generate
 dist

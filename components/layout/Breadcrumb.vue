@@ -1,6 +1,6 @@
 <template>
   <ol class="px-6 flex-shrink-0 items-end hidden lg:flex">
-    <li class="font-serif font-headline font-extralight uppercase">
+    <li class="font-serif font-mono font-extralight uppercase">
       <NuxtLink to="/">TOHL</NuxtLink>
     </li>
     <li class="pr-2" v-if="crumbs && crumbs[0] && crumbs[0].path !== '/'">
@@ -25,7 +25,7 @@
     <li
       v-for="(crumb, index) in crumbs"
       :key="index"
-      class="font-serif font-headline font-extralight uppercase"
+      class="font-serif font-mono font-extralight uppercase"
     >
       <NuxtLink :to="crumb.path">{{ $t(crumb.title) }}</NuxtLink>
     </li>

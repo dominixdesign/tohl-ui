@@ -17,7 +17,7 @@
             class="
               uppercase
               text-3xl
-              font-bold font-college
+              font-extrabold font-sans
               text-center
               sm:text-left
               inline-block
@@ -228,7 +228,7 @@ export default {
 <style lang="postcss" scoped>
 .skilltable td,
 .skilltable th {
-  @apply font-headline;
+  @apply font-mono;
   @apply py-2;
   @apply px-1;
   @apply border;

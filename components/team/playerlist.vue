@@ -1,14 +1,7 @@
 <template>
   <div class="overflow-y-auto">
     <table
-      class="
-        font-headline
-        text-right
-        relative
-        min-w-full
-        divide-y divide-gray-200
-        dark:divide-gray-600
-      "
+      class="font-mono text-right relative min-w-full divide-y divide-gray-200 dark:divide-gray-600"
     >
       <thead
         class="

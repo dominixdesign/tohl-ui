@@ -1,6 +1,6 @@
 <template>
   <div v-if="development">
-    <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
+    <h3 class="font-bold text-xl ml-1 sm:ml-0 mb-2">
       Entwicklung von {{ development.display_fname }} {{ development.display_lname }}
     </h3>
     <div class="max-w-3xl mx-auto">

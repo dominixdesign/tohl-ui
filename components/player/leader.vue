@@ -41,7 +41,7 @@
           <nuxt-link
             :to="`/player/${leader.player.id}`"
             class="
-              font-bold font-college
+              font-bold
               text-center
               inline-block
               px-2
@@ -63,7 +63,7 @@
               uppercase
               text-2xl
               sm:text-3xl
-              font-bold font-headline
+              font-bold font-mono
               text-center
               inline-block
               px-2

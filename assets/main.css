@@ -13,7 +13,7 @@
 
 .statstable td,
 .statstable th {
-  @apply font-headline;
+  @apply font-mono;
   @apply py-0.5 px-2;
   @apply border border-gray-300;
 }

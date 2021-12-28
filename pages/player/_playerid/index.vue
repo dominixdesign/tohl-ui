@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="type in types" class="statstable overflow-x-auto" :key="`${type}`">
-      <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">
+      <h3 class="font-bold text-xl ml-1 sm:ml-0 mb-2">
         {{ $t(`seasontypes.${type}`) }}
       </h3>
       <table v-if="seasons[type] && Object.keys(seasons[type]).length > 0">
@@ -111,7 +111,7 @@
       <p v-else class="mb-4">&mdash;</p>
     </div>
     <div class="statstable overflow-x-auto">
-      <h3 class="font-college font-bold text-xl ml-1 sm:ml-0 mb-2">Farm-Team Statistik</h3>
+      <h3 class="font-bold text-xl ml-1 sm:ml-0 mb-2">Farm-Team Statistik</h3>
       <table>
         <thead>
           <tr>
