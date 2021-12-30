@@ -44,6 +44,25 @@ export default {
     shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
     savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
   },
+  top10: {
+    offense: 'Offensive Statistiken',
+    defense: 'Defensive Statistiken',
+    goalies: 'Torhüter Statistiken',
+    goals: 'Tore',
+    points: 'Punkte',
+    assists: 'Vorlagen',
+    plusminus: 'Plus/Minus',
+    pim: 'Strafminuten',
+    hits: 'Hits',
+    shots: 'Torschüsse',
+    icetime: 'Eiszeit (in Minuten)',
+    ppg: 'Überzahltore',
+    shg: 'Unterzahltore',
+    gaa: 'Gegentore pro Spiel',
+    shutout: 'Shutouts',
+    savepercentage: 'Fangquote (in %)',
+    shotsfaced: 'Schüsse aufs Tor'
+  },
   sperre: '0 Spiele | ein Spiel | {count} Spiele',
   playersubs: {
     career: 'Karrieredaten',
