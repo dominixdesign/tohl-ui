@@ -56,7 +56,7 @@
       </tr>
       <tr
         v-for="index in limit"
-        class="text-sm text-right"
+        class="text-sm text-right hover:bg-gray-200"
         :class="[
           index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900',
           playerstats[index - 1][sortby] === playerstats[0][sortby] &&
@@ -64,6 +64,13 @@
             ? 'font-bold'
             : ''
         ]"
+        :style="
+          logTeam === playerstats[index - 1].team.teamid
+            ? `background-color: ${playerstats[index - 1].team.background}; color: ${
+                playerstats[index - 1].team.foreground
+              };`
+            : ''
+        "
         :key="`${playerstats[index - 1].team.teamid}-${
           playerstats[index - 1].player.lname
         }-${index}`"
@@ -85,11 +92,10 @@
           v-if="playerstats[index - 1][sortby] > 0"
         >
           <team-logo-inline :teamid="playerstats[index - 1].team.teamid" />
-          {{ playerstats[index - 1].player.display_fname }}
-          <span class="uppercase">{{ playerstats[index - 1].player.display_lname }}</span>
+          <player-linked-name :player="playerstats[index - 1].player" />
         </td>
         <td
-          class="pl-2 pr-4 py-0.5 whitespace-nowrap text-gray-600 dark:text-gray-400 italic"
+          class="pl-2 pr-4 py-0.5 whitespace-nowrap text-gray-600 dark:text-gray-400 italic text-xs"
           v-if="playerstats[index - 1][sortby] > 0"
         >
           {{ playerstats[index - 1].games }}
@@ -114,6 +120,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { mapState } from 'vuex'
 
 export default {
   props: {
@@ -144,6 +151,7 @@ export default {
               display_lname
               lname
             }
+            season
             games
             icetime
             goals
@@ -184,6 +192,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      logTeam: (state) => state.user.team
+    }),
     limit() {
       return this.position === 'goalies' ? 5 : 10
     },

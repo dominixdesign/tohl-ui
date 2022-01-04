@@ -1,3 +1,5 @@
+import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
+
 const positions = {
   C: 'Center',
   LW: 'Left-Wing',
@@ -32,6 +34,18 @@ const colors = {
 export default ({ store, $envConfig, error, app }) => {
   return {
     httpEndpoint: process.env.GRAPHQL_API_URL,
+    inMemoryCacheOptions: {
+      dataIdFromObject: (object) => {
+        switch (object.__typename) {
+          case 'Playerstats':
+            return `playerstats:${object.season}:${object.team?.teamid}:${object.player.id}`
+          case 'Team':
+            return `Team:${object.teamid}`
+          default:
+            return defaultDataIdFromObject(object) // fall back to default handling
+        }
+      }
+    },
     authenticationType: 'Bearer',
     tokenName: 'apollo-token',
     resolvers: {

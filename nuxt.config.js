@@ -85,11 +85,11 @@ export default {
   apollo: {
     clientConfigs: {
       default: '~/plugins/apollo.js'
-    },
-    defaultOptions: {
-      $query: {
-        fetchPolicy: 'no-cache'
-      }
+      //},
+      //defaultOptions: {
+      //  $query: {
+      //    fetchPolicy: 'no-cache'
+      //  }
     }
   },
 

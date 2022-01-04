@@ -105,6 +105,7 @@ export default {
               display_lname
               lname
             }
+            season
             games
             icetime
             goals
