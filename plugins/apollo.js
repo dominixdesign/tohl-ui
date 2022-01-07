@@ -53,8 +53,8 @@ export default ({ store, $envConfig, error, app }) => {
         position: (playerdata) => positions[playerdata.pos]
       },
       Team: {
-        foreground: (team) => colors[team.teamid]?.f,
-        background: (team) => colors[team.teamid]?.b
+        foreground: (team) => colors[team.teamid]?.f || '#fff',
+        background: (team) => colors[team.teamid]?.b || '#000'
       }
     }
   }

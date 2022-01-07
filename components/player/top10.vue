@@ -57,6 +57,7 @@
       <tr
         v-for="index in limit"
         class="text-sm text-right hover:bg-gray-200"
+        v-if="playerstats[index - 1]"
         :class="[
           index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900',
           playerstats[index - 1][sortby] === playerstats[0][sortby] &&
@@ -91,7 +92,18 @@
           class="px-3 py-0.5 whitespace-nowrap text-left text-gray-900 dark:text-gray-200"
           v-if="playerstats[index - 1][sortby] > 0"
         >
-          <team-logo-inline :teamid="playerstats[index - 1].team.teamid" />
+          <span v-if="playerstats[index - 1].total_teams" class="w-7 h-4 inline-block relative">
+            <team-logo-inline
+              v-for="(tt, tt_index) of playerstats[index - 1].total_teams"
+              :key="`${playerstats[index - 1].team.teamid}-${
+                playerstats[index - 1].player.lname
+              }-${index}-${tt.teamid}`"
+              :styles="getClipPath(playerstats[index - 1].total_teams.length, tt_index)"
+              :teamid="tt.teamid"
+              class="absolute left-0 top-1"
+            />
+          </span>
+          <team-logo-inline v-else :teamid="playerstats[index - 1].team.teamid" />
           <player-linked-name :player="playerstats[index - 1].player" />
         </td>
         <td
@@ -144,6 +156,18 @@ export default {
               foreground @client(always: true)
               background @client(always: true)
             }
+            currentTeam {
+              teamsim
+              teamid
+              foreground @client(always: true)
+              background @client(always: true)
+            }
+            total_teams {
+              teamsim
+              teamid
+              foreground @client(always: true)
+              background @client(always: true)
+            }
             player {
               id
               fname
@@ -167,6 +191,10 @@ export default {
             shotsfaced
             savepercentage
             shutout
+            fightswon
+            fightslose
+            fightsdraw
+            enforcerpoints
           }
         }
       `,
@@ -233,6 +261,14 @@ export default {
     }
   },
   methods: {
+    getClipPath(max_tt, tt_index) {
+      let first = (100 / max_tt) * (max_tt - (tt_index + 1))
+      first = tt_index === 0 ? first + 5 : first
+      const second = (100 / max_tt) * tt_index
+      return `clip-path: inset(0% ${first === 100 ? 0 : first}% 0% ${
+        second === 100 ? 0 : second
+      }%);`
+    },
     format(value, type, allValues) {
       if (type === 'plusminus') {
         return value > 0 ? `+${value}` : value

@@ -304,6 +304,9 @@ export default {
         query playerstats($where: JSON) {
           playerstats(where: $where) {
             season
+            player {
+              id
+            }
             team {
               teamid
               teamsim
@@ -351,7 +354,10 @@ export default {
       `,
       variables() {
         return {
-          where: JSON.stringify([['player', '=', this.playerid]])
+          where: JSON.stringify([
+            ['player', '=', this.playerid],
+            ['team', '!=', 'tot']
+          ])
         }
       },
       update: ({ playerstats }) => playerstats,

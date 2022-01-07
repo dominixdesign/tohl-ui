@@ -5,7 +5,7 @@
       v-for="list of Object.keys(top)"
       :key="list"
     >
-      <h3>{{ $t(`top10.${list}`) }}</h3>
+      <h3 class="text-3xl font-bold my-5">{{ $t(`top10.${list}`) }}</h3>
       <ul
         role="list"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-full"
@@ -36,9 +36,8 @@ export default {
   data() {
     return {
       top: {
-        offense: ['points', 'goals', 'assists', 'shots', 'ppg', 'shg'],
-        defense: ['plusminus', 'pim', 'hits', 'icetime'],
-        defense: ['plusminus', 'pim', 'hits', 'icetime'],
+        players: ['points', 'goals', 'assists', 'shots', 'ppg', 'shg', 'plusminus', 'icetime'],
+        enforcer: ['pim', 'hits', 'enforcerpoints', 'fightswon'],
         positions: ['C', 'RW', 'LW', 'D'],
         goalies: ['gaa', 'savepercentage', 'shutout', 'assists', 'pim', 'shotsfaced']
       }

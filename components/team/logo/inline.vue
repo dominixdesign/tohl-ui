@@ -1,6 +1,6 @@
 <template>
   <span
-    :style="`background-image: url(${require(`~/assets/teams/${teamid}.svg`)})`"
+    :style="`background-image: url(${require(`~/assets/teams/${teamid}.svg`)});${styles}`"
     aria-hidden="true"
     class="w-7 h-4 bg-cover bg-center inline-block align-middle border border-primary-800 bg-white"
   />
@@ -9,7 +9,8 @@
 <script>
 export default {
   props: {
-    teamid: String
+    teamid: String,
+    styles: String
   }
 }
 </script>
