@@ -80,15 +80,7 @@
               sortCol === col
                 ? 'bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700 hover:bg-gray-100'
                 : '',
-              col === 'teamname' ? 'text-left' : '',
-              ['gag', 'sag'].indexOf(col) < 0 &&
-              Math.max(...sortedScorer.map((t) => t[col])) === row[col]
-                ? 'font-bold'
-                : '',
-              ['gag', 'sag'].indexOf(col) >= 0 &&
-              Math.min(...sortedScorer.map((t) => t[col])) === row[col]
-                ? 'font-bold'
-                : ''
+              col === 'name' ? 'text-left' : ''
             ]"
             :style="
               logTeam === row.team.teamid
@@ -97,7 +89,14 @@
             "
             :key="row.team.teamid + col"
           >
-            <player-linked-name :player="row.player" v-if="col === 'name'" />
+            <player-team-and-name
+              v-if="col === 'name'"
+              :player="row.player"
+              :team="row.team"
+              :totalTeams="row.total_teams"
+            />
+            <span v-else-if="col === 'spercentage'">{{ shotpercentage(row[col]) }}</span>
+            <span v-else-if="col === 'averageicetime'">{{ averageicetime(row[col]) }}</span>
             <span v-else>{{ row[col] }}</span>
           </td>
         </tr>
@@ -118,12 +117,14 @@
 import { mapState } from 'vuex'
 import gql from 'graphql-tag'
 import { get } from 'lodash-es'
+import statsMixin from '~/mixins/playerstats'
 
 export default {
   async asyncData({ params }) {
     const season = params.season
     return { season }
   },
+  mixins: [statsMixin],
   data() {
     return {
       sortedScorer: [],
@@ -232,6 +233,8 @@ export default {
             first_stars
             second_stars
             third_stars
+            spercentage @client
+            averageicetime @client
           }
         }
       `,

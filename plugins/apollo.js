@@ -55,6 +55,37 @@ export default ({ store, $envConfig, error, app }) => {
       Team: {
         foreground: (team) => colors[team.teamid]?.f || '#fff',
         background: (team) => colors[team.teamid]?.b || '#000'
+      },
+      Lineup: {
+        spercentage: (stat) => {
+          let sp = 0
+          if (stat.goals > 0) {
+            sp = (100 * stat.goals) / stat.shots
+          }
+          return sp
+        }
+      },
+      Playerstats: {
+        spercentage: (stat) => {
+          if (stat.games <= 0) {
+            return 0
+          }
+          let sp = 0
+          if (stat.goals > 0) {
+            sp = (100 * stat.goals) / stat.shots
+          }
+          return sp
+        },
+        averageicetime: (stat) => {
+          if (stat.games <= 0) {
+            return false
+          }
+          let atoi = 0
+          if (stat.icetime > 0) {
+            atoi = stat.icetime / stat.games
+          }
+          return atoi
+        }
       }
     }
   }

@@ -64,7 +64,9 @@
               {{ stat.team.teamid === stat.game.winner.teamid ? 'W' : 'L'
               }}{{ stat.game.overtimes > 0 ? `-OT${stat.game.overtimes}` : '' }}
             </span>
-            <span v-else-if="col === 'spercentage'">{{ shotpercentage(stat) || '&mdash;' }}</span>
+            <span v-else-if="col === 'spercentage'">{{
+              shotpercentage(get(stat, col)) || '&mdash;'
+            }}</span>
             <span v-else-if="col === 'plusminus'"
               >{{ get(stat, col, '&mdash;') > 0 ? '+' : '' }}{{ get(stat, col, '&mdash;') }}</span
             >
@@ -80,11 +82,13 @@
 <script>
 import gql from 'graphql-tag'
 import { get } from 'lodash-es'
+import statsMixin from '~/mixins/playerstats'
 
 export default {
   async asyncData({ params: { playerid } }) {
     return { playerid }
   },
+  mixins: [statsMixin],
   data() {
     return {
       cols: [
@@ -150,6 +154,7 @@ export default {
             goalsagainst
             shutout
             star
+            spercentage @client
           }
         }
       `,
@@ -171,18 +176,6 @@ export default {
         return defaultValue
       }
       return get(object, path, defaultValue)
-    },
-    shotpercentage(stat) {
-      if (stat.games <= 0) {
-        return false
-      }
-      let sp = 0
-      if (stat.goals > 0) {
-        sp = (100 * stat.goals) / stat.shots
-      }
-      return (
-        sp.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'
-      )
     }
   }
 }

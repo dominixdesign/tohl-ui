@@ -38,12 +38,12 @@
   @apply bg-gray-900;
 }
 .dark .statstable tr th {
-  @apply bg-gray-800;
+  @apply bg-primary-800;
 }
 .dark .statstable td,
 .dark .statstable th {
   @apply border-gray-700;
 }
 .dark .statstable tr:hover {
-  @apply bg-gray-700;
+  @apply bg-primary-700;
 }

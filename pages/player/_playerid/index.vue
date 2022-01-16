@@ -11,12 +11,11 @@
             <th></th>
             <th colspan="3">Scoring</th>
             <th></th>
-            <th colspan="2"></th>
-            <th colspan="4">Goals</th>
-            <th colspan="3">Assists</th>
-            <th colspan="2">Shots</th>
-            <th colspan="2">Ice Time</th>
-            <th></th>
+            <th colspan="3">Härte</th>
+            <th colspan="4">Tore</th>
+            <th colspan="3">Vorlagen</th>
+            <th colspan="2">Schüsse</th>
+            <th colspan="2">Eiszeit</th>
             <th></th>
           </tr>
           <tr>
@@ -28,6 +27,7 @@
             <th>PTS</th>
             <th>+/-</th>
             <th>PIM</th>
+            <th>HITS</th>
             <th>EJEC</th>
             <th>EV</th>
             <th>PP</th>
@@ -40,7 +40,6 @@
             <th>S%</th>
             <th>TOI</th>
             <th>ATOI</th>
-            <th>HITS</th>
             <th>INJ</th>
           </tr>
         </thead>
@@ -62,9 +61,11 @@
                 <team-logo-inline class="hidden sm:inline-block" :teamid="stat.team.teamid" />
                 {{ stat.team.teamid }}
               </span>
-              <span v-else-if="col === 'spercentage'">{{ shotpercentage(stat) || '&mdash;' }}</span>
+              <span v-else-if="col === 'spercentage'">{{
+                shotpercentage(get(stat, col)) || '&mdash;'
+              }}</span>
               <span v-else-if="col === 'averageicetime'">{{
-                averageicetime(stat) || '&mdash;'
+                averageicetime(get(stat, col)) || '&mdash;'
               }}</span>
               <span v-else-if="col === 'plusminus'"
                 >{{ get(stat, col, '&mdash;') > 0 ? '+' : '' }}{{ get(stat, col, '&mdash;') }}</span
@@ -82,9 +83,11 @@
             >
               <span v-if="col === 'season'"></span>
               <span v-else-if="col === 'team'" class="uppercase"> {{ name }} </span>
-              <span v-else-if="col === 'spercentage'">{{ shotpercentage(stat) || '&mdash;' }}</span>
+              <span v-else-if="col === 'spercentage'">{{
+                shotpercentage(get(stat, col)) || '&mdash;'
+              }}</span>
               <span v-else-if="col === 'averageicetime'">{{
-                averageicetime(stat) || '&mdash;'
+                averageicetime(get(stat, col)) || '&mdash;'
               }}</span>
               <span v-else>{{ get(stat, col, '&mdash;') }}</span>
             </td>
@@ -98,10 +101,10 @@
               <span v-if="col === 'season'"></span>
               <span v-else-if="col === 'team'" class="uppercase">Career</span>
               <span v-else-if="col === 'spercentage'">{{
-                shotpercentage(seasons.career.all[type]) || '&mdash;'
+                shotpercentage(get(seasons.career.all[type], col)) || '&mdash;'
               }}</span>
               <span v-else-if="col === 'averageicetime'">{{
-                averageicetime(seasons.career.all[type]) || '&mdash;'
+                averageicetime(get(seasons.career.all[type], col)) || '&mdash;'
               }}</span>
               <span v-else>{{ get(seasons.career.all[type], col, '&mdash;') }}</span>
             </td>
@@ -169,11 +172,13 @@
 <script>
 import gql from 'graphql-tag'
 import { get } from 'lodash-es'
+import statsMixin from '~/mixins/playerstats'
 
 export default {
   async asyncData({ params: { playerid } }) {
     return { playerid }
   },
+  mixins: [statsMixin],
   data() {
     return {
       types: ['reg', 'plf', 'pre'],
@@ -274,28 +279,6 @@ export default {
         return defaultValue
       }
       return get(object, path, defaultValue)
-    },
-    shotpercentage(stat) {
-      if (stat.games <= 0) {
-        return false
-      }
-      let sp = 0
-      if (stat.goals > 0) {
-        sp = (100 * stat.goals) / stat.shots
-      }
-      return (
-        sp.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'
-      )
-    },
-    averageicetime(stat) {
-      if (stat.games <= 0) {
-        return false
-      }
-      let atoi = 0
-      if (stat.icetime > 0) {
-        atoi = stat.icetime / stat.games
-      }
-      return `${Math.floor(atoi)}:${('00' + Math.floor((atoi % 1) * 60)).slice(-2)}`
     }
   },
   apollo: {
@@ -349,6 +332,8 @@ export default {
             farm_goals
             farm_assists
             farm_points
+            spercentage @client
+            averageicetime @client
           }
         }
       `,
