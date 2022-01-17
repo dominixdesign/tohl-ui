@@ -19,7 +19,6 @@
         w-full
         z-40
         backdrop-filter
-        bg-opacity-60
         dark:bg-opacity-60
         backdrop-blur-lg
       "
