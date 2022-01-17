@@ -147,6 +147,11 @@ export default {
       openNav: (state) => state.layout.navOpen
     })
   },
+  head() {
+    return {
+      titleTemplate: '%s - TOHL'
+    }
+  },
   watch: {
     colormode(newMode) {
       this.$colorMode.preference = newMode
