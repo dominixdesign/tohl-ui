@@ -18,6 +18,7 @@
         "
       >
         <tr class="text-base">
+          <th></th>
           <th
             v-for="col in cols"
             scope="col"
@@ -30,9 +31,9 @@
             <span
               class="w-1 h-1 inline-block border-4 border-transparent"
               :class="
-                sortCol === col && direction === 'asc'
+                sortCol === col && direction === 'desc'
                   ? 'border-t-primary-100'
-                  : sortCol === col && direction === 'desc'
+                  : sortCol === col && direction === 'asc'
                   ? 'border-b-primary-100'
                   : ''
               "
@@ -49,17 +50,21 @@
         <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <tr
           v-if="$apollo.loading"
-          v-for="n in 6"
+          v-for="n in 12"
           :key="`roster-${n}`"
           :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
         >
           <!-- eslint-enable -->
-          <td class="p-1">
+          <td></td>
+          <td class="p-1 text-left">
             <div
-              class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
+              class="bg-gray-200 dark:bg-primary-700 w-4 h-6 animate-pulse float-right rounded-sm"
+            />
+            <div
+              class="bg-gray-200 dark:bg-primary-700 w-16 h-6 animate-pulse float-right rounded-sm"
             />
           </td>
-          <td v-for="c in 8" :key="`playerlist-${n}-${c}`" class="px-2 py-1">
+          <td v-for="c in 20" :key="`playerlist-${n}-${c}`" class="px-2 py-1">
             <div
               class="bg-gray-200 dark:bg-primary-700 w-6 h-6 animate-pulse float-right rounded-sm"
             />
@@ -73,6 +78,7 @@
           class="text-base dark:hover:bg-primary-700 hover:bg-gray-100"
           :key="`${row.player.fname}-${row.player.lname}-${row.team.teamid}`"
         >
+          <td>{{ index + 1 }}.</td>
           <td
             v-for="col in cols"
             class="p-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
@@ -128,6 +134,8 @@ export default {
   data() {
     return {
       sortedScorer: [],
+      page: 0,
+      perPage: 20,
       error: false,
       cols: [
         'name',
@@ -153,7 +161,7 @@ export default {
         'injuries'
       ],
       sortCol: 'points',
-      direction: 'asc',
+      direction: 'desc',
       legend: {
         SP: 'Games / Spiele',
         T: 'Goals / Tore',
@@ -252,14 +260,14 @@ export default {
       variables() {
         return {
           order: [
-            { column: 'points', order: 'DESC' },
+            { column: this.sortCol, order: this.direction },
             { column: 'games', order: 'ASC' }
           ],
           where: JSON.stringify([
             ['playerstats.season', '=', this.season],
             ['playerdata.pos', 'IN', ['LW', 'RW', 'C', 'D']]
           ]),
-          limit: 1500
+          limit: this.perPage
         }
       },
       update: ({ playerstats }) => {
@@ -288,28 +296,12 @@ export default {
       if (this.sortCol === col) {
         this.direction = this.direction === 'asc' ? 'desc' : 'asc'
       } else {
-        this.direction = 'asc'
+        this.direction = 'desc'
       }
       this.sortCol = col
-      this.updatePlayer()
     },
     updatePlayer() {
-      let sorting = this.sortCol
-      if (sorting === 'name') {
-        sorting = 'player.display_lname'
-      }
-      this.sortedScorer = this.playerstats.slice().sort((a, b) => {
-        if (a.team === null) {
-          console.log(a)
-        }
-        if (get(a, sorting) > get(b, sorting)) return 1
-        if (get(a, sorting) < get(b, sorting)) return -1
-        return 0
-      })
-      if (this.direction === 'asc') {
-        this.sortedScorer.reverse()
-      }
-      this.sortedScorer = this.sortedScorer.slice(0, 25)
+      this.sortedScorer = this.playerstats.slice()
     }
   }
 }
