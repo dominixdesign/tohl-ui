@@ -6,7 +6,7 @@
         <div class="w-40">
           <team-logo-big :teamid="game.home.teamid" />
         </div>
-        <div class="w-40 text-center place-self-center leading-none">
+        <div class="w-40 text-center place-self-center leading-none text-white">
           <div class="text-8xl font-extrabold">{{ game.goalshome }}:{{ game.goalsaway }}</div>
           <div v-if="game.overtimes === 1" class="text-xl font-extrabold leading-3">OT</div>
           <div v-else-if="game.overtimes > 1" class="text-xl font-extrabold leading-3">
@@ -17,6 +17,38 @@
           <team-logo-big :teamid="game.away.teamid" />
         </div>
       </div>
+      <ul class="flex justify-center gap-2 mb-2">
+        <li class="text-white flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span>{{ game.home.rink }}</span>
+        </li>
+        <li class="text-white flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span>{{ new Date().toLocaleDateString() }}</span>
+        </li>
+      </ul>
     </div>
     <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="game">
       <h3 class="text-3xl font-bold my-5">Spiel #{{ gamenumber }} in {{ season }}</h3>
@@ -56,6 +88,7 @@ export default {
             season
             home {
               teamid
+              rink
             }
             away {
               teamid

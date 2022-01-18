@@ -12,7 +12,7 @@ const colors = {
   np: { f: '#000', b: '#558148' },
   haw: { f: '#C0A062', b: '#4A2162' },
   mer: { f: '#243E90', b: '#F6EB16' },
-  pow: { f: '#000', b: '#EF7E3E' },
+  pow: { f: '#EF7E3E', b: '#f6c51c' },
   kai: { f: '#ABAAAA', b: '#243E90' },
   hor: { f: '#6ABD45', b: '#051732' },
   pat: { f: '#575858', b: '#ED2224' },
