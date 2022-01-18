@@ -50,8 +50,22 @@
         </li>
       </ul>
     </div>
-    <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="game">
-      <h3 class="text-3xl font-bold my-5">Spiel #{{ gamenumber }} in {{ season }}</h3>
+    <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
+      <div :id="`gameday-${gameday}`" class="xl:shadow mt-4">
+        <div
+          class="
+            p-3
+            text-lg
+            font-bold
+            bg-primary-500
+            dark:bg-primary-700
+            text-primary-50
+            dark:text-primary-200
+          "
+        >
+          1. Drittel
+        </div>
+      </div>
     </div>
   </div>
 </template>
