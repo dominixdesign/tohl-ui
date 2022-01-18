@@ -20,7 +20,7 @@
     >
       <div class="flex justify-center items-center flex-row pb-3">
         <team-logo-middle :teamid="team.teamid" class="flex-none" />
-        <div class="font-bold text-2xl sm:text-4xl p-2 flex-grow uppercase font-mono">
+        <div class="font-bold text-2xl sm:text-4xl p-2 grow uppercase font-mono">
           {{ team.teamsim }}
         </div>
       </div>

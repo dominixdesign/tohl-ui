@@ -28,7 +28,7 @@
       >
         <div class="relative h-16 flex justify-between">
           <div class="relative z-10 px-2 flex lg:px-0">
-            <div class="flex-shrink-0 flex items-center">
+            <div class="shrink-0 flex items-center">
               <layout-logo class="h-8" />
             </div>
           </div>
@@ -92,7 +92,7 @@
       </div>
     </header>
     <header class="shadow-sm h-12 lg:h-36" />
-    <main class="isolate flex-grow items-stretch justify-center flex">
+    <main class="isolate grow items-stretch justify-center flex">
       <div
         style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
         class="

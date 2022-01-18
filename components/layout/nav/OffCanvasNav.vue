@@ -16,7 +16,7 @@
       aria-modal="true"
     >
       <div v-if="showNavBar" class="relative flex-1 flex flex-col w-full pt-5 pb-4">
-        <div class="z-10 flex-shrink-0 flex items-center px-4">
+        <div class="z-10 shrink-0 flex items-center px-4">
           <layout-logo class="h-16 m-auto my-6" />
         </div>
         <div

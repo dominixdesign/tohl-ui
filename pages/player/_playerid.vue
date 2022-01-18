@@ -12,7 +12,7 @@
             :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
           />
         </div>
-        <div class="flex-grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
+        <div class="grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
           <h2
             class="
               uppercase

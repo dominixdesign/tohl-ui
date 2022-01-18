@@ -35,9 +35,7 @@
           />
           <team-logo-big :teamid="leader.team.teamid" class="w-12 h-12 relative -mt-5" />
         </div>
-        <div
-          class="flex-grow sm:pl-4 flex flex-col pt-2 sm:place-items-start place-items-center gap-1"
-        >
+        <div class="grow sm:pl-4 flex flex-col pt-2 sm:place-items-start place-items-center gap-1">
           <nuxt-link
             :to="`/player/${leader.player.id}`"
             class="
@@ -46,7 +44,8 @@
               inline-block
               px-2
               bg-gray-50 bg-opacity-40
-              overflow-ellipsis overflow-hidden
+              text-ellipsis
+              overflow-hidden
               text-gray-500
               whitespace-nowrap
             "

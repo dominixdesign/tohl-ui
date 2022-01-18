@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center">
-    <div class="flex-grow w-24">
+    <div class="grow w-24">
       <div class="flex items-center justify-end">
         <div class="hidden sm:block">{{ game.home.teamsim }}</div>
         <team-logo-small class="mx-3" :teamid="game.home.teamid" />
@@ -31,7 +31,6 @@
             w-5
             h-5
             left-1/2
-            transform
             -translate-x-1/2
             bottom-1
           "
@@ -51,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow w-24">
+    <div class="grow w-24">
       <div class="flex items-center justify-start">
         <team-logo-small class="mx-3" :teamid="game.away.teamid" />
         <div class="hidden sm:block">{{ game.away.teamsim }}</div>

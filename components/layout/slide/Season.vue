@@ -27,8 +27,8 @@
 
           <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
             <transition
-              enter-active-class="transform transition ease-in-out duration-500 sm:duration-700"
-              leave-active-class="transform transition ease-in-out duration-500 sm:duration-700"
+              enter-active-class=" transition ease-in-out duration-500 sm:duration-700"
+              leave-active-class=" transition ease-in-out duration-500 sm:duration-700"
               enter-class="translate-x-full"
               enter-to-class="translate-x-0"
               leave-class="translate-x-0"

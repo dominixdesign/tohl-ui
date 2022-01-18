@@ -42,9 +42,9 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/google-fonts',
-    '@nuxtjs/eslint-module',
+    //'@nuxtjs/eslint-module',
     '@nuxtjs/color-mode',
-    '@nuxtjs/tailwindcss',
+    '@nuxt/postcss8',
     '@nuxt/image',
     '@nuxtjs/svg'
   ],
@@ -106,6 +106,12 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   buildDir: 'dist',
   build: {
-    publicPath: '/nuxt/'
+    publicPath: '/nuxt/',
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {}
+      }
+    }
   }
 }

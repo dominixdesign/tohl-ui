@@ -18,7 +18,8 @@
         class="
           relative
           z-10
-          flex-shrink-0 flex
+          shrink-0
+          flex
           h-16
           mb-0
           bg-dizzle-light

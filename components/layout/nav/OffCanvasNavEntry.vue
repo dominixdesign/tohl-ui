@@ -12,7 +12,7 @@
     >
       {{ entry.title }}
       <svg
-        class="flex-shrink-0 h-5 w-5"
+        class="shrink-0 h-5 w-5"
         :class="submenuOpen ? 'rotate-90' : 'rotate-90 scale-105'"
         viewBox="0 0 20 20"
         aria-hidden="true"

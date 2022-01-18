@@ -1,12 +1,14 @@
-var flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
-  purge: [
-    './components/**/*.{js,jsx,ts,tsx,vue}',
-    './layouts/**/*.{js,jsx,ts,tsx,vue}',
-    './pages/**/*.{js,jsx,ts,tsx,vue}'
+  content: [
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './nuxt.config.{js,ts}'
   ],
   plugins: [
     require('@tailwindcss/forms'),
@@ -87,6 +89,13 @@ module.exports = {
         '10plus': 'calc(100% + 10px)'
       },
       colors: {
+        colors: {
+          green: colors.emerald,
+          yellow: colors.amber,
+          purple: colors.violet,
+          gray: colors.neutral
+        },
+        current: 'currentColor',
         primary: {
           DEFAULT: '#0061AF',
           50: '#96D0FF',

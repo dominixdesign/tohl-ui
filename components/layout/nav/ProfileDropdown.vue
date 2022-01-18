@@ -39,10 +39,10 @@
     <transition
       enter-active-class="transition ease-out duration-100"
       leave-active-class="transition ease-in duration-75"
-      enter-class="transform opacity-0 scale-95"
-      enter-to-class="transform opacity-100 scale-100"
-      leave-class="transform opacity-100 scale-100"
-      leave-to-class="transform opacity-0 scale-95"
+      enter-class=" opacity-0 scale-95"
+      enter-to-class=" opacity-100 scale-100"
+      leave-class=" opacity-100 scale-100"
+      leave-to-class=" opacity-0 scale-95"
     >
       <div
         v-if="profileOpen"
@@ -125,7 +125,7 @@
               class="
                 relative
                 inline-flex
-                flex-shrink-0
+                shrink-0
                 h-6
                 w-11
                 border-2 border-transparent
@@ -148,7 +148,6 @@
                   rounded-full
                   bg-white
                   shadow
-                  transform
                   ring-0
                   transition
                   ease-in-out
