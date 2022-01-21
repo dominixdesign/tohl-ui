@@ -30,7 +30,7 @@
             clip-rule="evenodd"
           />
         </svg>
-        Vorheriger Spieltag
+        {{ previousTitle }}
       </nuxt-link>
     </div>
     <div class="hidden md:-mt-px md:flex">
@@ -76,12 +76,12 @@
             : ''
         ]"
       >
-        {{ entry === 0 ? '...' : entry }}
+        {{ entry === 0 ? '...' : entryTitles[entry] ? entryTitles[entry] : entry }}
       </component>
     </div>
     <div class="-mt-px w-0 flex-1 flex justify-end">
       <nuxt-link
-        v-if="next < max"
+        v-if="next <= max"
         :to="`${basePath}${next}`"
         class="
           border-t-2 border-transparent
@@ -95,7 +95,7 @@
           hover:text-gray-700 hover:border-gray-300
         "
       >
-        Nächster Spieltag
+        {{ nextTitle }}
         <svg
           class="ml-3 h-5 w-5 text-gray-400"
           xmlns="http://www.w3.org/2000/svg"
@@ -137,10 +137,27 @@ export default {
     basePath: {
       type: String,
       default: ''
+    },
+    nextTitle: {
+      type: String,
+      default: ''
+    },
+    previousTitle: {
+      type: String,
+      default: ''
+    },
+    entryTitles: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   computed: {
     entries() {
+      if (this.max <= 4) {
+        return [...Array(this.max + 1).keys()].slice(1)
+      }
       const entries = []
       if (this.current - 1 > this.min) {
         entries.push(this.min)

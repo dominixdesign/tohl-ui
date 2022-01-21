@@ -1,12 +1,12 @@
 <template>
-  <ol class="px-6 flex-shrink-0 items-end hidden lg:flex">
-    <li class="font-serif font-headline font-extralight uppercase">
+  <ol class="px-6 shrink-0 items-end hidden lg:flex">
+    <li class="font-serif font-mono font-extralight uppercase">
       <NuxtLink to="/">TOHL</NuxtLink>
     </li>
     <li class="pr-2" v-if="crumbs && crumbs[0] && crumbs[0].path !== '/'">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5 translate-x-1 -translate-y-0.5 transform"
+        class="h-5 w-5 translate-x-1 -translate-y-0.5"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -25,7 +25,7 @@
     <li
       v-for="(crumb, index) in crumbs"
       :key="index"
-      class="font-serif font-headline font-extralight uppercase"
+      class="font-serif font-mono font-extralight uppercase"
     >
       <NuxtLink :to="crumb.path">{{ $t(crumb.title) }}</NuxtLink>
     </li>

@@ -1,5 +1,5 @@
 <template>
-  <h3 class="font-bold text-2xl font-headline flex items-center">
+  <h3 class="font-bold text-2xl font-mono flex items-center">
     <team-logo-middle :teamid="currentTeam" />
     <div class="relative inline-block text-left" v-click-outside="hide">
       <div>

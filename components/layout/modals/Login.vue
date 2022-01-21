@@ -9,10 +9,7 @@
             rounded-md
             text-gray-400
             hover:text-gray-500
-            focus:outline-none
-            focus:ring-2
-            focus:ring-offset-2
-            focus:ring-indigo-500
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
           "
           @click="slotProps.closemodal"
         >
@@ -36,17 +33,13 @@
         </button>
       </div>
       <div>
-        <h3 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Manager Login
-        </h3>
+        <h3 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Manager Login</h3>
       </div>
       <form v-on:submit.prevent="login" class="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <label for="email-address" class="sr-only"
-              >E-Mail oder Username</label
-            >
+            <label for="email-address" class="sr-only">E-Mail oder Username</label>
             <input
               id="email-address"
               v-model="username"
@@ -66,10 +59,7 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-t-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="E-Mail oder Username"
@@ -96,10 +86,7 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-b-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="Passwort"
@@ -111,17 +98,10 @@
           <div class="flex items-center">
             <input
               id="remember-me"
-              :model="rememberme"
+              v-model="rememberme"
               name="remember-me"
               type="checkbox"
-              class="
-                h-4
-                w-4
-                text-primary-600
-                focus:ring-primary-500
-                border-gray-300
-                rounded
-              "
+              class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
             />
             <label for="remember-me" class="ml-2 block text-sm text-gray-900">
               eingeloggt bleiben
@@ -129,18 +109,13 @@
           </div>
 
           <div class="text-sm mt-4 sm:mt-0">
-            <a
-              href="#"
-              class="font-medium text-primary-600 hover:text-primary-500"
-            >
+            <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
               Passwort vergessen?
             </a>
           </div>
         </div>
         <layout-elements-alert v-if="error">
-          <h3 class="text-sm font-medium text-red-800">
-            Anmeldung fehlgeschlagen.
-          </h3>
+          <h3 class="text-sm font-medium text-red-800">Anmeldung fehlgeschlagen.</h3>
         </layout-elements-alert>
         <div>
           <button
@@ -160,10 +135,7 @@
               text-white
               bg-primary-600
               hover:bg-primary-700
-              focus:outline-none
-              focus:ring-2
-              focus:ring-offset-2
-              focus:ring-primary-500
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500
             "
           >
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -198,7 +170,7 @@ export default {
     return {
       username: null,
       password: null,
-      rememberme: false,
+      rememberme: true,
       error: false
     }
   },
@@ -214,7 +186,7 @@ export default {
         refresh: this.rememberme
       }
       try {
-        this.$authApi.login(credentials)
+        await this.$authService.login(credentials)
         this.close()
       } catch (e) {
         this.error = true

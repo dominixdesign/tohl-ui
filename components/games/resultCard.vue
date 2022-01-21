@@ -30,16 +30,16 @@
       <div v-for="(star, index) in ['first', 'second', 'third']" :key="star" class="flex flex-col">
         <div class="flex flex-row justify-center h-5">
           <icons-star
-            class="flex-shrink"
+            class="shrink"
             :class="`h-${6 - index} w-${6 - index}`"
             v-for="c in index + 1"
             :key="c"
           />
         </div>
-        <span class="text-xs uppercase leading-3 overflow-ellipsis overflow-hidden">{{
+        <span class="text-xs uppercase leading-3 text-ellipsis overflow-hidden">{{
           stars(star).player.fname
         }}</span>
-        <span class="text-sm uppercase font-medium overflow-ellipsis overflow-hidden">{{
+        <span class="text-sm uppercase font-medium text-ellipsis overflow-hidden">{{
           stars(star).player.lname
         }}</span>
       </div>

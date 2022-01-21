@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center bg-gray-100 dark:bg-primary-900 mb-1 hover:shadow-schedule">
-    <div class="flex-grow w-24">
+    <div class="grow w-24">
       <div class="flex items-center justify-end mr-3">
         <div>{{ game.home.teamsim }}</div>
       </div>
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow w-24">
+    <div class="grow w-24">
       <div class="flex items-center justify-start ml-3">
         <div>{{ game.away.teamsim }}</div>
       </div>

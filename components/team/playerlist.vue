@@ -1,6 +1,8 @@
 <template>
   <div class="overflow-y-auto">
-    <table class="font-headline relative min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+    <table
+      class="font-mono text-right relative min-w-full divide-y divide-gray-200 dark:divide-gray-600"
+    >
       <thead
         class="
           sticky
@@ -18,12 +20,12 @@
           <th
             v-for="col in cols"
             scope="col"
-            class="px-1 xl:px-2 py-3 cursor-pointer whitespace-nowrap"
+            class="px-1 py-3 cursor-pointer whitespace-nowrap"
             @click="() => sortColumn(col)"
             :key="'headline-' + col"
             :class="col === 'name' ? 'text-left' : ''"
           >
-            {{ $t(`column.${col}`) }}
+            {{ col === 'name' && title ? title : $t(`column.${col}`) }}
             <span
               class="w-1 h-1 inline-block border-4 border-transparent"
               :class="
@@ -51,15 +53,15 @@
           :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
         >
           <!-- eslint-enable -->
-          <td class="px-2 xl:px-4 py-1">
+          <td class="p-1">
             <div
               class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
             />
           </td>
-          <td class="px-2 xl:px-4 py-1">
+          <td class="p-1">
             <div class="bg-gray-200 dark:bg-primary-700 w-40 h-6 animate-pulse rounded-sm" />
           </td>
-          <td v-for="c in 19" :key="`standins-${n}-${c}`" class="px-2 xl:px-4 py-1">
+          <td v-for="c in 19" :key="`playerlist-${n}-${c}`" class="px-2 py-1">
             <div
               class="bg-gray-200 dark:bg-primary-700 w-6 h-6 animate-pulse float-right rounded-sm"
             />
@@ -70,12 +72,12 @@
           :class="
             index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'
           "
-          class="text-base text-right dark:hover:bg-primary-700 hover:bg-gray-100"
+          class="text-base dark:hover:bg-primary-700 hover:bg-gray-100"
           :key="row.fname + row.lname"
         >
           <td
             v-for="col in cols"
-            class="px-2 xl:px-4 py-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
+            class="p-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
             :class="
               sortCol === col
                 ? 'bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700 hover:bg-gray-100'
@@ -84,7 +86,7 @@
             :key="row.fname + row.lname + col"
           >
             <span v-if="col === 'name'">
-              <player-linked-name :player="row" :season="season" />
+              <player-linked-name :player="row" />
             </span>
             <span v-if="col === 'number'" class="italic">
               {{ row.seasondata.number }}
@@ -223,7 +225,6 @@ export default {
       } else {
         sorting = 'seasondata.' + sorting
       }
-      console.log({ sorting })
       const filtertedRoster = [...this.roster]
         .filter((p) => {
           if (this.selectedRoster && this.selectedRoster !== 'all') {

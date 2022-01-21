@@ -1,8 +1,8 @@
 <template>
-  <div class="flex items-center bg-gray-100 dark:bg-primary-900 mb-2 hover:shadow-schedule">
-    <div class="flex-grow w-24">
+  <div class="flex items-center">
+    <div class="grow w-24">
       <div class="flex items-center justify-end">
-        <div>{{ game.home.teamsim }}</div>
+        <div class="hidden sm:block">{{ game.home.teamsim }}</div>
         <team-logo-small class="mx-3" :teamid="game.home.teamid" />
       </div>
     </div>
@@ -31,7 +31,6 @@
             w-5
             h-5
             left-1/2
-            transform
             -translate-x-1/2
             bottom-1
           "
@@ -51,13 +50,13 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow w-24">
+    <div class="grow w-24">
       <div class="flex items-center justify-start">
         <team-logo-small class="mx-3" :teamid="game.away.teamid" />
-        <div>{{ game.away.teamsim }}</div>
+        <div class="hidden sm:block">{{ game.away.teamsim }}</div>
       </div>
     </div>
-    <nuxt-link :to="boxscoreLink" class="flex p-2 content-center">
+    <nuxt-link :to="boxscoreLink" class="flex p-2 content-center" v-if="isGameOver">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -84,6 +83,9 @@ export default {
   computed: {
     boxscoreLink() {
       return `/${this.game.season}/game/${this.game.id}`
+    },
+    isGameOver() {
+      return this.game.goalshome > 0 || this.game.goalsaway > 0
     }
   }
 }

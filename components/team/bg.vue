@@ -4,8 +4,11 @@
     class="absolute bottom-0 left-0 right-0 -z-1 w-auto sm:w-full h-full sm:h-auto"
     viewBox="0 0 1600 800"
   >
-    <rect fill="#000000" width="1600" height="800" />
-    <g fill-opacity="0.47">
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+    <rect :fill="background" width="1600" height="800" />
+    <g filter="url(#blur)" fill-opacity="0.47">
       <polygon :fill="foreground" points="1600 160 0 460 0 350 1600 50" />
       <polygon :fill="foreground" points="1600 260 0 560 0 450 1600 150" />
       <polygon :fill="foreground" points="1600 360 0 660 0 550 1600 250" />

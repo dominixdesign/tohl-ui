@@ -12,12 +12,12 @@
             :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
           />
         </div>
-        <div class="flex-grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
+        <div class="grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
           <h2
             class="
               uppercase
               text-3xl
-              font-bold font-college
+              font-extrabold font-sans
               text-center
               sm:text-left
               inline-block
@@ -77,12 +77,10 @@
           <div class="border-b border-gray-200 px-2">
             <nav class="container mx-auto -mb-px flex space-x-8" aria-label="Tabs">
               <nuxt-link
-                v-for="subpage in ['career', 'farm', 'gamelog', 'trades', 'development', 'awards']"
+                v-for="subpage in ['career', 'gamelog', 'trades', 'development', 'awards']"
                 :key="subpage"
                 :to="
-                  subpage === 'career'
-                    ? `/${season}/player/${playerid}/`
-                    : `/${season}/player/${playerid}/${subpage}`
+                  subpage === 'career' ? `/player/${playerid}/` : `/player/${playerid}/${subpage}`
                 "
                 class="
                   border-transparent
@@ -95,7 +93,8 @@
                   text-sm
                 "
                 :class="
-                  subpage === partition
+                  fullPath === `/player/${playerid}/${subpage}` ||
+                  (fullPath === `/player/${playerid}/` && subpage === 'career')
                     ? 'text-primary-200 border-primary-200 font-bold'
                     : 'text-primary-400'
                 "
@@ -107,7 +106,7 @@
         </div>
       </div>
     </div>
-    <div class="pt-4">
+    <div class="p-4">
       <nuxt-child />
     </div>
   </div>
@@ -121,11 +120,16 @@ import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
 export default {
-  async asyncData({ params: { season, playerid, partition } }) {
-    return { season, playerid, partition }
+  async asyncData({ params: { playerid }, route: { fullPath } }) {
+    return { playerid, fullPath }
   },
   components: {
     CountryFlag
+  },
+  watch: {
+    $route({ fullPath }) {
+      this.fullPath = fullPath
+    }
   },
   computed: {
     ...mapState({
@@ -162,7 +166,7 @@ export default {
   apollo: {
     player: {
       query: gql`
-        query player($id: ID!, $season: ID) {
+        query player($id: ID!) {
           player(id: $id) {
             id
             fname
@@ -173,7 +177,7 @@ export default {
             hand
             lname
             nation
-            seasondata(season: $season) {
+            seasondata {
               team {
                 teamsim
                 teamid
@@ -209,8 +213,7 @@ export default {
       `,
       variables() {
         return {
-          id: this.playerid,
-          season: this.season
+          id: this.playerid
         }
       },
       update: ({ player }) => player,
@@ -225,7 +228,7 @@ export default {
 <style lang="postcss" scoped>
 .skilltable td,
 .skilltable th {
-  @apply font-headline;
+  @apply font-mono;
   @apply py-2;
   @apply px-1;
   @apply border;

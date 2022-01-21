@@ -1,5 +1,5 @@
 <template>
-  <div>farm</div>
+  <div>trades</div>
 </template>
 
 <script>

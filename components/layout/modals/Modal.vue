@@ -37,9 +37,7 @@
           </transition>
 
           <!-- This element is to trick the browser into centering the modal contents. -->
-          <span
-            class="hidden sm:inline-block sm:align-middle sm:h-screen"
-            aria-hidden="true"
+          <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
             >&#8203;</span
           >
 
@@ -64,7 +62,6 @@
                 text-left
                 overflow-hidden
                 shadow-xl
-                transform
                 transition-all
                 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6
               "

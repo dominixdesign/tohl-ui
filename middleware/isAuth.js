@@ -1,5 +1,4 @@
 export default ({ app, error, route }) => {
-  console.log(route)
   const hasToken = !!app.$apolloHelpers.getToken()
   if (!hasToken) {
     error({

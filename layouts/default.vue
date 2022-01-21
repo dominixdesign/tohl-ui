@@ -1,77 +1,131 @@
 <template>
   <div
     class="
-      h-screen
-      flex
-      overflow-hidden
-      bg-gray-50
-      dark:bg-gray-900
+      bg-dizzle-light
+      dark:bg-dizzle
+      bg-fixed
       text-gray-900
       dark:text-gray-200
+      min-h-full
+      flex flex-col
     "
   >
-    <LayoutNavOffCanvasNav :open="openNav" :handler-show="showNav" :handler-hide="hideNav" />
-    <LayoutNavStaticNav />
-
-    <div class="flex flex-col flex-1 overflow-hidden">
+    <header
+      class="
+        bg-gray-50
+        dark:bg-gray-900
+        shadow
+        fixed
+        w-full
+        z-40
+        backdrop-filter
+        dark:bg-opacity-60
+        backdrop-blur-lg
+      "
+    >
       <div
-        class="
-          relative
-          z-10
-          flex-shrink-0 flex
-          h-16
-          mb-0
-          bg-dizzle-light
-          dark:bg-dizzle
-          shadow
-          border-b-8 border-secondary-500 border-opacity-80
-        "
+        class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
       >
-        <LayoutBreadcrumb />
-        <button
-          type="button"
-          class="
-            px-4
-            border-r border-gray-500
-            text-gray-500
-            focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500
-            lg:hidden
-          "
-          @click="showNav"
-        >
-          <span class="sr-only">Open sidebar</span>
-          <!-- Heroicon name: outline/menu-alt-2 -->
-          <svg
-            class="h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
-        </button>
-        <div class="flex-1 px-4 flex justify-between">
-          <div class="flex-1 flex">
-            <layout-logo class="h-6 m-auto mx-auto my-5 lg:hidden" />
+        <div class="relative h-16 flex justify-between">
+          <div class="relative z-10 px-2 flex lg:px-0">
+            <div class="shrink-0 flex items-center">
+              <layout-logo class="h-8" />
+            </div>
           </div>
-          <div class="ml-4 flex items-center lg:ml-6 transform-none lg:transform -rotate-1">
+          <div
+            class="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0"
+          >
+            <div class="w-full sm:max-w-xs">
+              <label for="search" class="sr-only">Search</label>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                  <!-- Heroicon name: solid/search -->
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <input
+                  id="search"
+                  name="search"
+                  class="
+                    block
+                    w-full
+                    bg-white bg-opacity-20
+                    border border-gray-800
+                    rounded-md
+                    py-2
+                    pl-10
+                    pr-3
+                    text-sm
+                    placeholder-gray-500
+                    focus:outline-none
+                    focus:text-gray-900
+                    focus:placeholder-gray-400
+                    focus:ring-1
+                    focus:ring-indigo-500
+                    focus:border-indigo-500
+                    sm:text-sm
+                  "
+                  placeholder="Search"
+                  type="search"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
             <layout-elements-season-button class="self-center" />
             <LayoutNavProfileDropdown />
           </div>
         </div>
+        <LayoutNavStaticNav />
       </div>
-
-      <main class="flex-1 relative overflow-y-auto focus:outline-none">
+    </header>
+    <header class="shadow-sm h-12 lg:h-36" />
+    <main class="isolate grow items-stretch justify-center flex">
+      <div
+        style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
+        class="
+          bg-gray-100
+          dark:bg-gray-800
+          max-w-7xl
+          shadow-pageLight
+          dark:shadow-pageDark
+          mx-auto
+          pt-3
+          pb-6
+          sm:px-2
+          lg:px-0
+          z-1
+        "
+      >
         <Nuxt />
-      </main>
-    </div>
+      </div>
+      <nuxt-img class="opacity-20 fixed bottom-0 -z-1" src="/trophy.png" sizes="sm:320px" />
+    </main>
+    <LayoutNavOffCanvasNav />
+    <footer
+      class="fixed bottom-1 left-0 right-0 mx-auto w-14 z-40 lg:hidden"
+      :class="openNav ? 'menu_activated' : ''"
+    >
+      <!-- Mobile menu button -->
+      <!-- https://codepen.io/vineethtrv/pen/VYRzaV -->
+      <button class="menu__toggle" @click="() => (openNav ? hideNav() : showNav())">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </button>
+    </footer>
     <portal-target name="modals" />
     <portal-target name="slide" />
   </div>
@@ -83,19 +137,20 @@ import { mapState } from 'vuex'
 import seasonSorter from '~/lib/seasonSorter'
 
 export default {
-  data() {
-    return {
-      openNav: false
-    }
-  },
   computed: {
     logo() {
       return () =>
         import(/* webpackChunkName: `icon/[request]` */ `~/static/logo-white-small.svg?inline`)
     },
     ...mapState({
-      colormode: (state) => state.layout.colormode
+      colormode: (state) => state.layout.colormode,
+      openNav: (state) => state.layout.navOpen
     })
+  },
+  head() {
+    return {
+      titleTemplate: '%s - TOHL'
+    }
   },
   watch: {
     colormode(newMode) {
@@ -113,14 +168,97 @@ export default {
         this.$store.commit('navigation/setAvailableSeasons', [...seasons].sort(seasonSorter))
       }
     })
+    document.addEventListener('scroll', function (e) {
+      const not_fixed = document.getElementById('menu__not-fixed')
+
+      if (window.scrollY > 100) {
+        not_fixed.classList.remove('block')
+        not_fixed.classList.add('!hidden')
+      } else {
+        not_fixed.classList.add('block')
+        not_fixed.classList.remove('!hidden')
+      }
+    })
   },
   methods: {
     showNav() {
-      this.openNav = true
+      this.$store.commit('layout/openNav')
     },
     hideNav() {
-      this.openNav = false
+      this.$store.commit('layout/closeNav')
     }
   }
 }
 </script>
+
+<style>
+body,
+html,
+#__nuxt,
+#__layout {
+  @apply h-full;
+}
+body {
+  overflow-y: scroll;
+}
+
+.menu__toggle::before {
+  @apply bg-primary-500 shadow;
+  content: '';
+  width: 1em;
+  height: 1em;
+  font-size: 150px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -0.65em;
+  left: calc(50% - 0.5em);
+  z-index: -1;
+  will-change: width, height;
+  transition: transform 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98),
+    width 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98),
+    height 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98);
+}
+
+.menu_activated .menu__toggle::before {
+  width: 100vmax;
+  height: 100vmax;
+  transform: translate3d(-50vh, -50vh, 0) scale(5);
+  transition-duration: 1s;
+}
+
+.menu__toggle {
+  @apply rounded-full transition-all duration-300;
+  box-sizing: border-box;
+  height: 50px;
+  width: 50px;
+  position: relative;
+  cursor: pointer;
+}
+.menu__toggle .bar {
+  @apply rounded-none transition-all duration-300;
+  box-sizing: border-box;
+  transform: rotate(-135deg);
+  height: 25px;
+  width: 25px;
+  background: none;
+  border-bottom: 5px solid #fff;
+  border-right: 5px solid #fff;
+  position: absolute;
+  display: block;
+  margin: 10px auto;
+  top: 10px;
+  right: 0;
+  left: 0;
+}
+.menu_activated .menu__toggle .bar {
+  top: 15px;
+}
+.menu_activated .menu__toggle .bar:nth-of-type(2) {
+  transform: rotate(45deg);
+  transform-origin: 185% -5% 0;
+}
+
+body.mobilemenu-open {
+  overflow: hidden;
+}
+</style>

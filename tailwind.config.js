@@ -1,12 +1,14 @@
-var flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
-  purge: [
-    './components/**/*.{js,jsx,ts,tsx,vue}',
-    './layouts/**/*.{js,jsx,ts,tsx,vue}',
-    './pages/**/*.{js,jsx,ts,tsx,vue}'
+  content: [
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './nuxt.config.{js,ts}'
   ],
   plugins: [
     require('@tailwindcss/forms'),
@@ -32,9 +34,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      headline: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
-      beautiful: ['"Grey Qo"', 'cursive', 'system-ui'],
-      college: ['"Chakra Petch"', 'sans-serif', 'system-ui']
+      mono: ['"Ubuntu Mono"', 'ui-sans-serif', 'system-ui'],
+      sans: ['"Yantramanav"', 'sans-serif', 'system-ui']
     },
     extend: {
       backgroundImage: (theme) => ({
@@ -58,6 +59,8 @@ module.exports = {
       },
       boxShadow: {
         schedule: '0 0 16px 0 rgb(0 14 20 / 30%)',
+        pageDark: '0px 0px 80px -25px #ffffff',
+        pageLight: '0px 0px 80px -25px #000C16',
         b: '0 10px 15px -3px rgba(0, 0, 0, 1), 0 4px 6px -2px rgba(0, 0, 0, 0.1)'
       },
       borderWidth: {
@@ -86,6 +89,13 @@ module.exports = {
         '10plus': 'calc(100% + 10px)'
       },
       colors: {
+        colors: {
+          green: colors.emerald,
+          yellow: colors.amber,
+          purple: colors.violet,
+          gray: colors.neutral
+        },
+        current: 'currentColor',
         primary: {
           DEFAULT: '#0061AF',
           50: '#96D0FF',
