@@ -104,7 +104,7 @@ export default {
   },
   watchers: {
     webpack: {
-      ignored: [/android/, /coverage/, /dist/, /ios/, /mocks/, /node_modules/, /test/]
+      ignored: [/android/, /coverage/, /dist/, /ios/, /mocks/, /node_modules/, /test/, /.git/]
     }
   },
 

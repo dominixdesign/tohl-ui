@@ -116,6 +116,12 @@ export default {
             loser {
               teamid
             }
+            events {
+              type
+              minutes
+              seconds
+              period
+            }
             pphome
             ppaway
             ppghome
