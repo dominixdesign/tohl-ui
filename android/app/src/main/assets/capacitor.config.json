@@ -1,0 +1,7 @@
+{
+	"appId": "org.mytohl.app",
+	"appName": "TOHL",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"backgroundColor": "#111827"
+}
