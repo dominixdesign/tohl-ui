@@ -51,7 +51,11 @@
       </ul>
     </div>
     <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
-      <div :id="`gameday-${gameday}`" class="xl:shadow mt-4">
+      <div
+        v-for="period of Object.keys(eventList)"
+        :key="`gameday-${period}`"
+        class="xl:shadow mt-4"
+      >
         <div
           class="
             p-3
@@ -63,7 +67,15 @@
             dark:text-primary-200
           "
         >
-          1. Drittel
+          <span v-if="period <= 3">{{ period }}. Drittel</span>
+          <span v-else>{{ period - 3 }}. Verlängerung</span>
+        </div>
+        <div
+          v-for="(event, index) in eventList[period]"
+          :key="`${event.period}-${event.minutes}-${index}`"
+          class="flex items-center"
+        >
+          <div class="grow w-24">{{ event }}</div>
         </div>
       </div>
     </div>
@@ -78,6 +90,14 @@
 // https://www.del-2.org/liga/archiv/127/spiel/6299/
 // http://pointstreak.com/prostats/boxscore.html?gameid=2490788
 import gql from 'graphql-tag'
+
+const addToPeriod = (list, event) => {
+  if (!list[event.period]) {
+    list[event.period] = []
+  }
+  list[event.period].push(event)
+}
+
 export default {
   async asyncData({ params }) {
     const season = params.season
@@ -91,6 +111,29 @@ export default {
           this.season
         }`
       }
+    }
+  },
+  data() {
+    return {
+      eventList: {}
+    }
+  },
+  watch: {
+    game(gameData) {
+      const eventList = {}
+      gameData.events.forEach((e) => addToPeriod(eventList, e))
+      gameData.goals.forEach((g) => addToPeriod(eventList, g))
+      gameData.penalties.forEach((p) => addToPeriod(eventList, p))
+      for (const period in eventList) {
+        eventList[period].sort((a, b) => {
+          const timeA = a.minutes * 60 + a.seconds
+          const timeB = b.minutes * 60 + b.seconds
+          if (timeA > timeB) return 1
+          if (timeA < timeB) return -1
+          return 0
+        })
+      }
+      this.eventList = eventList
     }
   },
   apollo: {
@@ -118,6 +161,16 @@ export default {
             }
             events {
               type
+              minutes
+              seconds
+              period
+            }
+            goals {
+              minutes
+              seconds
+              period
+            }
+            penalties {
               minutes
               seconds
               period
