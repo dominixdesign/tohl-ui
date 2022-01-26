@@ -75,7 +75,26 @@
           :key="`${event.period}-${event.minutes}-${index}`"
           class="flex items-center"
         >
-          <div class="grow w-24">{{ event }}</div>
+          <div class="italic px-1">
+            {{ ('00' + event.minutes).slice(-2) }}:{{ ('00' + event.seconds).slice(-2) }}
+          </div>
+          <img
+            v-if="event.__typename === 'Goal'"
+            :src="require(`~/assets/icons/siren-svgrepo-com.svg`)"
+            aria-hidden="true"
+            class="w-8 h-8 px-2"
+          />
+          <img
+            v-if="event.__typename === 'Penalty'"
+            :src="require(`~/assets/icons/whistle-svgrepo-com.svg`)"
+            aria-hidden="true"
+            class="w-8 h-8 px-2"
+          />
+          <div class="px-2">{{ event.__typename }}</div>
+          <div class="px-2" v-if="event.__typename === 'Goal'">
+            <team-logo-inline :teamid="event.scoringteam.teamid" />
+          </div>
+          <div class="px-2" v-if="event.__typename === 'Goal'">{{ event.score }}</div>
         </div>
       </div>
     </div>
@@ -169,6 +188,23 @@ export default {
               minutes
               seconds
               period
+              goalscorer {
+                display_fname
+                display_lname
+              }
+              primaryassist {
+                display_fname
+                display_lname
+              }
+              secondaryassist {
+                display_fname
+                display_lname
+              }
+              score
+              scoringteam {
+                teamid
+              }
+              situation
             }
             penalties {
               minutes
