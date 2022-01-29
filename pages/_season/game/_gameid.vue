@@ -1,12 +1,12 @@
 <template>
   <div v-if="game">
-    <div class="shadow relative isolate overflow-hidden">
+    <div class="relative isolate overflow-hidden shadow">
       <team-bg foreground="#B92727" background="#0061AF" />
-      <div class="container mx-auto p-6 flex flex-col sm:flex-row justify-center">
+      <div class="container mx-auto flex flex-col justify-center p-6 sm:flex-row">
         <div class="w-40">
           <team-logo-big :teamid="game.home.teamid" />
         </div>
-        <div class="w-40 text-center place-self-center leading-none text-white">
+        <div class="w-40 place-self-center text-center leading-none text-white">
           <div class="text-8xl font-extrabold">{{ game.goalshome }}:{{ game.goalsaway }}</div>
           <div v-if="game.overtimes === 1" class="text-xl font-extrabold leading-3">OT</div>
           <div v-else-if="game.overtimes > 1" class="text-xl font-extrabold leading-3">
@@ -17,11 +17,11 @@
           <team-logo-big :teamid="game.away.teamid" />
         </div>
       </div>
-      <ul class="flex justify-center gap-2 mb-2">
-        <li class="text-white flex">
+      <ul class="mb-2 flex justify-center gap-2">
+        <li class="flex text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 mr-1"
+            class="mr-1 h-5 w-5"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -33,10 +33,10 @@
           </svg>
           <span>{{ game.home.rink }}</span>
         </li>
-        <li class="text-white flex">
+        <li class="flex text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 mr-1"
+            class="mr-1 h-5 w-5"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -50,21 +50,20 @@
         </li>
       </ul>
     </div>
-    <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
+    <div class="mx-auto max-w-screen-2xl p-6 xl:px-12">
       <div
         v-for="period of Object.keys(eventList)"
         :key="`gameday-${period}`"
-        class="xl:shadow mt-4"
+        class="mt-4 xl:shadow"
       >
         <div
           class="
+            bg-primary-500
             p-3
             text-lg
             font-bold
-            bg-primary-500
-            dark:bg-primary-700
             text-primary-50
-            dark:text-primary-200
+            dark:bg-primary-700 dark:text-primary-200
           "
         >
           <span v-if="period <= 3">{{ period }}. Drittel</span>
@@ -73,28 +72,56 @@
         <div
           v-for="(event, index) in eventList[period]"
           :key="`${event.period}-${event.minutes}-${index}`"
-          class="flex items-center"
+          class="flex items-center py-1"
+          :class="[index % 2 === 0 ? 'bg-gray-50' : 'bg-white']"
         >
-          <div class="italic px-1">
+          <div class="px-2 text-lg font-bold text-gray-400">
             {{ ('00' + event.minutes).slice(-2) }}:{{ ('00' + event.seconds).slice(-2) }}
+          </div>
+          <div class="px-2" v-if="event.__typename === 'Goal' || event.__typename === 'Penalty'">
+            <team-logo-small :teamid="event.team.teamid" />
           </div>
           <img
             v-if="event.__typename === 'Goal'"
             :src="require(`~/assets/icons/siren-svgrepo-com.svg`)"
             aria-hidden="true"
-            class="w-8 h-8 px-2"
+            class="h-10 w-10 px-2"
           />
           <img
             v-if="event.__typename === 'Penalty'"
             :src="require(`~/assets/icons/whistle-svgrepo-com.svg`)"
             aria-hidden="true"
-            class="w-8 h-8 px-2"
+            class="h-10 w-10 px-2"
           />
-          <div class="px-2">{{ event.__typename }}</div>
-          <div class="px-2" v-if="event.__typename === 'Goal'">
-            <team-logo-inline :teamid="event.scoringteam.teamid" />
+          <div
+            class="w-12 px-2 text-center text-xl font-bold text-secondary-600"
+            v-if="event.__typename === 'Goal'"
+          >
+            {{ event.score }}
           </div>
-          <div class="px-2" v-if="event.__typename === 'Goal'">{{ event.score }}</div>
+          <div class="w-12 px-2 text-center text-gray-500" v-if="event.__typename === 'Penalty'">
+            {{ event.length }}min
+          </div>
+          <div class="px-2" v-if="event.__typename === 'Goal'">
+            <player-linkedName :player="event.goalscorer" class="font-bold" /> (<player-linkedName
+              :player="event.primaryassist"
+            />, <player-linkedName :player="event.secondaryassist" />)
+            <span
+              v-if="event.tags.indexOf('gamewinner') >= 0"
+              class="rounded-xl bg-gray-400 px-2 py-1 text-sm font-bold text-gray-100"
+              >GWG</span
+            >
+            <span
+              v-if="event.situation"
+              class="rounded-xl bg-gray-400 px-2 py-1 text-sm font-bold uppercase text-gray-100"
+              >{{ event.situation }}</span
+            >
+          </div>
+          <div class="px-2" v-if="event.__typename === 'Penalty'">
+            <player-linkedName :player="event.player" class="font-bold" /> ({{ event.offense }})
+          </div>
+          <div class="px-2" v-if="event.__typename === 'GameEvent'">{{ event }}</div>
+          <div class="px-2">{{ event.__typename }}</div>
         </div>
       </div>
     </div>
@@ -149,6 +176,21 @@ export default {
           const timeB = b.minutes * 60 + b.seconds
           if (timeA > timeB) return 1
           if (timeA < timeB) return -1
+          if (a.__typename === 'GameEvent') {
+            console.log(a, b)
+            if (a.type === 'fight' || a.type === 'draw') {
+              return -1
+            } else if (b.__typename !== 'GameEvent') {
+              return 1
+            }
+          }
+          if (b.__typename === 'GameEvent') {
+            if (b.type === 'fight' || b.type === 'draw') {
+              return 1
+            } else if (a.__typename !== 'GameEvent') {
+              return -1
+            }
+          }
           return 0
         })
       }
@@ -189,27 +231,41 @@ export default {
               seconds
               period
               goalscorer {
+                id
                 display_fname
                 display_lname
               }
               primaryassist {
+                id
                 display_fname
                 display_lname
               }
               secondaryassist {
+                id
                 display_fname
                 display_lname
               }
               score
-              scoringteam {
+              team: scoringteam {
                 teamid
               }
               situation
+              tags
             }
             penalties {
               minutes
               seconds
               period
+              length
+              offense
+              player {
+                id
+                display_fname
+                display_lname
+              }
+              team {
+                teamid
+              }
             }
             pphome
             ppaway
