@@ -1,115 +1,17 @@
 <template>
-  <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
-    <h3 class="text-3xl font-bold my-5">Scorerliste</h3>
-    <table
-      class="font-mono text-right relative min-w-full divide-y divide-gray-200 dark:divide-gray-600"
-    >
-      <thead
-        class="
-          sticky
-          z-9
-          top-0
-          bg-primary-500
-          dark:bg-primary-700
-          text-primary-50 text-right text-base
-          dark:text-primary-200
-          uppercase
-          tracking-wider
-        "
-      >
-        <tr class="text-base">
-          <th></th>
-          <th
-            v-for="col in cols"
-            scope="col"
-            class="px-1 py-3 cursor-pointer whitespace-nowrap"
-            @click="() => sortColumn(col)"
-            :key="'headline-' + col"
-            :class="col === 'name' ? 'text-left' : ''"
-          >
-            {{ $t(`column.${col}`) }}
-            <span
-              class="w-1 h-1 inline-block border-4 border-transparent"
-              :class="
-                sortCol === col && direction === 'desc'
-                  ? 'border-t-primary-100'
-                  : sortCol === col && direction === 'asc'
-                  ? 'border-b-primary-100'
-                  : ''
-              "
-            ></span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="error">
-          <td colspan="9" class="text-secondary-500 text-center font-medium py-4">
-            Spieler können nicht geladen werden.
-          </td>
-        </tr>
-        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-        <tr
-          v-if="$apollo.loading"
-          v-for="n in 12"
-          :key="`roster-${n}`"
-          :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
-        >
-          <!-- eslint-enable -->
-          <td></td>
-          <td class="p-1 text-left">
-            <div
-              class="bg-gray-200 dark:bg-primary-700 w-4 h-6 animate-pulse float-right rounded-sm"
-            />
-            <div
-              class="bg-gray-200 dark:bg-primary-700 w-16 h-6 animate-pulse float-right rounded-sm"
-            />
-          </td>
-          <td v-for="c in 20" :key="`playerlist-${n}-${c}`" class="px-2 py-1">
-            <div
-              class="bg-gray-200 dark:bg-primary-700 w-6 h-6 animate-pulse float-right rounded-sm"
-            />
-          </td>
-        </tr>
-        <tr
-          v-for="(row, index) in sortedScorer"
-          :class="
-            index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'
-          "
-          class="text-base dark:hover:bg-primary-700 hover:bg-gray-100"
-          :key="`${row.player.fname}-${row.player.lname}-${row.team.teamid}`"
-        >
-          <td>{{ index + 1 }}.</td>
-          <td
-            v-for="col in cols"
-            class="p-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
-            :class="[
-              sortCol === col
-                ? 'bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700 hover:bg-gray-100'
-                : '',
-              col === 'name' ? 'text-left' : ''
-            ]"
-            :style="
-              logTeam === row.team.teamid
-                ? `background-color: ${row.team.background}; color: ${row.team.foreground};`
-                : ''
-            "
-            :key="row.team.teamid + col"
-          >
-            <player-team-and-name
-              v-if="col === 'name'"
-              :player="row.player"
-              :team="row.team"
-              :totalTeams="row.total_teams"
-            />
-            <span v-else-if="col === 'spercentage'">{{ shotpercentage(row[col]) }}</span>
-            <span v-else-if="col === 'averageicetime'">{{ averageicetime(row[col]) }}</span>
-            <span v-else>{{ row[col] }}</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="bg-gray-100 dark:bg-primary-800 xl:shadow p-6 mt-6" v-if="!$apollo.loading">
-      <h3 class="font-serif font-mono font-extralight uppercase pb-4 text-xl">Legende</h3>
+  <div class="mx-auto max-w-screen-2xl p-6 xl:px-12">
+    <h3 class="my-5 text-3xl font-bold">Scorerliste</h3>
+    <player-scorerlist
+      :cols="cols"
+      :loading="$apollo.loading"
+      :sortedScorer="sortedScorer"
+      :error="$apollo.error"
+      :sortColumn="sortColumn"
+      :sortCol="sortCol"
+      :direction="direction"
+    />
+    <div class="mt-6 bg-gray-100 p-6 dark:bg-primary-800 xl:shadow" v-if="!$apollo.loading">
+      <h3 class="font-serif pb-4 font-mono text-xl font-extralight uppercase">Legende</h3>
       <div class="grid grid-cols-3 gap-4">
         <div v-for="(dd, dt) in legend" :key="dt">
           <span class="font-medium">{{ dt }}</span> <span>&ndash; {{ dd }}</span>
@@ -285,11 +187,6 @@ export default {
     playerstats() {
       this.updatePlayer()
     }
-  },
-  computed: {
-    ...mapState({
-      logTeam: (state) => state.user.team
-    })
   },
   methods: {
     sortColumn(col) {

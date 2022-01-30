@@ -113,7 +113,8 @@ export default {
   },
   data() {
     return {
-      eventList: {}
+      eventList: {},
+      roster: {}
     }
   },
   watch: {
@@ -146,7 +147,14 @@ export default {
           return 0
         })
       }
+      const roster = {
+        [gameData.home.teamid]: [],
+        [gameData.away.teamid]: []
+      }
+      gameData.lineup.forEach((p) => roster[p.team.teamid].push(p))
+
       this.eventList = eventList
+      this.roster = roster
     }
   },
   apollo: {
