@@ -77,6 +77,40 @@
         />
       </div>
     </div>
+    <div class="mx-auto max-w-screen-2xl p-2 md:p-6 xl:px-12">
+      <div
+        class="p-3 text-lg font-bold"
+        :style="`background-color: ${game.home.background}; color: ${game.home.foreground};`"
+      >
+        {{ game.home.teamid }}
+      </div>
+
+      <player-scorerlist
+        :loading="$apollo.loading"
+        :columns="statsColumns"
+        :sortedScorer="roster[game.home.teamid]"
+        :error="$apollo.error"
+        :sortColumn="sortColumn"
+        :sortCol="sortCol"
+        :direction="direction"
+      />
+      <div
+        class="mt-5 p-3 text-lg font-bold"
+        :style="`background-color: ${game.away.background}; color: ${game.away.foreground};`"
+      >
+        {{ game.away.teamid }}
+      </div>
+
+      <player-scorerlist
+        :loading="$apollo.loading"
+        :columns="statsColumns"
+        :sortedScorer="roster[game.away.teamid]"
+        :error="$apollo.error"
+        :sortColumn="sortColumn"
+        :sortCol="sortCol"
+        :direction="direction"
+      />
+    </div>
   </div>
 </template>
 
@@ -114,7 +148,24 @@ export default {
   data() {
     return {
       eventList: {},
-      roster: {}
+      roster: {},
+      statsColumns: [
+        'name',
+        'goals',
+        'assists',
+        'points',
+        'plusminus',
+        'pim',
+        'shots',
+        'spercentage',
+        'icetime',
+        'hits',
+        'injured',
+        'ejected',
+        'fightswon',
+        'fightslose',
+        'fightsdraw'
+      ]
     }
   },
   watch: {
@@ -167,9 +218,13 @@ export default {
             home {
               teamid
               rink
+              foreground @client(always: true)
+              background @client(always: true)
             }
             away {
               teamid
+              foreground @client(always: true)
+              background @client(always: true)
             }
             goalshome
             goalsaway
@@ -275,6 +330,7 @@ export default {
               shutout
               star
               line
+              spercentage @client
             }
           }
         }

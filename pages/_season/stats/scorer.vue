@@ -2,7 +2,6 @@
   <div class="mx-auto max-w-screen-2xl p-6 xl:px-12">
     <h3 class="my-5 text-3xl font-bold">Scorerliste</h3>
     <player-scorerlist
-      :cols="cols"
       :loading="$apollo.loading"
       :sortedScorer="sortedScorer"
       :error="$apollo.error"
@@ -39,29 +38,6 @@ export default {
       page: 0,
       perPage: 20,
       error: false,
-      cols: [
-        'name',
-        'games',
-        'goals',
-        'assists',
-        'points',
-        'plusminus',
-        'pim',
-        'ejections',
-        'evg',
-        'ppg',
-        'shg',
-        'gwg',
-        'eva',
-        'ppa',
-        'sha',
-        'shots',
-        'spercentage',
-        'icetime',
-        'averageicetime',
-        'hits',
-        'injuries'
-      ],
       sortCol: 'points',
       direction: 'desc',
       legend: {

@@ -167,6 +167,11 @@ export default {
     ov: 'ov',
     age: 'age',
     contract: 'ct',
-    salary: 'gehalt'
+    salary: 'gehalt',
+    injured: 'IJ',
+    ejected: 'EJ',
+    fightswon: 'FW',
+    fightslose: 'FL',
+    fightsdraw: 'FD'
   }
 }

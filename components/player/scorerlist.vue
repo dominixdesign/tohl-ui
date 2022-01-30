@@ -114,7 +114,7 @@ export default {
   mixins: [statsMixin],
   props: {
     sortedScorer: Array,
-    cols: Array,
+    columns: Array,
     loading: Boolean,
     error: Boolean,
     sortColumn: Function,
@@ -124,7 +124,35 @@ export default {
   computed: {
     ...mapState({
       logTeam: (state) => state.user.team
-    })
+    }),
+    cols() {
+      if (this.columns) {
+        return this.columns
+      }
+      return [
+        'name',
+        'games',
+        'goals',
+        'assists',
+        'points',
+        'plusminus',
+        'pim',
+        'ejections',
+        'evg',
+        'ppg',
+        'shg',
+        'gwg',
+        'eva',
+        'ppa',
+        'sha',
+        'shots',
+        'spercentage',
+        'icetime',
+        'averageicetime',
+        'hits',
+        'injuries'
+      ]
+    }
   }
 }
 </script>
