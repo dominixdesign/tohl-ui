@@ -2,7 +2,7 @@
   <div v-if="game">
     <div class="relative isolate overflow-hidden shadow">
       <team-bg foreground="#B92727" background="#0061AF" />
-      <div class="container mx-auto flex flex-col justify-center p-6 sm:flex-row">
+      <div class="container mx-auto flex flex-col items-center justify-center p-6 sm:flex-row">
         <div class="w-40">
           <team-logo-big :teamid="game.home.teamid" />
         </div>
@@ -50,7 +50,7 @@
         </li>
       </ul>
     </div>
-    <div class="mx-auto max-w-screen-2xl p-6 xl:px-12">
+    <div class="mx-auto max-w-screen-2xl p-2 md:p-6 xl:px-12">
       <div
         v-for="period of Object.keys(eventList)"
         :key="`gameday-${period}`"
@@ -69,60 +69,12 @@
           <span v-if="period <= 3">{{ period }}. Drittel</span>
           <span v-else>{{ period - 3 }}. Verlängerung</span>
         </div>
-        <div
+        <games-event-row
           v-for="(event, index) in eventList[period]"
           :key="`${event.period}-${event.minutes}-${index}`"
-          class="flex items-center py-1"
-          :class="[index % 2 === 0 ? 'bg-gray-50' : 'bg-white']"
-        >
-          <div class="px-2 text-lg font-bold text-gray-400">
-            {{ ('00' + event.minutes).slice(-2) }}:{{ ('00' + event.seconds).slice(-2) }}
-          </div>
-          <div class="px-2" v-if="event.__typename === 'Goal' || event.__typename === 'Penalty'">
-            <team-logo-small :teamid="event.team.teamid" />
-          </div>
-          <img
-            v-if="event.__typename === 'Goal'"
-            :src="require(`~/assets/icons/siren-svgrepo-com.svg`)"
-            aria-hidden="true"
-            class="h-10 w-10 px-2"
-          />
-          <img
-            v-if="event.__typename === 'Penalty'"
-            :src="require(`~/assets/icons/whistle-svgrepo-com.svg`)"
-            aria-hidden="true"
-            class="h-10 w-10 px-2"
-          />
-          <div
-            class="w-12 px-2 text-center text-xl font-bold text-secondary-600"
-            v-if="event.__typename === 'Goal'"
-          >
-            {{ event.score }}
-          </div>
-          <div class="w-12 px-2 text-center text-gray-500" v-if="event.__typename === 'Penalty'">
-            {{ event.length }}min
-          </div>
-          <div class="px-2" v-if="event.__typename === 'Goal'">
-            <player-linkedName :player="event.goalscorer" class="font-bold" /> (<player-linkedName
-              :player="event.primaryassist"
-            />, <player-linkedName :player="event.secondaryassist" />)
-            <span
-              v-if="event.tags.indexOf('gamewinner') >= 0"
-              class="rounded-xl bg-gray-400 px-2 py-1 text-sm font-bold text-gray-100"
-              >GWG</span
-            >
-            <span
-              v-if="event.situation"
-              class="rounded-xl bg-gray-400 px-2 py-1 text-sm font-bold uppercase text-gray-100"
-              >{{ event.situation }}</span
-            >
-          </div>
-          <div class="px-2" v-if="event.__typename === 'Penalty'">
-            <player-linkedName :player="event.player" class="font-bold" /> ({{ event.offense }})
-          </div>
-          <div class="px-2" v-if="event.__typename === 'GameEvent'">{{ event }}</div>
-          <div class="px-2">{{ event.__typename }}</div>
-        </div>
+          :event="event"
+          :index="index"
+        />
       </div>
     </div>
   </div>
@@ -225,6 +177,19 @@ export default {
               minutes
               seconds
               period
+              player {
+                id
+                display_fname
+                display_lname
+              }
+              player2 {
+                id
+                display_fname
+                display_lname
+              }
+              team {
+                teamid
+              }
             }
             goals {
               minutes
