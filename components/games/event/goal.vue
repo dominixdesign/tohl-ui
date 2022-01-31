@@ -7,9 +7,14 @@
       {{ event.score }}
     </div>
     <div class="px-2">
-      <player-linkedName :player="event.goalscorer" class="font-bold" /> (<player-linkedName
-        :player="event.primaryassist"
-      />, <player-linkedName :player="event.secondaryassist" />)
+      <player-linkedName :player="event.goalscorer" class="font-bold" />
+      <span v-if="event.primaryassist && event.secondaryassist">
+        (<player-linkedName :player="event.primaryassist" />,
+        <player-linkedName :player="event.secondaryassist" />)
+      </span>
+      <span v-else-if="event.primaryassist">
+        (<player-linkedName :player="event.primaryassist" />)
+      </span>
       <span
         v-if="event.tags.indexOf('gamewinner') >= 0"
         class="rounded-xl bg-gray-400 px-2 py-1 text-sm font-bold text-gray-100"
