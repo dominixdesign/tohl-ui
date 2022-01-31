@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="`/player/${player.id}`" class="underline decoration-primary-500">
+  <nuxt-link v-if="player" :to="`/player/${player.id}`" class="underline decoration-primary-500">
     <span class="hidden md:inline">{{ player.display_fname }} </span>
     <span class="inline md:hidden">{{ player.display_fname[0] }}. </span>
     <span class="font-bold">{{ player.display_lname }}</span>
