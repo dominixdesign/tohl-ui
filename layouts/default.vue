@@ -1,44 +1,41 @@
 <template>
   <div
     class="
-      bg-dizzle-light
-      dark:bg-dizzle
-      bg-fixed
-      text-gray-900
-      dark:text-gray-200
+      flex
       min-h-full
-      flex flex-col
+      flex-col
+      bg-dizzle-light bg-fixed
+      text-gray-900
+      dark:bg-dizzle dark:text-gray-200
     "
   >
     <header
       class="
-        bg-gray-50
-        dark:bg-gray-900
-        shadow
         fixed
-        w-full
         z-40
-        backdrop-filter
-        dark:bg-opacity-60
-        backdrop-blur-lg
+        w-full
+        bg-gray-50
+        shadow
+        backdrop-blur-lg backdrop-filter
+        dark:bg-gray-900 dark:bg-opacity-60
       "
     >
       <div
         class="container mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-primary-500 lg:px-8"
       >
-        <div class="relative h-16 flex justify-between">
-          <div class="relative z-10 px-2 flex lg:px-0">
-            <div class="shrink-0 flex items-center">
+        <div class="relative flex h-16 justify-between">
+          <div class="relative z-10 flex px-2 lg:px-0">
+            <div class="flex shrink-0 items-center">
               <layout-logo class="h-8" />
             </div>
           </div>
           <div
-            class="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0"
+            class="relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0"
           >
             <div class="w-full sm:max-w-xs">
               <label for="search" class="sr-only">Search</label>
               <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <!-- Heroicon name: solid/search -->
                   <svg
                     class="h-5 w-5 text-gray-400"
@@ -60,20 +57,20 @@
                   class="
                     block
                     w-full
-                    bg-white bg-opacity-20
-                    border border-gray-800
                     rounded-md
+                    border border-gray-800
+                    bg-white bg-opacity-20
                     py-2
                     pl-10
                     pr-3
                     text-sm
                     placeholder-gray-500
-                    focus:outline-none
+                    focus:border-indigo-500
                     focus:text-gray-900
                     focus:placeholder-gray-400
+                    focus:outline-none
                     focus:ring-1
                     focus:ring-indigo-500
-                    focus:border-indigo-500
                     sm:text-sm
                   "
                   placeholder="Search"
@@ -91,31 +88,30 @@
         <LayoutNavStaticNav />
       </div>
     </header>
-    <header class="shadow-sm h-12 lg:h-36" />
-    <main class="isolate grow items-stretch justify-center flex">
+    <header class="h-12 shadow-sm lg:h-36" />
+    <main class="isolate flex grow items-stretch justify-center">
       <div
         style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
         class="
-          bg-gray-100
-          dark:bg-gray-800
-          max-w-7xl
-          shadow-pageLight
-          dark:shadow-pageDark
+          z-1
           mx-auto
+          max-w-7xl
+          bg-gray-100
           pt-3
           pb-6
+          shadow-pageLight
+          dark:bg-gray-800 dark:shadow-pageDark
           sm:px-2
           lg:px-0
-          z-1
         "
       >
         <Nuxt />
       </div>
-      <nuxt-img class="opacity-20 fixed bottom-0 -z-1" src="/trophy.png" sizes="sm:320px" />
+      <nuxt-img class="fixed bottom-0 -z-1 opacity-20" src="/trophy.png" sizes="sm:320px" />
     </main>
     <LayoutNavOffCanvasNav />
     <footer
-      class="fixed bottom-1 left-0 right-0 mx-auto w-14 z-40 lg:hidden"
+      class="fixed bottom-1 left-0 right-0 z-40 mx-auto w-14 lg:hidden"
       :class="openNav ? 'menu_activated' : ''"
     >
       <!-- Mobile menu button -->
@@ -126,7 +122,7 @@
         <div class="bar"></div>
       </button>
     </footer>
-    <portal-target name="modals" />
+    <portal-target name="modals" class="isolate z-50" />
     <portal-target name="slide" />
   </div>
 </template>
