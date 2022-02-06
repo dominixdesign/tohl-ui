@@ -80,8 +80,8 @@
             </div>
           </div>
 
-          <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-            <layout-elements-season-button class="self-center" />
+          <div class="relative z-10 ml-4 flex items-center">
+            <layout-elements-season-button class="hidden self-center md:block" />
             <LayoutNavProfileDropdown />
           </div>
         </div>

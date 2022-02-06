@@ -1,19 +1,19 @@
 <template>
   <!-- Profile dropdown -->
-  <div class="ml-3 relative" v-click-outside="hide">
+  <div class="relative ml-3" v-click-outside="hide">
     <div>
       <button
         @click="profileOpen ? hide() : show()"
         id="user-menu-button"
         type="button"
         class="
-          max-w-xs
-          bg-white
           flex
+          max-w-xs
           items-center
-          text-sm
           rounded-full
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+          bg-white
+          text-sm
+          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
         "
         aria-expanded="false"
         aria-haspopup="true"
@@ -23,7 +23,7 @@
 
         <svg
           v-else
-          class="h-8 w-8 pt-1 rounded-full text-primary-500 border border-primary-500 fill-current"
+          class="h-8 w-8 rounded-full border border-primary-500 fill-current pt-1 text-primary-500"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1000 1000"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -47,16 +47,16 @@
       <div
         v-if="profileOpen"
         class="
-          origin-top-right
           absolute
           right-0
           mt-2
           w-48
-          rounded-md
+          origin-top-right
           divide-y divide-gray-200
-          shadow-lg
-          py-1
+          rounded-md
           bg-white
+          py-1
+          shadow-lg
           ring-1 ring-black ring-opacity-5
           focus:outline-none
         "
@@ -114,9 +114,12 @@
             >Login</a
           >
         </div>
+        <div class="py-1 md:hidden" role="none">
+          <layout-elements-season-button />
+        </div>
         <div class="py-1" role="none">
           <div
-            class="flex items-center px-4 py-2 cursor-pointer"
+            class="flex cursor-pointer items-center px-4 py-2"
             @click="colormode === 'dark' ? disableDarkmode() : enableDarkmode()"
           >
             <button
@@ -125,15 +128,15 @@
               class="
                 relative
                 inline-flex
-                shrink-0
                 h-6
                 w-11
-                border-2 border-transparent
+                shrink-0
                 rounded-full
+                border-2 border-transparent
                 transition-colors
-                ease-in-out
                 duration-200
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+                ease-in-out
+                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
               "
               :class="colormode === 'dark' ? 'bg-primary-700' : 'bg-gray-200'"
               role="switch"
@@ -150,8 +153,8 @@
                   shadow
                   ring-0
                   transition
-                  ease-in-out
                   duration-200
+                  ease-in-out
                 "
                 :class="colormode === 'dark' ? 'translate-x-5' : 'translate-x-0'"
               ></span>

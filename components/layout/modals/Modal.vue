@@ -55,6 +55,7 @@
                 relative
                 z-10
                 inline-block
+                w-full
                 overflow-hidden
                 rounded-lg
                 bg-white
@@ -65,7 +66,7 @@
                 align-bottom
                 shadow-xl
                 transition-all
-                sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle
+                sm:my-8 sm:max-w-sm sm:p-6 sm:align-middle
               "
               v-if="showModalInner"
             >
