@@ -60,6 +60,11 @@ export default {
     shg: 'Unterzahltore',
     gaa: 'Gegentore pro Spiel',
     shutout: 'Shutouts',
+    enforcerpoints: 'Enforcerpunkte',
+    enforcer: 'Enforcer',
+    fightswon: 'Gewonnene Fights',
+    players: 'Top 10 Feldspieler',
+    positions: 'Top 10 nach Positionen',
     savepercentage: 'Fangquote (in %)',
     shotsfaced: 'Schüsse aufs Tor'
   },

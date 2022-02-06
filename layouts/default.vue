@@ -199,7 +199,7 @@ body {
 }
 
 .menu__toggle::before {
-  @apply bg-primary-500 shadow;
+  @apply bg-primary-500;
   content: '';
   width: 1em;
   height: 1em;
@@ -208,6 +208,7 @@ body {
   position: absolute;
   bottom: -0.65em;
   left: calc(50% - 0.5em);
+  box-shadow: 0px -5px 15px 10px rgba(0, 0, 0, 0.5);
   z-index: -1;
   will-change: width, height;
   transition: transform 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98),

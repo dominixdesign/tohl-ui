@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-50">
+  <div class="bg-red-50 dark:bg-secondary-800">
     <games-event-time :minutes="event.minutes" :seconds="event.seconds" />
     <games-event-team :team="event.team" />
     <games-event-icon icon="red-cross-svgrepo-com" />

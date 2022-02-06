@@ -3,7 +3,7 @@
     :is="component"
     :event="event"
     class="flex items-center py-1"
-    :class="[index % 2 === 0 ? 'bg-gray-50' : 'bg-white']"
+    :class="[index % 2 === 0 ? 'bg-gray-50 dark:bg-primary-900' : 'bg-white dark:bg-primary-800']"
   />
 </template>
 

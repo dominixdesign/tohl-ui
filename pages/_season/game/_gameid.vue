@@ -93,6 +93,7 @@
         :sortColumn="sortColumn"
         :sortCol="sortCol"
         :direction="direction"
+        firstCol="number"
       />
       <div
         class="mt-5 p-3 text-lg font-bold"
@@ -109,6 +110,7 @@
         :sortColumn="sortColumn"
         :sortCol="sortCol"
         :direction="direction"
+        firstCol="number"
       />
     </div>
   </div>
@@ -149,6 +151,8 @@ export default {
     return {
       eventList: {},
       roster: {},
+      sortCol: 'points',
+      direction: 'desc',
       statsColumns: [
         'name',
         'goals',
@@ -206,6 +210,11 @@ export default {
 
       this.eventList = eventList
       this.roster = roster
+    }
+  },
+  methods: {
+    sortColumn(col) {
+      console.log(col)
     }
   },
   apollo: {
