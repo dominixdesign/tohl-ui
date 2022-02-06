@@ -10,19 +10,19 @@
   >
     <div
       v-if="openNav"
-      class="fixed top-0 w-screen z-50"
+      class="fixed top-0 z-50 w-screen"
       style="height: calc(100vh - 3.5rem)"
       role="dialog"
       aria-modal="true"
     >
-      <div v-if="showNavBar" class="relative flex-1 flex flex-col w-full pt-5 pb-4">
-        <div class="z-10 shrink-0 flex items-center px-4">
-          <layout-logo class="h-16 m-auto my-6" />
+      <div v-if="showNavBar" class="relative flex w-full flex-1 flex-col pt-5 pb-4">
+        <div class="z-10 flex shrink-0 items-center px-4">
+          <layout-logo class="m-auto my-6 h-16" :inverse="true" />
         </div>
         <div
           ref="navInner"
           @scroll="scrollNav"
-          class="mt-5 flex-1 h-0 overflow-x-auto relative z-0"
+          class="relative z-0 mt-5 h-0 flex-1 overflow-x-auto"
           style="height: 68vh; max-height: 68vh"
         >
           <div class="shadow-top" />

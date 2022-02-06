@@ -1,7 +1,8 @@
 <template>
   <TohlLogo
     aria-hidden="true"
-    class="w-auto scale-100 sm:scale-150 fill-current text-primary-600 dark:text-white"
+    class="w-auto scale-100 fill-current sm:scale-150"
+    :class="inverse ? 'text-white' : 'text-primary-600 dark:text-white'"
   />
 </template>
 
@@ -9,6 +10,12 @@
 import TohlLogo from '~/assets/logo-white-small.svg?inline'
 
 export default {
+  props: {
+    inverse: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     TohlLogo
   }

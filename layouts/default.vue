@@ -91,7 +91,7 @@
     <header class="h-12 shadow-sm lg:h-36" />
     <main class="isolate flex grow items-stretch justify-center">
       <div
-        style="width: clamp(24rem, 100vw - 1.5rem, 80rem)"
+        style="width: clamp(24rem, 100vw, 80rem)"
         class="
           z-1
           mx-auto
