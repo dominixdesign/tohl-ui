@@ -17,6 +17,7 @@ jobs:
 
       - name: 🔨 Build Project
         run: |
+          cd /home/runner/work/tohl-ui/
           yarn install
           yarn generate
           npx cap sync android
@@ -29,7 +30,7 @@ jobs:
           cache: gradle
       - name: Build with Gradle
         run: |
-          cd android
+          cd /home/runner/work/tohl-ui/android/
           echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
           gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch release.keystore.asc > release.keystore
           ./gradlew bundleRelease --no-daemon

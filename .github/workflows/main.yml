@@ -18,6 +18,7 @@ jobs:
 
       - name: 🔨 Build Project
         run: |
+          cd /home/runner/work/tohl-ui/
           yarn install
           yarn generate
 
