@@ -1,4 +1,4 @@
-name: 📱 Build android aapp and publish to Play Store
+name: 📱 Build android App and publish to Play Store
 
 on: workflow_dispatch
 jobs:
