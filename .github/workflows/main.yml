@@ -10,11 +10,6 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
-        with:
-          name: buildFiles
-          path: |
-            dist
-            android/app/build
 
       - name: Use Node.js 14
         uses: actions/setup-node@v2-beta
