@@ -12,7 +12,7 @@
     >
       {{ entry.title }}
       <svg
-        class="shrink-0 h-5 w-5"
+        class="h-5 w-5 shrink-0"
         :class="submenuOpen ? 'rotate-90' : 'rotate-90 scale-105'"
         viewBox="0 0 20 20"
         aria-hidden="true"
@@ -26,11 +26,23 @@
         :key="sub.title"
         :to="getPath(sub.path)"
         @click.native="triggerRoute"
-        class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium opacity-80"
+        class="
+          group
+          flex
+          w-full
+          items-center
+          bg-white bg-opacity-5
+          py-2
+          pl-10
+          pr-2
+          text-sm
+          font-medium
+          opacity-80
+        "
         :class="
           isActiveSubElement(sub.path)
-            ? 'bg-secondary-800 text-white'
-            : 'text-gray-800 dark:text-gray-200 hover:text-gray-200 hover:bg-secondary-600 transform hover:translate-x-1 transition-transform'
+            ? 'bg-secondary-800 bg-opacity-50 text-white'
+            : 'text-gray-200'
         "
       >
         {{ sub.title }}
@@ -99,9 +111,9 @@ export default {
 
 <style scoped>
 .nav-entry {
-  @apply p-2 mb-2 uppercase w-full inline-flex items-center bg-black bg-opacity-5 justify-center place-self-center font-medium border-0 border-transparent text-gray-100;
+  @apply mb-2 inline-flex w-full items-center justify-center place-self-center border-0 border-transparent bg-black bg-opacity-5 p-2 font-medium uppercase text-gray-100;
 }
 .nav-entry.active {
-  @apply border-secondary-700 border-l-8 border-r-8;
+  @apply border-l-8 border-r-8 border-secondary-700;
 }
 </style>

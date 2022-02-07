@@ -1,12 +1,12 @@
 <template>
   <div v-if="game">
-    <div class="shadow relative isolate overflow-hidden">
+    <div class="relative isolate overflow-hidden shadow">
       <team-bg foreground="#B92727" background="#0061AF" />
-      <div class="container mx-auto p-6 flex flex-col sm:flex-row justify-center">
+      <div class="container mx-auto flex flex-col items-center justify-center p-6 sm:flex-row">
         <div class="w-40">
           <team-logo-big :teamid="game.home.teamid" />
         </div>
-        <div class="w-40 text-center place-self-center leading-none text-white">
+        <div class="w-40 place-self-center text-center leading-none text-white">
           <div class="text-8xl font-extrabold">{{ game.goalshome }}:{{ game.goalsaway }}</div>
           <div v-if="game.overtimes === 1" class="text-xl font-extrabold leading-3">OT</div>
           <div v-else-if="game.overtimes > 1" class="text-xl font-extrabold leading-3">
@@ -17,11 +17,11 @@
           <team-logo-big :teamid="game.away.teamid" />
         </div>
       </div>
-      <ul class="flex justify-center gap-2 mb-2">
-        <li class="text-white flex">
+      <ul class="mb-2 flex justify-center gap-2">
+        <li class="flex text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 mr-1"
+            class="mr-1 h-5 w-5"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -33,10 +33,10 @@
           </svg>
           <span>{{ game.home.rink }}</span>
         </li>
-        <li class="text-white flex">
+        <li class="flex text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 mr-1"
+            class="mr-1 h-5 w-5"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -50,22 +50,68 @@
         </li>
       </ul>
     </div>
-    <div class="p-6 xl:px-12 mx-auto max-w-screen-2xl">
-      <div :id="`gameday-${gameday}`" class="xl:shadow mt-4">
+    <div class="mx-auto max-w-screen-2xl p-2 md:p-6 xl:px-12">
+      <div
+        v-for="period of Object.keys(eventList)"
+        :key="`gameday-${period}`"
+        class="mt-4 xl:shadow"
+      >
         <div
           class="
+            bg-primary-500
             p-3
             text-lg
             font-bold
-            bg-primary-500
-            dark:bg-primary-700
             text-primary-50
-            dark:text-primary-200
+            dark:bg-primary-700 dark:text-primary-200
           "
         >
-          1. Drittel
+          <span v-if="period <= 3">{{ period }}. Drittel</span>
+          <span v-else>{{ period - 3 }}. Verlängerung</span>
         </div>
+        <games-event-row
+          v-for="(event, index) in eventList[period]"
+          :key="`${event.period}-${event.minutes}-${index}`"
+          :event="event"
+          :index="index"
+        />
       </div>
+    </div>
+    <div class="mx-auto max-w-screen-2xl p-2 md:p-6 xl:px-12">
+      <div
+        class="p-3 text-lg font-bold"
+        :style="`background-color: ${game.home.background}; color: ${game.home.foreground};`"
+      >
+        {{ game.home.teamid }}
+      </div>
+
+      <player-scorerlist
+        :loading="$apollo.loading"
+        :columns="statsColumns"
+        :sortedScorer="roster[game.home.teamid]"
+        :error="$apollo.error"
+        :sortColumn="sortColumn"
+        :sortCol="sortCol"
+        :direction="direction"
+        firstCol="number"
+      />
+      <div
+        class="mt-5 p-3 text-lg font-bold"
+        :style="`background-color: ${game.away.background}; color: ${game.away.foreground};`"
+      >
+        {{ game.away.teamid }}
+      </div>
+
+      <player-scorerlist
+        :loading="$apollo.loading"
+        :columns="statsColumns"
+        :sortedScorer="roster[game.away.teamid]"
+        :error="$apollo.error"
+        :sortColumn="sortColumn"
+        :sortCol="sortCol"
+        :direction="direction"
+        firstCol="number"
+      />
     </div>
   </div>
 </template>
@@ -78,6 +124,14 @@
 // https://www.del-2.org/liga/archiv/127/spiel/6299/
 // http://pointstreak.com/prostats/boxscore.html?gameid=2490788
 import gql from 'graphql-tag'
+
+const addToPeriod = (list, event) => {
+  if (!list[event.period]) {
+    list[event.period] = []
+  }
+  list[event.period].push(event)
+}
+
 export default {
   async asyncData({ params }) {
     const season = params.season
@@ -93,6 +147,76 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      eventList: {},
+      roster: {},
+      sortCol: 'points',
+      direction: 'desc',
+      statsColumns: [
+        'name',
+        'goals',
+        'assists',
+        'points',
+        'plusminus',
+        'pim',
+        'shots',
+        'spercentage',
+        'icetime',
+        'hits',
+        'injured',
+        'ejected',
+        'fightswon',
+        'fightslose',
+        'fightsdraw'
+      ]
+    }
+  },
+  watch: {
+    game(gameData) {
+      const eventList = {}
+      gameData.events.forEach((e) => addToPeriod(eventList, e))
+      gameData.goals.forEach((g) => addToPeriod(eventList, g))
+      gameData.penalties.forEach((p) => addToPeriod(eventList, p))
+      for (const period in eventList) {
+        eventList[period].sort((a, b) => {
+          const timeA = a.minutes * 60 + a.seconds
+          const timeB = b.minutes * 60 + b.seconds
+          if (timeA > timeB) return 1
+          if (timeA < timeB) return -1
+          if (a.__typename === 'GameEvent') {
+            console.log(a, b)
+            if (a.type === 'fight' || a.type === 'draw') {
+              return -1
+            } else if (b.__typename !== 'GameEvent') {
+              return 1
+            }
+          }
+          if (b.__typename === 'GameEvent') {
+            if (b.type === 'fight' || b.type === 'draw') {
+              return 1
+            } else if (a.__typename !== 'GameEvent') {
+              return -1
+            }
+          }
+          return 0
+        })
+      }
+      const roster = {
+        [gameData.home.teamid]: [],
+        [gameData.away.teamid]: []
+      }
+      gameData.lineup.forEach((p) => roster[p.team.teamid].push(p))
+
+      this.eventList = eventList
+      this.roster = roster
+    }
+  },
+  methods: {
+    sortColumn(col) {
+      console.log(col)
+    }
+  },
   apollo: {
     game: {
       query: gql`
@@ -103,9 +227,13 @@ export default {
             home {
               teamid
               rink
+              foreground @client(always: true)
+              background @client(always: true)
             }
             away {
               teamid
+              foreground @client(always: true)
+              background @client(always: true)
             }
             goalshome
             goalsaway
@@ -115,6 +243,66 @@ export default {
             }
             loser {
               teamid
+            }
+            events {
+              type
+              minutes
+              seconds
+              period
+              player {
+                id
+                display_fname
+                display_lname
+              }
+              player2 {
+                id
+                display_fname
+                display_lname
+              }
+              team {
+                teamid
+              }
+            }
+            goals {
+              minutes
+              seconds
+              period
+              goalscorer {
+                id
+                display_fname
+                display_lname
+              }
+              primaryassist {
+                id
+                display_fname
+                display_lname
+              }
+              secondaryassist {
+                id
+                display_fname
+                display_lname
+              }
+              score
+              team: scoringteam {
+                teamid
+              }
+              situation
+              tags
+            }
+            penalties {
+              minutes
+              seconds
+              period
+              length
+              offense
+              player {
+                id
+                display_fname
+                display_lname
+              }
+              team {
+                teamid
+              }
             }
             pphome
             ppaway
@@ -151,6 +339,7 @@ export default {
               shutout
               star
               line
+              spercentage @client
             }
           }
         }

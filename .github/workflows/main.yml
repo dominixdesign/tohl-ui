@@ -8,23 +8,23 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
 
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: '14'
-      
-    - name: 🔨 Build Project
-      run: |
-        yarn install
-        yarn generate
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
-      with:
-        local-dir: ./dist/
-        server: ${{ secrets.host }}
-        username: ${{ secrets.username }}
-        password: ${{ secrets.password }}
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+
+      - name: 🔨 Build Project
+        run: |
+          yarn install
+          yarn generate
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          local-dir: ./dist/
+          server: ${{ secrets.host }}
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}

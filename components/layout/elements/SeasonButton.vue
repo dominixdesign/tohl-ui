@@ -5,17 +5,13 @@
       class="
         flex
         items-center
-        rounded-full
-        bg-secondary-500
         px-3
         py-1
-        text-white
-        font-thin
         text-sm
+        font-thin
         drop-shadow-sm
-        hover:drop-shadow-md
-        border border-secondary-600
-        hover:bg-secondary-600 hover:border-secondary-700
+        hover:border-secondary-700 hover:bg-secondary-600 hover:drop-shadow-md
+        md:rounded-full md:border md:border-secondary-600 md:bg-secondary-500 md:text-white
       "
     >
       <span class="hidden sm:block">Saison: </span>

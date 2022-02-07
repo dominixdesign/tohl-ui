@@ -96,11 +96,16 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'de'
     }
   },
   colorMode: {
     classSuffix: ''
+  },
+  watchers: {
+    webpack: {
+      ignored: [/android/, /coverage/, /dist/, /ios/, /mocks/, /node_modules/, /test/, /.git/]
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
