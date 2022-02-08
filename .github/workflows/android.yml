@@ -39,12 +39,11 @@ jobs:
           echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
           gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch release.keystore.asc > release.keystore.jks
           ./gradlew bundleRelease --no-daemon
+          pwd
       - name: 🛍 Publish to Google Play Store
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: org.mytohl.app
-          releaseFiles: app/build/outputs/bundle/release/*.aab
+          releaseFiles: ${{ github.workspace }}/app/build/outputs/bundle/release/*.aab
           track: production
-        run: |
-          ls -l
