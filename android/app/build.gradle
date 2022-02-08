@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 
 println "release key alias"
-println System.getenv('secrets.RELEASE_KEY_ALIAS')
+println ENV['secrets.RELEASE_KEY_ALIAS']
+println "############"
+println ENV['VERSION_CODE']
 println "############"
 
 android {
