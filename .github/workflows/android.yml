@@ -28,7 +28,7 @@ jobs:
       - name: 🐘 Build with Gradle
         env:
           VERSION_CODE: ${{ github.run_number }}
-          VERSION_NAME: "v1.${{ github.run_number }}""
+          VERSION_NAME: 'v1.${{ github.run_number }}'
         run: |
           cd android
           echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
