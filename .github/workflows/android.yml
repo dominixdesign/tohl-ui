@@ -45,4 +45,4 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: org.mytohl.app
           releaseFiles: ${{ github.workspace }}/android/app/build/outputs/bundle/release/*.aab
-          track: production
+          track: beta
