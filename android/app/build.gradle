@@ -6,8 +6,8 @@ android {
         applicationId "org.mytohl.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode System.getenv('VERSION_CODE')
+        versionName System.getenv('VERSION_NAME')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -17,7 +17,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('../release.keystore')
+            storeFile file('./release.keystore.jks')
             storePassword System.getenv('SIGN_PASSWORD')
             keyAlias System.getenv('RELEASE_KEY_ALIAS')
             keyPassword System.getenv('SIGN_PASSWORD')
