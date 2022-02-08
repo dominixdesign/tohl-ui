@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+println "release key alias"
+println System.getenv('RELEASE_KEY_ALIAS')
+println "############"
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
