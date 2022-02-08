@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
-println "release key alias"
-println System.getenv('TEST_ENV')
 println "############"
+println "Version Code:"
 println System.getenv('VERSION_CODE')
 println "############"
-println "$System.env.TEST_ENV"
+println "Version Name:"
+println System.getenv('VERSION_NAME')
 println "############"
 
 android {
@@ -14,7 +14,7 @@ android {
         applicationId "org.mytohl.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode System.getenv('VERSION_CODE')
         versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
@@ -26,9 +26,9 @@ android {
     signingConfigs {
         release {
             storeFile file('../release.keystore.jks')
-            storePassword System.getenv('secrets.SIGN_PASSWORD')
-            keyAlias System.getenv('secrets.RELEASE_KEY_ALIAS')
-            keyPassword System.getenv('secrets.SIGN_PASSWORD')
+            storePassword System.getenv('SIGN_PASSWORD')
+            keyAlias System.getenv('RELEASE_KEY_ALIAS')
+            keyPassword System.getenv('SIGN_PASSWORD')
         }
     }
     buildTypes {

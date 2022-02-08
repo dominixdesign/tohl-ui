@@ -31,8 +31,9 @@ jobs:
       - name: 🐘 Build with Gradle
         env:
           VERSION_CODE: ${{ github.run_number }}
-          TEST_ENV: 'myTestEnv'
           VERSION_NAME: 'v1.${{ github.run_number }}'
+          SIGN_PASSWORD: ${{ secrets.SIGN_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
         run: |
           cd android
           echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
