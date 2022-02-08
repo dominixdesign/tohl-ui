@@ -46,3 +46,4 @@ jobs:
           packageName: org.mytohl.app
           releaseFiles: ${{ github.workspace }}/android/app/build/outputs/bundle/release/*.aab
           track: beta
+          status: completed
