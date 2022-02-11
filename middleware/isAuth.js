@@ -1,6 +1,5 @@
-export default ({ app, error, route }) => {
-  const hasToken = !!app.$apolloHelpers.getToken()
-  if (!hasToken) {
+export default ({ store, error, route }) => {
+  if (!store.getters['user/isLoggedIn']) {
     error({
       statusCode: 403,
       message: 'Zugang verweigert',
