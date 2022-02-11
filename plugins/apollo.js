@@ -46,8 +46,10 @@ export default ({ store, $envConfig, error, app }) => {
         }
       }
     },
-    authenticationType: 'Bearer',
-    tokenName: 'apollo-token',
+    getAuth: () => {
+      const token = store.getters['user/token']
+      return token ? `Bearer ${token}` : ''
+    },
     resolvers: {
       Playerdata: {
         position: (playerdata) => positions[playerdata.pos]

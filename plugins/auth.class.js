@@ -35,16 +35,14 @@ export class AuthService {
       })
       .then(({ data }) => data)
 
-    this.app.store.dispatch('user/login', res.login)
     if (res.login.refresh_token) {
       window.localStorage.setItem('refresh_token', res.login.refresh_token)
     }
 
-    await this.setToken(res.login.access_token)
+    await this.setToken(res.token.access_token, res.token.manager)
   }
 
   async refreshLogin() {
-    console.log('refresh login')
     const refreshToken = window.localStorage.getItem('refresh_token')
     if (refreshToken) {
       try {
@@ -54,9 +52,8 @@ export class AuthService {
             variables: { refresh_token: refreshToken }
           })
           .then(({ data }) => data)
-
-        this.app.store.dispatch('user/login', res.token)
-        await this.setToken(res.token.access_token)
+        console.log(res)
+        await this.setToken(res.token.access_token, res.token.manager)
       } catch (e) {
         console.log(e)
       }
@@ -65,16 +62,17 @@ export class AuthService {
     }
   }
 
-  async setToken(token) {
+  async setToken(token, manager) {
     const { username, roles, mail, exp } = jwt.decode(token)
     if (exp < parseInt(Date.now() / 1000)) {
       this.app.$apolloHelpers.onLogout()
       throw Error('expired')
     }
+    this.app.store.dispatch('user/login', { access_token: token, manager })
     const expiresIn = exp - parseInt(Date.now() / 1000)
     tokenTimeout = window.setTimeout(this.refreshLogin.bind(this), expiresIn * 1000)
     console.log({ expiresIn, tokenTimeout })
     this.loggedIn = true
-    await this.app.$apolloHelpers.onLogin(token)
+    await this.app.$apolloHelpers.onLogin(token, undefined, { expires: 0 })
   }
 }
