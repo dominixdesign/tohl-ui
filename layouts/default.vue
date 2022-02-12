@@ -88,7 +88,7 @@
         <LayoutNavStaticNav />
       </div>
     </header>
-    <header class="h-12 shadow-sm lg:h-36" />
+    <header class="h-16 shadow-sm lg:h-36" />
     <main class="isolate flex grow items-stretch justify-center">
       <div
         style="width: clamp(24rem, 100vw, 80rem)"
@@ -97,7 +97,6 @@
           mx-auto
           max-w-7xl
           bg-gray-100
-          pt-3
           pb-6
           shadow-pageLight
           dark:bg-gray-800 dark:shadow-pageDark
