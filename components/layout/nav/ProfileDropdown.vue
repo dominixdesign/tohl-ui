@@ -77,6 +77,7 @@
           >
           <NuxtLink
             to="/gm/lines"
+            @click.native="hide"
             class="block px-4 py-2 text-sm text-gray-700"
             role="menuitem"
             tabindex="-1"
