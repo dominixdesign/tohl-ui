@@ -123,6 +123,7 @@
     </footer>
     <portal-target name="modals" class="isolate z-50" />
     <portal-target name="slide" />
+    <portal-target name="floating" />
   </div>
 </template>
 

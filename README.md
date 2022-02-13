@@ -22,3 +22,4 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 Photo by <a href="https://unsplash.com/@klim11?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Klim Musalimov</a> on <a href="https://unsplash.com/s/photos/hockey-arena?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 Icons u.a.: https://icofont.com/icons
+https://tabler-icons.io/
