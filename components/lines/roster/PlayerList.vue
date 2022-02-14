@@ -25,7 +25,7 @@
       >
         <span class="grow">
           <PlayerStatus :status="player.status" />
-          <span class="mx-2 pt-1 text-lg"
+          <span class="mx-2 pt-1"
             ><b>{{ player.display_lname }}</b
             >, {{ player.display_fname }}</span
           >

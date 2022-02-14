@@ -1,12 +1,16 @@
 <template>
-  <ul>
+  <ul class="mb-2 flex gap-0.5 bg-primary-500 pb-0.5">
     <li
       v-for="pos in positions"
       :key="'pos-' + pos"
-      :class="selected === pos ? 'active' : ''"
+      class="basis-1/5 p-2 text-center"
+      :class="selected === pos ? 'bg-primary-200' : 'bg-gray-300'"
       @click="() => select(pos)"
     >
       {{ pos }}
+      <span class="text-xs"
+        >({{ $store.getters['roster/getByTeamAndPos']('pro', pos).length }})</span
+      >
       <div class="warning fa-lg" v-if="hasError(pos)">error</div>
     </li>
   </ul>
@@ -40,31 +44,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-ul {
-  list-style: none;
-  text-align: center;
-}
-li {
-  position: relative;
-  display: inline-block;
-  margin: 5px;
-  padding: 5px 20px;
-  background-color: #006ec7;
-  color: #fff;
-  border-radius: 5px;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.32);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.32);
-  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.32);
-}
-li.active {
-  background-color: #b92727;
-}
-.warning {
-  display: block;
-  position: absolute;
-  top: -3px;
-  right: -3px;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-20">
     <nav class="flex w-full gap-0.5 bg-primary-500 pb-0.5">
       <nuxt-link
         to="/gm/lines/roster"
