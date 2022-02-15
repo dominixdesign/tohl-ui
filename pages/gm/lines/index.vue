@@ -2,10 +2,10 @@
   <div class="pb-20">
     <nav class="flex w-full gap-0.5 bg-primary-500 pb-0.5">
       <nuxt-link
-        to="/gm/lines/roster"
+        to="/gm/lines/"
         class="basis-1/2 p-2 text-center"
         :class="
-          activePage === '/gm/lines/roster'
+          activePage === '/gm/lines/'
             ? 'bg-primary-400 dark:bg-primary-600'
             : 'bg-gray-200 dark:bg-primary-900'
         "

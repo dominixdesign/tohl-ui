@@ -16,20 +16,22 @@
       <li
         v-for="player in roster"
         :key="player.lname"
-        class="my-2 flex content-center items-center gap-1 border p-3"
+        class="my-2 flex content-center items-center gap-1 border py-3 px-1"
         :class="
           dressedError(player.status)
             ? 'border-secondary-600 bg-secondary-100'
             : 'border-gray-300 bg-gray-100'
         "
       >
-        <span class="grow">
-          <PlayerStatus :status="player.status" />
-          <span class="mx-2 pt-1"
-            ><b>{{ player.display_lname }}</b
-            >, {{ player.display_fname }}</span
+        <span class="grow leading-3">
+          <lines-roster-player-status class="float-left h-5 w-5" :status="player.status" />
+          <span class="mx-1 pt-1">
+            <b>{{ player.display_lname }}</b
+            >, <wbr />{{ player.display_fname }}</span
           >
-          <span v-if="player.cd <= 99">(CD {{ player.cd }})</span>
+          <span v-if="player.seasondata.cd <= 99 && player.seasondata.cd > 0" class="text-sm"
+            >(CD {{ player.seasondata.cd }})</span
+          >
         </span>
         <button
           @click.stop="() => movePlayer(player, 'scratch')"
@@ -83,13 +85,8 @@
 </template>
 
 <script>
-import PlayerStatus from './PlayerStatus'
-
 export default {
   name: 'PlayerList',
-  components: {
-    PlayerStatus
-  },
   props: {
     team: String
   },
