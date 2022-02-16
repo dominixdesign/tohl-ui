@@ -1,5 +1,5 @@
 <template>
-  <div id="roster">
+  <div id="roster" v-if="$store.getters['roster/currentTeam']">
     <lines-roster-position-select />
     <div class="warning" v-if="limitsTop">Zu viele Spielern auf dieser Position</div>
     <div class="warning" v-if="limitsLess">Zu wenig Spielern auf dieser Position</div>
@@ -11,6 +11,7 @@
     </div>
     <lines-roster-player-list v-for="t in ['pro', 'scratch', 'farm']" :key="t" :team="t" />
   </div>
+  <div v-else>Bitte kurz warten.</div>
 </template>
 
 <script>
@@ -18,6 +19,9 @@ import { mapGetters, mapState } from 'vuex'
 import gql from 'graphql-tag'
 
 export default {
+  beforeCreate() {
+    this.$store.dispatch('roster/load', { team: this.$store.getters['user/team'] })
+  },
   computed: {
     ...mapGetters({
       selected: 'roster/getSelected'
@@ -33,61 +37,6 @@ export default {
     },
     limitsLess() {
       return !this.$store.getters['roster/isInLimitsLess'](this.selected)
-    }
-  },
-  watch: {
-    roster(newRoster) {
-      this.$store.dispatch('roster/load', { roster: newRoster, team: 'pat' })
-    }
-  },
-  apollo: {
-    roster: {
-      query: gql`
-        query roster($teamsim: String!, $season: ID!) {
-          roster(teamsim: $teamsim, season: $season) {
-            id
-            fname
-            display_fname
-            display_lname
-            hand
-            lname
-            nation
-            seasondata {
-              roster
-              number
-              age
-              pos
-              position @client(always: true)
-              cd
-              ij
-              it
-              sp
-              st
-              en
-              du
-              di
-              sk
-              pa
-              pc
-              df
-              sc
-              ex
-              ld
-              ov
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          teamsim: 'kni',
-          season: this.$store.getters['navigation/season']
-        }
-      },
-      update: ({ roster }) => roster,
-      error() {
-        this.error = true
-      }
     }
   }
 }

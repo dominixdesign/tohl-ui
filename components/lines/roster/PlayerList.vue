@@ -5,7 +5,8 @@
         bg-primary-500
         p-3
         text-lg
-        font-bold
+        font-thin
+        uppercase
         text-primary-50
         dark:bg-primary-700 dark:text-primary-200
       "
@@ -16,7 +17,7 @@
       <li
         v-for="player in roster"
         :key="player.lname"
-        class="my-2 flex content-center items-center gap-1 border py-3 px-1"
+        class="my-2 flex content-center items-center gap-1 border p-1"
         :class="
           dressedError(player.status)
             ? 'border-secondary-600 bg-secondary-100'

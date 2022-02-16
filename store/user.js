@@ -38,5 +38,6 @@ export const mutations = {
 
 export const getters = {
   token: (state) => state.token,
+  team: (state) => state.team,
   isLoggedIn: (state) => state.username !== null && state.team !== null
 }

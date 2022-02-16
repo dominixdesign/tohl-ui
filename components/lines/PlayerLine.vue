@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="linesTitle">{{label()}}</div>
-    <PlayerGroup v-for="(group, key) in line" :key="key" :group="group" :block="block" />
+    <div class="linesTitle">{{ label() }}</div>
+    <lines-player-group v-for="(group, key) in line" :key="key" :group="group" :block="block" />
   </div>
 </template>
 
@@ -18,13 +18,12 @@ export default {
     block: String
   },
   methods: {
-    label () {
-      return this.$store.getters['labels/get'](this.$store.getters['lines/getSelected']+'-'+this.block)
+    label() {
+      return 'label'
+      // return this.$store.getters['labels/get'](this.$store.getters['lines/getSelected']+'-'+this.block)
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

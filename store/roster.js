@@ -1,4 +1,5 @@
 import remove from 'lodash.remove'
+import gql from 'graphql-tag'
 
 const axios = {}
 
@@ -39,10 +40,55 @@ export const mutations = {
 }
 
 export const actions = {
-  load({ commit, getters, dispatch }, { roster, team }) {
+  async load({ commit, getters, dispatch, rootGetters }, { team }) {
     if (team === getters.currentTeam) {
       return
     }
+    const apollo = this.app.apolloProvider.defaultClient
+    const { data } = await apollo.query({
+      query: gql`
+        query roster($teamsim: String!, $season: ID!) {
+          roster(teamsim: $teamsim, season: $season) {
+            id
+            fname
+            display_fname
+            display_lname
+            hand
+            lname
+            nation
+            seasondata {
+              roster
+              number
+              age
+              pos
+              position @client(always: true)
+              cd
+              ij
+              it
+              sp
+              st
+              en
+              du
+              di
+              sk
+              pa
+              pc
+              df
+              sc
+              ex
+              ld
+              ov
+            }
+          }
+        }
+      `,
+      variables: {
+        teamsim: rootGetters['user/team'],
+        season: rootGetters['navigation/season']
+      }
+    })
+    const roster = data.roster
+
     commit('setCurrentTeam', team)
     const teams = ['pro', 'scratch', 'farm']
     roster.map((p) => {
@@ -71,7 +117,7 @@ export const actions = {
       })
     })
     commit('set', roster)
-    // dispatch('lines/loadLines', data.lines.lines_position, { root: true })
+    dispatch('lines/loadLines', undefined, { root: true })
   },
   async save({ state, dispatch }) {
     console.log('roster/save', state)
@@ -114,6 +160,7 @@ export const getters = {
   getPro: (state) => state.pro,
   getByRosPos: (state) => (rospos) =>
     state.player.filter((p) => p.ros_pos.toString() === rospos.toString()).pop(),
+  getByID: (state) => (playerid) => state.player.filter((p) => p.id === playerid).pop(),
   getDressedByPos: (state) => (pos) =>
     [...state['pro'], ...state['farm']].filter((p) => pos.includes(p.pos)),
   getByTeamAndPos: (state) => (team, pos) => state[team].filter((p) => pos.includes(p.pos)),

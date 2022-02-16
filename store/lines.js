@@ -1,3 +1,4 @@
+import gql from 'graphql-tag'
 const axios = {}
 
 export const state = () => ({
@@ -86,30 +87,30 @@ export const actions = {
     queryParts.push('team=' + window['_TOHL_TEAM'].id)
     queryParts.push('teamid=' + window['_TOHL_TEAM'].ros_pos)
 
-    // erste reihe even strength
-    queryParts.push('line[even1][LW]=' + state.lines['5v5-1-lw'].ros_pos)
-    queryParts.push('line[even1][RW]=' + state.lines['5v5-1-rw'].ros_pos)
-    queryParts.push('line[even1][C]=' + state.lines['5v5-1-c'].ros_pos)
-    queryParts.push('line[even1][RD]=' + state.lines['5v5-1-d1'].ros_pos)
-    queryParts.push('line[even1][LD]=' + state.lines['5v5-1-d2'].ros_pos)
-    // zweite reihe even strength
-    queryParts.push('line[even2][LW]=' + state.lines['5v5-2-lw'].ros_pos)
-    queryParts.push('line[even2][RW]=' + state.lines['5v5-2-rw'].ros_pos)
-    queryParts.push('line[even2][C]=' + state.lines['5v5-2-c'].ros_pos)
-    queryParts.push('line[even2][RD]=' + state.lines['5v5-2-d1'].ros_pos)
-    queryParts.push('line[even2][LD]=' + state.lines['5v5-2-d2'].ros_pos)
-    // dritte reihe even strength
-    queryParts.push('line[even3][LW]=' + state.lines['5v5-3-lw'].ros_pos)
-    queryParts.push('line[even3][RW]=' + state.lines['5v5-3-rw'].ros_pos)
-    queryParts.push('line[even3][C]=' + state.lines['5v5-3-c'].ros_pos)
-    queryParts.push('line[even3][RD]=' + state.lines['5v5-3-d1'].ros_pos)
-    queryParts.push('line[even3][LD]=' + state.lines['5v5-3-d2'].ros_pos)
-    // vierte reihe even strength
-    queryParts.push('line[even4][LW]=' + state.lines['5v5-4-lw'].ros_pos)
-    queryParts.push('line[even4][RW]=' + state.lines['5v5-4-rw'].ros_pos)
-    queryParts.push('line[even4][C]=' + state.lines['5v5-4-c'].ros_pos)
-    queryParts.push('line[even4][RD]=' + state.lines['5v5-4-d1'].ros_pos)
-    queryParts.push('line[even4][LD]=' + state.lines['5v5-4-d2'].ros_pos)
+    // // erste reihe even strength
+    // queryParts.push('line[even['1']][LW]=' + state.lines['5v5-1-lw'].ros_pos)
+    // queryParts.push('line[even['1']][RW]=' + state.lines['5v5-1-rw'].ros_pos)
+    // queryParts.push('line[even['1']][C]=' + state.lines['5v5-1-c'].ros_pos)
+    // queryParts.push('line[even['1']][RD]=' + state.lines['5v5-1-d1'].ros_pos)
+    // queryParts.push('line[even['1']][LD]=' + state.lines['5v5-1-d2'].ros_pos)
+    // // zweite reihe even strength
+    // queryParts.push('line[even['2']][LW]=' + state.lines['5v5-2-lw'].ros_pos)
+    // queryParts.push('line[even['2']][RW]=' + state.lines['5v5-2-rw'].ros_pos)
+    // queryParts.push('line[even['2']][C]=' + state.lines['5v5-2-c'].ros_pos)
+    // queryParts.push('line[even['2']][RD]=' + state.lines['5v5-2-d1'].ros_pos)
+    // queryParts.push('line[even['2']][LD]=' + state.lines['5v5-2-d2'].ros_pos)
+    // // dritte reihe even strength
+    // queryParts.push('line[even['3']][LW]=' + state.lines['5v5-3-lw'].ros_pos)
+    // queryParts.push('line[even['3']][RW]=' + state.lines['5v5-3-rw'].ros_pos)
+    // queryParts.push('line[even['3']][C]=' + state.lines['5v5-3-c'].ros_pos)
+    // queryParts.push('line[even['3']][RD]=' + state.lines['5v5-3-d1'].ros_pos)
+    // queryParts.push('line[even['3']][LD]=' + state.lines['5v5-3-d2'].ros_pos)
+    // // vierte reihe even strength
+    // queryParts.push('line[even['4']][LW]=' + state.lines['5v5-4-lw'].ros_pos)
+    // queryParts.push('line[even['4']][RW]=' + state.lines['5v5-4-rw'].ros_pos)
+    // queryParts.push('line[even['4']][C]=' + state.lines['5v5-4-c'].ros_pos)
+    // queryParts.push('line[even['4']][RD]=' + state.lines['5v5-4-d1'].ros_pos)
+    // queryParts.push('line[even['4']][LD]=' + state.lines['5v5-4-d2'].ros_pos)
 
     // erste reihe 5-4 powerplay
     queryParts.push('line[pp11][LW]=' + state.lines['PP-1-lw'].ros_pos)
@@ -167,70 +168,93 @@ export const actions = {
       .then((response) => response.status)
       .catch((err) => console.warn(err))
   },
-  loadLines({ commit, rootGetters }, lines) {
+  async loadLines({ commit, rootGetters }) {
+    const apollo = this.app.apolloProvider.defaultClient
+    const { data } = await apollo.query({
+      query: gql`
+        query lines($team: String!, $season: String!) {
+          lines(team: $team, season: $season) {
+            season
+            gameday
+            team {
+              teamid
+            }
+            lines_json
+          }
+        }
+      `,
+      variables: {
+        team: rootGetters['user/team'],
+        season: rootGetters['navigation/season']
+      }
+    })
+
+    const lines = JSON.parse(data.lines.lines_json)
+    console.log(lines)
+
     // map old lines to new lines:
     commit('setLines', {
-      '5v5-1-lw': rootGetters['roster/getByRosPos'](lines.even1.LW),
-      '5v5-1-rw': rootGetters['roster/getByRosPos'](lines.even1.RW),
-      '5v5-1-c': rootGetters['roster/getByRosPos'](lines.even1.C),
-      '5v5-1-d1': rootGetters['roster/getByRosPos'](lines.even1.LD),
-      '5v5-1-d2': rootGetters['roster/getByRosPos'](lines.even1.RD),
-      '5v5-2-lw': rootGetters['roster/getByRosPos'](lines.even2.LW),
-      '5v5-2-rw': rootGetters['roster/getByRosPos'](lines.even2.RW),
-      '5v5-2-c': rootGetters['roster/getByRosPos'](lines.even2.C),
-      '5v5-2-d1': rootGetters['roster/getByRosPos'](lines.even2.LD),
-      '5v5-2-d2': rootGetters['roster/getByRosPos'](lines.even2.RD),
-      '5v5-3-lw': rootGetters['roster/getByRosPos'](lines.even3.LW),
-      '5v5-3-rw': rootGetters['roster/getByRosPos'](lines.even3.RW),
-      '5v5-3-c': rootGetters['roster/getByRosPos'](lines.even3.C),
-      '5v5-3-d1': rootGetters['roster/getByRosPos'](lines.even3.LD),
-      '5v5-3-d2': rootGetters['roster/getByRosPos'](lines.even3.RD),
-      '5v5-4-lw': rootGetters['roster/getByRosPos'](lines.even4.LW),
-      '5v5-4-rw': rootGetters['roster/getByRosPos'](lines.even4.RW),
-      '5v5-4-c': rootGetters['roster/getByRosPos'](lines.even4.C),
-      '5v5-4-d1': rootGetters['roster/getByRosPos'](lines.even4.LD),
-      '5v5-4-d2': rootGetters['roster/getByRosPos'](lines.even4.RD),
+      '5v5-1-lw': rootGetters['roster/getByID'](lines.even['1'].LW),
+      '5v5-1-rw': rootGetters['roster/getByID'](lines.even['1'].RW),
+      '5v5-1-c': rootGetters['roster/getByID'](lines.even['1'].C),
+      '5v5-1-d1': rootGetters['roster/getByID'](lines.even['1'].LD),
+      '5v5-1-d2': rootGetters['roster/getByID'](lines.even['1'].RD),
+      '5v5-2-lw': rootGetters['roster/getByID'](lines.even['2'].LW),
+      '5v5-2-rw': rootGetters['roster/getByID'](lines.even['2'].RW),
+      '5v5-2-c': rootGetters['roster/getByID'](lines.even['2'].C),
+      '5v5-2-d1': rootGetters['roster/getByID'](lines.even['2'].LD),
+      '5v5-2-d2': rootGetters['roster/getByID'](lines.even['2'].RD),
+      '5v5-3-lw': rootGetters['roster/getByID'](lines.even['3'].LW),
+      '5v5-3-rw': rootGetters['roster/getByID'](lines.even['3'].RW),
+      '5v5-3-c': rootGetters['roster/getByID'](lines.even['3'].C),
+      '5v5-3-d1': rootGetters['roster/getByID'](lines.even['3'].LD),
+      '5v5-3-d2': rootGetters['roster/getByID'](lines.even['3'].RD),
+      '5v5-4-lw': rootGetters['roster/getByID'](lines.even['4'].LW),
+      '5v5-4-rw': rootGetters['roster/getByID'](lines.even['4'].RW),
+      '5v5-4-c': rootGetters['roster/getByID'](lines.even['4'].C),
+      '5v5-4-d1': rootGetters['roster/getByID'](lines.even['4'].LD),
+      '5v5-4-d2': rootGetters['roster/getByID'](lines.even['4'].RD),
 
-      'PP-1-lw': rootGetters['roster/getByRosPos'](lines.pp11.LW),
-      'PP-1-rw': rootGetters['roster/getByRosPos'](lines.pp11.RW),
-      'PP-1-c': rootGetters['roster/getByRosPos'](lines.pp11.C),
-      'PP-1-d1': rootGetters['roster/getByRosPos'](lines.pp11.LD),
-      'PP-1-d2': rootGetters['roster/getByRosPos'](lines.pp11.RD),
-      'PP-2-lw': rootGetters['roster/getByRosPos'](lines.pp12.LW),
-      'PP-2-rw': rootGetters['roster/getByRosPos'](lines.pp12.RW),
-      'PP-2-c': rootGetters['roster/getByRosPos'](lines.pp12.C),
-      'PP-2-d1': rootGetters['roster/getByRosPos'](lines.pp12.LD),
-      'PP-2-d2': rootGetters['roster/getByRosPos'](lines.pp12.RD),
+      'PP-1-lw': rootGetters['roster/getByID'](lines.pp1['1'].LW),
+      'PP-1-rw': rootGetters['roster/getByID'](lines.pp1['1'].RW),
+      'PP-1-c': rootGetters['roster/getByID'](lines.pp1['1'].C),
+      'PP-1-d1': rootGetters['roster/getByID'](lines.pp1['1'].LD),
+      'PP-1-d2': rootGetters['roster/getByID'](lines.pp1['1'].RD),
+      'PP-2-lw': rootGetters['roster/getByID'](lines.pp1['2'].LW),
+      'PP-2-rw': rootGetters['roster/getByID'](lines.pp1['2'].RW),
+      'PP-2-c': rootGetters['roster/getByID'](lines.pp1['2'].C),
+      'PP-2-d1': rootGetters['roster/getByID'](lines.pp1['2'].LD),
+      'PP-2-d2': rootGetters['roster/getByID'](lines.pp1['2'].RD),
 
-      'PP-3-w': rootGetters['roster/getByRosPos'](lines.pp21.W),
-      'PP-3-c': rootGetters['roster/getByRosPos'](lines.pp21.C),
-      'PP-3-d1': rootGetters['roster/getByRosPos'](lines.pp21.LD),
-      'PP-3-d2': rootGetters['roster/getByRosPos'](lines.pp21.RD),
-      'PP-4-w': rootGetters['roster/getByRosPos'](lines.pp22.W),
-      'PP-4-c': rootGetters['roster/getByRosPos'](lines.pp22.C),
-      'PP-4-d1': rootGetters['roster/getByRosPos'](lines.pp22.LD),
-      'PP-4-d2': rootGetters['roster/getByRosPos'](lines.pp22.RD),
+      'PP-3-w': rootGetters['roster/getByID'](lines.pp2['1'].W),
+      'PP-3-c': rootGetters['roster/getByID'](lines.pp2['1'].C),
+      'PP-3-d1': rootGetters['roster/getByID'](lines.pp2['1'].LD),
+      'PP-3-d2': rootGetters['roster/getByID'](lines.pp2['1'].RD),
+      'PP-4-w': rootGetters['roster/getByID'](lines.pp2['2'].W),
+      'PP-4-c': rootGetters['roster/getByID'](lines.pp2['2'].C),
+      'PP-4-d1': rootGetters['roster/getByID'](lines.pp2['2'].LD),
+      'PP-4-d2': rootGetters['roster/getByID'](lines.pp2['2'].RD),
 
-      'PK-1-w': rootGetters['roster/getByRosPos'](lines.pk11.W),
-      'PK-1-c': rootGetters['roster/getByRosPos'](lines.pk11.C),
-      'PK-1-d1': rootGetters['roster/getByRosPos'](lines.pk11.LD),
-      'PK-1-d2': rootGetters['roster/getByRosPos'](lines.pk11.RD),
-      'PK-2-w': rootGetters['roster/getByRosPos'](lines.pk12.W),
-      'PK-2-c': rootGetters['roster/getByRosPos'](lines.pk12.C),
-      'PK-2-d1': rootGetters['roster/getByRosPos'](lines.pk12.LD),
-      'PK-2-d2': rootGetters['roster/getByRosPos'](lines.pk12.RD),
+      'PK-1-w': rootGetters['roster/getByID'](lines.pk1['1'].W),
+      'PK-1-c': rootGetters['roster/getByID'](lines.pk1['1'].C),
+      'PK-1-d1': rootGetters['roster/getByID'](lines.pk1['1'].LD),
+      'PK-1-d2': rootGetters['roster/getByID'](lines.pk1['1'].RD),
+      'PK-2-w': rootGetters['roster/getByID'](lines.pk1['2'].W),
+      'PK-2-c': rootGetters['roster/getByID'](lines.pk1['2'].C),
+      'PK-2-d1': rootGetters['roster/getByID'](lines.pk1['2'].LD),
+      'PK-2-d2': rootGetters['roster/getByID'](lines.pk1['2'].RD),
 
-      'PK-3-c': rootGetters['roster/getByRosPos'](lines.pk21.C),
-      'PK-3-d1': rootGetters['roster/getByRosPos'](lines.pk21.LD),
-      'PK-3-d2': rootGetters['roster/getByRosPos'](lines.pk21.RD),
-      'PK-4-c': rootGetters['roster/getByRosPos'](lines.pk22.C),
-      'PK-4-d1': rootGetters['roster/getByRosPos'](lines.pk22.LD),
-      'PK-4-d2': rootGetters['roster/getByRosPos'](lines.pk22.RD),
+      'PK-3-c': rootGetters['roster/getByID'](lines.pk2['1'].C),
+      'PK-3-d1': rootGetters['roster/getByID'](lines.pk2['1'].LD),
+      'PK-3-d2': rootGetters['roster/getByID'](lines.pk2['1'].RD),
+      'PK-4-c': rootGetters['roster/getByID'](lines.pk2['2'].C),
+      'PK-4-d1': rootGetters['roster/getByID'](lines.pk2['2'].LD),
+      'PK-4-d2': rootGetters['roster/getByID'](lines.pk2['2'].RD),
 
-      'G-1-g': rootGetters['roster/getByRosPos'](lines.goalie.starting),
+      'G-1-g': rootGetters['roster/getByID'](lines.goalie),
 
-      'EA-1-ea': rootGetters['roster/getByRosPos'](lines.extra[1]),
-      'EA-2-ea': rootGetters['roster/getByRosPos'](lines.extra[2])
+      'EA-1-ea': rootGetters['roster/getByID'](lines.extra['1']),
+      'EA-2-ea': rootGetters['roster/getByID'](lines.extra['2'])
     })
   },
   setPlayerOfLine({ dispatch, commit }, payload) {
