@@ -39,7 +39,7 @@ export class AuthService {
       window.localStorage.setItem('refresh_token', res.login.refresh_token)
     }
 
-    await this.setToken(res.token.access_token, res.token.manager)
+    await this.setToken(res.login.access_token, res.login.manager)
   }
 
   async refreshLogin() {
@@ -56,6 +56,7 @@ export class AuthService {
         await this.setToken(res.token.access_token, res.token.manager)
       } catch (e) {
         console.log(e)
+        this.logout()
       }
     } else {
       this.logout()

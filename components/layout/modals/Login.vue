@@ -1,15 +1,15 @@
 <template>
   <layout-modals-modal :show="show" @close="close">
     <template v-slot:default="slotProps">
-      <div class="block absolute top-0 right-0 pt-4 pr-4">
+      <div class="absolute top-0 right-0 block pt-4 pr-4">
         <button
           type="button"
           class="
-            bg-white
             rounded-md
+            bg-white
             text-gray-400
             hover:text-gray-500
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
           "
           @click="slotProps.closemodal"
         >
@@ -37,7 +37,7 @@
       </div>
       <form v-on:submit.prevent="login" class="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true" />
-        <div class="rounded-md shadow-sm -space-y-px">
+        <div class="-space-y-px rounded-md shadow-sm">
           <div>
             <label for="email-address" class="sr-only">E-Mail oder Username</label>
             <input
@@ -48,18 +48,17 @@
               autocomplete="email"
               required
               class="
-                appearance-none
-                rounded-none
                 relative
                 block
                 w-full
+                appearance-none
+                rounded-none rounded-t-md
+                border border-gray-300
                 px-3
                 py-2
-                border border-gray-300
-                placeholder-gray-500
                 text-gray-900
-                rounded-t-md
-                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                placeholder-gray-500
+                focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500
                 sm:text-sm
               "
               placeholder="E-Mail oder Username"
@@ -75,18 +74,17 @@
               autocomplete="current-password"
               required
               class="
-                appearance-none
-                rounded-none
                 relative
                 block
                 w-full
+                appearance-none
+                rounded-none rounded-b-md
+                border border-gray-300
                 px-3
                 py-2
-                border border-gray-300
-                placeholder-gray-500
                 text-gray-900
-                rounded-b-md
-                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                placeholder-gray-500
+                focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500
                 sm:text-sm
               "
               placeholder="Passwort"
@@ -94,21 +92,21 @@
           </div>
         </div>
 
-        <div class="sm:flex items-center justify-between">
+        <div class="items-center justify-between sm:flex">
           <div class="flex items-center">
             <input
               id="remember-me"
               v-model="rememberme"
               name="remember-me"
               type="checkbox"
-              class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
             <label for="remember-me" class="ml-2 block text-sm text-gray-900">
               eingeloggt bleiben
             </label>
           </div>
 
-          <div class="text-sm mt-4 sm:mt-0">
+          <div class="mt-4 text-sm sm:mt-0">
             <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
               Passwort vergessen?
             </a>
@@ -123,22 +121,22 @@
             class="
               group
               relative
-              w-full
               flex
+              w-full
               justify-center
+              rounded-md
+              border border-transparent
+              bg-primary-600
               py-2
               px-4
-              border border-transparent
               text-sm
               font-medium
-              rounded-md
               text-white
-              bg-primary-600
               hover:bg-primary-700
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500
+              focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
             "
           >
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg
                 class="h-5 w-5 text-primary-500 group-hover:text-primary-400"
@@ -189,6 +187,7 @@ export default {
         await this.$authService.login(credentials)
         this.close()
       } catch (e) {
+        console.log(e)
         this.error = true
       }
     }
