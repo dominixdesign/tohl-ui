@@ -13,7 +13,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.ico' }]
   },
 
   googleFonts: {
@@ -95,8 +95,15 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    icon: {
+      source: '/icon.png'
+    },
     manifest: {
-      lang: 'de'
+      name: 'TOHL',
+      short_name: 'TOHL',
+      description: 'Einfach installieren.',
+      lang: 'de',
+      background_color: '#111827'
     }
   },
   colorMode: {
