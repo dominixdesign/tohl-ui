@@ -1,5 +1,5 @@
 <template>
-  <div id="roster" v-if="$store.getters['roster/currentTeam']">
+  <div id="roster">
     <lines-roster-position-select />
     <div class="warning" v-if="limitsTop">Zu viele Spielern auf dieser Position</div>
     <div class="warning" v-if="limitsLess">Zu wenig Spielern auf dieser Position</div>
@@ -11,7 +11,6 @@
     </div>
     <lines-roster-player-list v-for="t in ['pro', 'scratch', 'farm']" :key="t" :team="t" />
   </div>
-  <div v-else>Bitte kurz warten.</div>
 </template>
 
 <script>
@@ -19,9 +18,6 @@ import { mapGetters, mapState } from 'vuex'
 import gql from 'graphql-tag'
 
 export default {
-  beforeCreate() {
-    this.$store.dispatch('roster/load', { team: this.$store.getters['user/team'] })
-  },
   computed: {
     ...mapGetters({
       selected: 'roster/getSelected'

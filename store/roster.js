@@ -107,6 +107,15 @@ export const actions = {
       } else {
         p.status = 1
       }
+      if (p.id === 'mika_harlekin') {
+        p.status = 4
+      }
+      if (p.id === 'shawn_stein') {
+        p.status = 3
+      }
+      if (p.id === 'jonas_taublind') {
+        p.status = 5
+      }
       p.pos = p.seasondata.pos
       return p
     })

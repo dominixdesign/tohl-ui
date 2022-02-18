@@ -24,8 +24,8 @@
             : 'border-gray-300 bg-gray-100'
         "
       >
-        <span class="grow leading-3">
-          <lines-roster-player-status class="float-left h-5 w-5" :status="player.status" />
+        <span class="flex grow leading-3">
+          <lines-roster-player-status class="h-5 w-5" :status="player.status" />
           <span class="mx-1 pt-1">
             <b>{{ player.display_lname }}</b
             >, <wbr />{{ player.display_fname }}</span
@@ -119,5 +119,11 @@ export default {
 <style scoped>
 button.button {
   @apply flex w-24 flex-none items-center overflow-hidden bg-gray-200 p-2 text-sm uppercase;
+}
+button.button:disabled {
+  @apply flex w-24 flex-none items-center overflow-hidden bg-gray-200 p-2 text-sm uppercase text-gray-300;
+}
+button.button:disabled svg {
+  @apply stroke-gray-300;
 }
 </style>

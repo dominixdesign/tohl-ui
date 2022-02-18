@@ -4,14 +4,18 @@
       v-for="pos in positions"
       :key="'pos-' + pos"
       class="basis-1/5 p-2 text-center"
-      :class="selected === pos ? 'bg-primary-200' : 'bg-gray-300'"
+      :class="[
+        selected === pos ? 'bg-primary-200' : 'bg-gray-300',
+        hasError(pos)
+          ? 'font-bold text-secondary-500 underline decoration-2 underline-offset-1'
+          : ''
+      ]"
       @click="() => select(pos)"
     >
       {{ pos }}
       <span class="text-xs"
         >({{ $store.getters['roster/getByTeamAndPos']('pro', pos).length }})</span
       >
-      <div class="warning fa-lg" v-if="hasError(pos)">error</div>
     </li>
   </ul>
 </template>
