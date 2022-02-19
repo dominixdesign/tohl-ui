@@ -20,8 +20,8 @@
         class="my-2 flex content-center items-center gap-1 border p-1"
         :class="
           dressedError(player.status)
-            ? 'border-secondary-600 bg-secondary-100'
-            : 'border-gray-300 bg-gray-100'
+            ? 'border-secondary-600 bg-secondary-100 dark:bg-secondary-800'
+            : 'border-gray-300 bg-gray-100  dark:border-primary-600 dark:bg-primary-800'
         "
       >
         <span class="flex grow leading-3">
@@ -125,5 +125,14 @@ button.button:disabled {
 }
 button.button:disabled svg {
   @apply stroke-gray-300;
+}
+.dark button.button {
+  @apply bg-primary-600;
+}
+.dark button.button:disabled {
+  @apply bg-primary-700 text-gray-600;
+}
+.dark button.button:disabled svg {
+  @apply stroke-gray-600;
 }
 </style>

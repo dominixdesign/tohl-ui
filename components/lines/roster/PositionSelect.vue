@@ -5,7 +5,7 @@
       :key="'pos-' + pos"
       class="basis-1/5 p-2 text-center"
       :class="[
-        selected === pos ? 'bg-primary-200' : 'bg-gray-300',
+        selected === pos ? 'bg-primary-200' : 'bg-gray-300 dark:bg-gray-700',
         hasError(pos)
           ? 'font-bold text-secondary-500 underline decoration-2 underline-offset-1'
           : ''

@@ -1,30 +1,44 @@
 <template>
   <tr>
-    <td>{{ player.po }}</td>
-    <td class="name">
-      <PlayerStatus :status="player.status" />
-      <b>{{ player.lname }}</b
-      >, {{ player.fname }}
+    <td>{{ player.pos }}</td>
+    <td class="whitespace-nowrap" @click="() => onSelect(player)">
+      <PlayerStatus class="float-left h-4 w-4" :status="player.status" />
+      <b>{{ player.display_lname }}</b
+      >, {{ player.display_fname }}
     </td>
     <td>
       <button class="button" :disabled="player.status > 2" @click="() => onSelect(player)">
-        <font-awesome-icon icon="angle-right" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="1.25"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M18 15l-6 -6l-6 6h12" transform="rotate(90 12 12)"></path>
+        </svg>
       </button>
     </td>
-    <td>{{ player.it }}</td>
-    <td>{{ player.sp }}</td>
-    <td>{{ player.st }}</td>
-    <td>{{ player.en }}</td>
-    <td>{{ player.du }}</td>
-    <td>{{ player.di }}</td>
-    <td>{{ player.sk }}</td>
-    <td>{{ player.pa }}</td>
-    <td>{{ player.pc }}</td>
-    <td>{{ player.df }}</td>
-    <td>{{ player.sc }}</td>
-    <td>{{ player.ex }}</td>
-    <td>{{ player.ld }}</td>
-    <td>{{ player.ov }}</td>
+    <td>{{ player.seasondata.it }}</td>
+    <td>{{ player.seasondata.sp }}</td>
+    <td>{{ player.seasondata.st }}</td>
+    <td>{{ player.seasondata.en }}</td>
+    <td>{{ player.seasondata.du }}</td>
+    <td>{{ player.seasondata.di }}</td>
+    <td>{{ player.seasondata.sk }}</td>
+    <td>{{ player.seasondata.pa }}</td>
+    <td>{{ player.seasondata.pc }}</td>
+    <td>{{ player.seasondata.df }}</td>
+    <td>{{ player.seasondata.sc }}</td>
+    <td>{{ player.seasondata.ex }}</td>
+    <td>{{ player.seasondata.ld }}</td>
+    <td>{{ player.seasondata.ov }}</td>
   </tr>
 </template>
 

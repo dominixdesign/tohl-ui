@@ -178,5 +178,22 @@ export default {
     fightswon: 'FW',
     fightslose: 'FL',
     fightsdraw: 'FD'
+  },
+  lines: {
+    '5v5-1': 'Erste Reihe',
+    '5v5-2': 'Zweite Reihe',
+    '5v5-3': 'Dritte Reihe',
+    '5v5-4': 'Vierte Reihe',
+    'PP-1': '5-Mann Powerplay 1',
+    'PP-2': '5-Mann Powerplay 2',
+    'PP-3': '4-Mann Powerplay 1',
+    'PP-4': '4-Mann Powerplay 2',
+    'PK-1': '4-Mann Unterzahl 1',
+    'PK-2': '4-Mann Unterzahl 2',
+    'PK-3': '3-Mann Unterzahl 1',
+    'PK-4': '3-Mann Unterzahl 2',
+    'G-1': 'Starting Goalie',
+    'EA-1': 'Erster extra Angreifer',
+    'EA-2': 'Zweiter extra Angreifer'
   }
 }

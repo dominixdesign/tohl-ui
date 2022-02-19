@@ -1,8 +1,23 @@
 <template>
-  <div class="lines">
-    <button @click="hidePlayerSelect">Zurück</button>
-    <div class="linesTitle">
-      {{ playerSelectData.line }} - {{ label() }} - {{ playerSelectData.pos }}
+  <div class="lines overflow-x-auto">
+    <div
+      class="
+        bg-primary-500
+        p-3
+        text-lg
+        font-thin
+        uppercase
+        text-primary-50
+        dark:bg-primary-700 dark:text-primary-200
+      "
+    >
+      {{ line }} - {{ $t(`lines.${line}-${block}`) }} - {{ pos.toUpperCase() }}
+      <button
+        class="float-right -mt-1 block rounded-md bg-secondary-600 py-1 px-3 text-white"
+        @click="hidePlayerSelect"
+      >
+        Zurück
+      </button>
     </div>
     <table cellspacing="0">
       <thead>
@@ -29,9 +44,7 @@
       <tbody>
         <PlayerRow
           v-for="player in players.filter(
-            p =>
-              p.po.substring(0, 1).toLowerCase() ===
-              playerSelectData.pos.substring(0, 1).toLowerCase()
+            (p) => p.pos.substring(0, 1).toLowerCase() === pos.substring(0, 1).toLowerCase()
           )"
           :key="player.fname + player.lname"
           :player="player"
@@ -42,9 +55,7 @@
         </tr>
         <PlayerRow
           v-for="player in players.filter(
-            p =>
-              p.po.substring(0, 1).toLowerCase() !==
-              playerSelectData.pos.substring(0, 1).toLowerCase()
+            (p) => p.pos.substring(0, 1).toLowerCase() !== pos.substring(0, 1).toLowerCase()
           )"
           :key="player.fname + player.lname"
           :player="player"
@@ -64,6 +75,12 @@ export default {
   components: {
     PlayerRow
   },
+  props: {
+    block: String,
+    line: String,
+    pos: String,
+    close: Function
+  },
   computed: {
     ...mapGetters({
       players: 'roster/getPro',
@@ -71,20 +88,18 @@ export default {
     })
   },
   methods: {
-    label() {
-      return this.$store.getters['labels/get'](
-        this.playerSelectData.line + '-' + this.playerSelectData.block
-      )
-    },
     hidePlayerSelect() {
-      this.$store.commit('layout/selectPlayer', {})
+      this.close()
     },
     selectPlayer(player) {
+      if (player.status > 2) {
+        return
+      }
       this.$store.dispatch('lines/setPlayerOfLine', {
-        line: this.playerSelectData.toString,
+        line: `${this.line}-${this.block}-${this.pos}`,
         player
       })
-      this.hidePlayerSelect()
+      this.close()
     }
   }
 }

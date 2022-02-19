@@ -1,6 +1,6 @@
 <template>
-  <div class="lines-playerGroup" :class="'lines-player-' + count">
-    <ul>
+  <div class="p-2 last:pt-0" :class="'lines-player-' + count">
+    <ul class="grid grid-cols-6 gap-2">
       <Player v-for="(player, n) in group" :key="n" :block="block" :pos="player" />
     </ul>
   </div>
@@ -19,7 +19,7 @@ export default {
     Player
   },
   computed: {
-    count: function() {
+    count: function () {
       return Object.keys(this.group).length
     }
   }

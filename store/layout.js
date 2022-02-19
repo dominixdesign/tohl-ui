@@ -37,12 +37,5 @@ export const mutations = {
   },
   disableDarkmode(state) {
     state.colormode = 'light'
-  },
-  selectPlayer(state, { line, block, pos }) {
-    if (line && block && pos) {
-      state.playerSelectData = { line, block, pos, toString: `${line}-${block}-${pos}` }
-    } else {
-      state.playerSelectData = {}
-    }
   }
 }
