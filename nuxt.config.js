@@ -33,6 +33,7 @@ export default {
     'plugins/clickOutsideDirective.js',
     'plugins/routeToStore.js',
     'plugins/hex.js',
+    'plugins/browserBack.js',
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
 

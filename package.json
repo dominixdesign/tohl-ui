@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^3.4.0",
+    "@capacitor/app": "^1.1.0",
     "@capacitor/core": "^3.4.0",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/color-mode": "^2.0.10",
