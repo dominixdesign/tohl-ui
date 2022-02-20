@@ -1,122 +1,87 @@
 <template>
-  <table
-    v-if="playerstats"
-    class="relative font-light w-full min-w-full divide-y divide-gray-200 dark:divide-gray-600"
-  >
-    <thead
-      class="
-        sticky
-        z-9
-        top-0
-        bg-primary-500
-        dark:bg-primary-700
-        text-primary-50 text-right text-xs
-        dark:text-primary-200
-        uppercase
-        tracking-wider
-      "
-    >
+  <table class="top10__table">
+    <thead>
       <tr class="text-base">
-        <th colspan="4" scope="col" class="px-6 py-3 text-left">
+        <th colspan="4" scope="col">
           <!-- eslint-disable vue/no-parsing-error -->
-          <h3 class="uppercase text-xl">
+          <h3 class="text-xl uppercase">
             {{ position.length <= 2 ? $t(`positions.${position}`) : $t(`top10.${sortby}`) }}
           </h3>
           <!-- eslint-enable -->
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr v-if="error">
-        <td colspan="12" class="text-secondary-500 text-center font-medium py-4">
+    <tbody v-if="error">
+      <tr>
+        <td colspan="12" class="py-4 text-center font-medium text-secondary-500">
           Tabelle kann nicht geladen werden.
         </td>
       </tr>
-      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+    </tbody>
+    <tbody v-if="$apollo.loading">
       <tr
-        v-if="$apollo.loading"
-        v-for="n in 6"
+        v-for="n in 10"
         :key="`standing-${n}`"
         :class="n % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'"
       >
         <!-- eslint-enable -->
         <td class="px-2 py-0.5">
           <div
-            class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
+            class="float-right h-4 w-6 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700"
           />
         </td>
         <td class="px-2 py-0.5">
-          <div class="bg-gray-200 dark:bg-primary-700 w-40 h-6 animate-pulse rounded-sm" />
+          <div class="h-4 w-40 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700" />
         </td>
-        <td v-for="c in 10" :key="`standins-${n}-${c}`" class="px-2 py-1">
+        <td v-for="c in 2" :key="`standins-${n}-${c}`" class="px-2 py-1">
           <div
-            class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
+            class="float-right h-4 w-8 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700"
           />
         </td>
       </tr>
+    </tbody>
+    <tbody v-else>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <tr
-        v-for="index in limit"
-        class="text-sm text-right hover:bg-gray-200"
-        v-if="playerstats[index - 1]"
+        v-for="(stat, index) in playerstats"
         :class="[
           index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900',
-          playerstats[index - 1][sortby] === playerstats[0][sortby] &&
-          playerstats[index - 1].games === playerstats[0].games
+          stat[sortby] === playerstats[0][sortby] && stat.games === playerstats[0].games
             ? 'font-bold'
             : ''
         ]"
         :style="
-          logTeam === playerstats[index - 1].team.teamid
-            ? `background-color: ${playerstats[index - 1].team.background}; color: ${
-                playerstats[index - 1].team.foreground
-              };`
+          logTeam === stat.team.teamid
+            ? `background-color: ${stat.team.background}; color: ${stat.team.foreground};`
             : ''
         "
-        :key="`${playerstats[index - 1].team.teamid}-${
-          playerstats[index - 1].player.lname
-        }-${index}`"
+        :key="`${sortby}-${stat.team.teamid}-${stat.player.lname}-${index}`"
       >
         <td
-          class="py-0.5 pl-2 whitespace-nowrap text-gray-900 dark:text-gray-200"
           v-if="
-            !playerstats[index - 2] ||
-            (playerstats[index - 2] &&
-              (playerstats[index - 1][sortby] !== playerstats[index - 2][sortby] ||
-                playerstats[index - 1].games !== playerstats[index - 2].games))
+            !playerstats[index - 1] ||
+            (playerstats[index - 1] &&
+              (stat[sortby] !== playerstats[index - 1][sortby] ||
+                stat.games !== playerstats[index - 1].games))
           "
         >
-          {{ index }}.
+          {{ index + 1 }}.
         </td>
-        <td class="py-0.5 pl-2 whitespace-nowrap text-gray-900 dark:text-gray-200" v-else></td>
-        <td
-          class="px-3 py-0.5 whitespace-nowrap text-left text-gray-900 dark:text-gray-200"
-          v-if="playerstats[index - 1][sortby] > 0"
-        >
+        <td v-else></td>
+        <td v-if="stat[sortby] > 0">
           <player-team-and-name
-            :player="playerstats[index - 1].player"
-            :team="playerstats[index - 1].team"
-            :totalTeams="playerstats[index - 1].total_teams"
+            :player="stat.player"
+            :team="stat.team"
+            :totalTeams="stat.total_teams"
           />
         </td>
-        <td
-          class="pl-2 pr-4 py-0.5 whitespace-nowrap text-gray-600 dark:text-gray-400 italic text-xs"
-          v-if="playerstats[index - 1][sortby] > 0"
-        >
-          {{ playerstats[index - 1].games }}
+        <td v-if="stat[sortby] > 0">
+          {{ stat.games }}
         </td>
-        <td
-          class="pl-2 pr-4 py-0.5 whitespace-nowrap text-gray-600 dark:text-gray-400"
-          v-if="playerstats[index - 1][sortby] > 0"
-        >
-          {{ format(playerstats[index - 1][sortby], sortby, playerstats[index - 1]) }}
+        <td v-if="stat[sortby] > 0">
+          {{ format(stat[sortby], sortby, stat) }}
         </td>
-        <td
-          colspan="3"
-          class="pl-2 pr-4 py-0.5 text-left whitespace-nowrap text-gray-600 dark:text-gray-400"
-          v-else
-        >
-          &hellip;
-        </td>
+        <td colspan="3" v-else>&hellip;</td>
       </tr>
     </tbody>
   </table>
@@ -267,12 +232,6 @@ export default {
         })
       }
       return value
-    },
-    backgroundColor(team) {
-      return this.$store.getters['teams/backgroundByTeam'](team)
-    },
-    foregroundColor(team) {
-      return this.$store.getters['teams/foregroundByTeam'](team)
     }
   }
 }

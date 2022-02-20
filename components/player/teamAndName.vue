@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span v-if="totalTeams" class="w-7 h-4 inline-block relative">
+    <span v-if="totalTeams" class="relative inline-block h-4 w-7">
       <team-logo-inline
         v-for="(tt, tt_index) of totalTeams"
         :key="`${team.teamid}-${player.lname}-${index}-${tt.teamid}`"
@@ -21,7 +21,7 @@ export default {
     team: Object,
     totalTeams: {
       type: Array,
-      defaul: []
+      default: []
     }
   },
   methods: {

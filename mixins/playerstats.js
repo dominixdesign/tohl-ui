@@ -2,10 +2,10 @@ export default {
   methods: {
     shotpercentage(spercentage) {
       return (
-        spercentage.toLocaleString(undefined, {
+        spercentage?.toLocaleString(undefined, {
           minimumFractionDigits: 1,
           maximumFractionDigits: 1
-        }) + '%'
+        }) + '%' || '&mdash;'
       )
     },
     averageicetime(atoi) {

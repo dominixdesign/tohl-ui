@@ -1,16 +1,9 @@
-<template>
+<template functional>
   <span
-    :style="`background-image: url(${require(`~/assets/teams/${teamid}.svg`)});${styles}`"
+    :style="`background-image: url(${require(`~/assets/teams/${props.teamid}.svg`)});${
+      props.styles
+    }`"
     aria-hidden="true"
-    class="w-7 h-4 bg-cover bg-center inline-block align-middle border border-primary-800 bg-white"
+    class="inline-block h-4 w-7 border border-primary-800 bg-white bg-cover bg-center align-middle"
   />
 </template>
-
-<script>
-export default {
-  props: {
-    teamid: String,
-    styles: String
-  }
-}
-</script>

@@ -1,41 +1,42 @@
 <template>
   <div v-if="player">
-    <div class="shadow relative isolate overflow-hidden">
+    <div class="relative isolate overflow-hidden shadow">
       <team-bg
         :foreground="player.seasondata.team.foreground"
         :background="player.seasondata.team.background"
       />
-      <div class="container mx-auto p-6 flex flex-col sm:flex-row">
+      <div class="container mx-auto flex flex-col p-6 sm:flex-row">
         <div class="w-full sm:w-40">
           <div
-            class="w-40 h-40 mx-auto rounded-full shadow bg-top bg-cover"
+            class="mx-auto h-40 w-40 rounded-full bg-cover bg-top shadow"
             :style="`background-image: url(https://my-tohl.org/img/player/${player.id}.jpg)`"
           />
         </div>
-        <div class="grow sm:pl-4 flex flex-col sm:place-items-start place-items-center gap-1">
+        <div class="flex grow flex-col place-items-center gap-1 sm:place-items-start sm:pl-4">
           <h2
             class="
-              uppercase
-              text-3xl
-              font-extrabold font-sans
-              text-center
-              sm:text-left
               inline-block
-              px-2
               bg-gray-50 bg-opacity-40
+              px-2
+              text-center
+              font-sans
+              text-3xl
+              font-extrabold
+              uppercase
+              sm:text-left
             "
           >
             {{ player.display_fname }} {{ player.display_lname }}
           </h2>
-          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
+          <p class="inline-block bg-gray-50 bg-opacity-40 px-2">
             {{ player.seasondata.position }} | #{{ player.seasondata.number }} |
             {{ player.seasondata.team.teamsim }}
           </p>
-          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
+          <p class="inline-block bg-gray-50 bg-opacity-40 px-2">
             {{ player.height }}cm | {{ player.weight }}kg |
             {{ player.hand === 'R' ? 'Schießt mit rechts' : 'Schießt mit links' }}
           </p>
-          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
+          <p class="inline-block bg-gray-50 bg-opacity-40 px-2">
             <span>{{ player.seasondata.age }} Jahre alt |</span>
             <country-flag
               :country="player.nation"
@@ -43,20 +44,20 @@
               style="margin-bottom: -14px; margin-left: -12px"
             />
           </p>
-          <p class="inline-block px-2 bg-gray-50 bg-opacity-40">
+          <p class="inline-block bg-gray-50 bg-opacity-40 px-2">
             Gehalt: ${{ player.seasondata.salary }} ({{ player.seasondata.contract }} Jahr(e))
           </p>
         </div>
-        <div class="w-40 hidden md:block">
+        <div class="hidden w-40 md:block">
           <team-logo-big :teamid="player.seasondata.team.teamid" />
         </div>
       </div>
     </div>
-    <div class="skilltable border-b border-secondary-500 py-4 overflow-y-auto px-3">
+    <div class="skilltable overflow-y-auto border-b border-secondary-500 py-4 px-3">
       <table class="mx-auto border-collapse text-primary-900 dark:text-white">
         <tbody>
           <tr>
-            <td class="text-5xl font-bold hidden sm:table-cell" rowspan="2">
+            <td class="hidden text-5xl font-bold sm:table-cell" rowspan="2">
               {{ player.seasondata.ov }}
             </td>
             <th v-for="skill in skills" :key="skill" class="uppercase">
@@ -75,7 +76,7 @@
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">
           <div class="border-b border-gray-200 px-2">
-            <nav class="container mx-auto -mb-px flex space-x-8" aria-label="Tabs">
+            <nav class="container mx-auto -mb-px flex space-x-8 overflow-x-auto" aria-label="Tabs">
               <nuxt-link
                 v-for="subpage in ['career', 'gamelog', 'trades', 'development', 'awards']"
                 :key="subpage"
@@ -83,19 +84,18 @@
                   subpage === 'career' ? `/player/${playerid}/` : `/player/${playerid}/${subpage}`
                 "
                 class="
-                  border-transparent
-                  hover:text-primary-200 hover:border-primary-200
                   whitespace-nowrap
+                  border-b-2 border-transparent
                   py-4
                   px-1
-                  border-b-2
-                  font-medium
                   text-sm
+                  font-medium
+                  hover:border-primary-200 hover:text-primary-200
                 "
                 :class="
                   fullPath === `/player/${playerid}/${subpage}` ||
                   (fullPath === `/player/${playerid}/` && subpage === 'career')
-                    ? 'text-primary-200 border-primary-200 font-bold'
+                    ? 'border-primary-200 font-bold text-primary-200'
                     : 'text-primary-400'
                 "
               >

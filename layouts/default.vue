@@ -97,20 +97,19 @@
           mx-auto
           max-w-7xl
           bg-gray-100
-          pb-6
+          pb-32
           shadow-pageLight
           dark:bg-gray-800 dark:shadow-pageDark
           sm:px-2
-          lg:px-0
+          lg:px-0 lg:pb-2
         "
       >
         <Nuxt />
       </div>
-      <nuxt-img class="fixed bottom-0 -z-1 opacity-20" src="/trophy.png" sizes="sm:320px" />
     </main>
     <LayoutNavOffCanvasNav />
     <footer
-      class="fixed bottom-1 left-0 right-0 z-40 mx-auto w-14 lg:hidden"
+      class="fixed bottom-0 left-0 right-0 z-40 mx-auto w-screen lg:hidden"
       :class="openNav ? 'menu_activated' : ''"
     >
       <!-- Mobile menu button -->
@@ -120,10 +119,28 @@
         <div class="bar"></div>
         <div class="bar"></div>
       </button>
+      <div class="footer__bar flex" :class="openNav ? 'footer__bar__open' : 'footer__bar__closed'">
+        <div class="p-1 text-secondary-500" @click="() => $router.back()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="float-left h-7 w-7"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <polyline points="15 6 9 12 15 18"></polyline>
+          </svg>
+          <span class="-ml-1 text-xl font-bold">Zurück</span>
+        </div>
+        <portal-target name="floating" />
+      </div>
     </footer>
     <portal-target name="modals" class="isolate z-50" />
     <portal-target name="slide" />
-    <portal-target name="floating" />
   </div>
 </template>
 
@@ -199,14 +216,14 @@ body {
 }
 
 .menu__toggle::before {
-  @apply bg-primary-500;
+  @apply border-2 border-secondary-500 bg-primary-200;
   content: '';
   width: 1em;
   height: 1em;
   font-size: 150px;
   border-radius: 50%;
   position: absolute;
-  bottom: -0.65em;
+  bottom: -0.6em;
   left: calc(50% - 0.5em);
   box-shadow: 0px -5px 15px 0px rgba(0, 0, 0, 0.5);
   z-index: -1;
@@ -228,6 +245,8 @@ body {
   box-sizing: border-box;
   height: 50px;
   width: 50px;
+  left: 50%;
+  transform: translateX(-50%);
   position: relative;
   cursor: pointer;
 }
@@ -248,11 +267,29 @@ body {
   left: 0;
 }
 .menu_activated .menu__toggle .bar {
-  top: 15px;
+  top: 5px;
 }
 .menu_activated .menu__toggle .bar:nth-of-type(2) {
   transform: rotate(45deg);
   transform-origin: 185% -5% 0;
+}
+
+.footer__bar {
+  @apply relative w-full border-t-2 border-secondary-500 bg-white;
+  height: 40px;
+  transition: transform 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98),
+    width 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98),
+    height 0.25s cubic-bezier(0.04, -0.1, 0.29, 0.98);
+}
+.footer__bar::before {
+  @apply absolute w-full border-t-2 border-secondary-500 bg-white;
+  content: '';
+  z-index: -1;
+  box-shadow: 0px -5px 15px 0px rgba(0, 0, 0, 0.5);
+  height: 40px;
+}
+.footer__bar__open {
+  height: 0;
 }
 
 body.mobilemenu-open {

@@ -23,7 +23,7 @@
           ref="navInner"
           @scroll="scrollNav"
           class="relative z-0 mt-5 h-0 flex-1 overflow-x-auto"
-          style="height: 68vh; max-height: 68vh"
+          style="height: calc(100vh - 250px); max-height: calc(100vh - 250px)"
         >
           <div class="shadow-top" />
           <layout-nav-off-canvas-nav-entry
@@ -59,7 +59,23 @@ export default {
       opensub: null
     }
   },
+  mounted() {},
   watch: {
+    showNavBar(nextShowNavbar) {
+      if (nextShowNavbar) {
+        this.$nextTick(() => {
+          console.log(
+            this.$refs.navInner?.scrollHeight,
+            this.$refs.navInner?.clientHeight,
+            this.$refs.navInner?.scrollHeight > this.$refs.navInner?.clientHeight
+          )
+          this.$refs.navInner?.classList.remove('show-bottom-shadow')
+          if (this.$refs.navInner?.scrollHeight > this.$refs.navInner?.clientHeight) {
+            this.$refs.navInner?.classList.add('show-bottom-shadow')
+          }
+        })
+      }
+    },
     openNav(newNavState) {
       const bodyElement = document.querySelector('body')
       bodyElement.classList.remove('mobilemenu-open')
@@ -68,9 +84,8 @@ export default {
       }
     },
     opensub: {
-      immediate: true,
       handler: function (newOpenSub) {
-        this.$nextTick(function () {
+        this.$nextTick(() => {
           this.$refs.navInner?.classList.remove('show-bottom-shadow')
           if (this.$refs.navInner?.scrollHeight > this.$refs.navInner?.clientHeight) {
             this.$refs.navInner?.classList.add('show-bottom-shadow')

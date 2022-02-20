@@ -2,7 +2,7 @@
   <div v-if="game">
     <div class="relative isolate overflow-hidden shadow">
       <team-bg foreground="#B92727" background="#0061AF" />
-      <div class="container mx-auto flex flex-col items-center justify-center p-6 sm:flex-row">
+      <div class="container mx-auto flex flex-row items-center justify-center p-6">
         <div class="w-40">
           <team-logo-big :teamid="game.home.teamid" />
         </div>
@@ -185,7 +185,6 @@ export default {
           if (timeA > timeB) return 1
           if (timeA < timeB) return -1
           if (a.__typename === 'GameEvent') {
-            console.log(a, b)
             if (a.type === 'fight' || a.type === 'draw') {
               return -1
             } else if (b.__typename !== 'GameEvent') {
@@ -214,7 +213,18 @@ export default {
   },
   methods: {
     sortColumn(col) {
-      console.log(col)
+      this.sortCol = col
+      this.direction = this.direction === 'desc' ? 'asc' : 'desc'
+      Object.keys(this.roster).forEach((ros) => {
+        this.roster[ros].sort((a, b) => {
+          if (a[col] > b[col]) return -1
+          if (a[col] < b[col]) return 1
+          return 0
+        })
+        if (this.direction === 'asc') {
+          this.roster[ros].reverse()
+        }
+      })
     }
   },
   apollo: {
@@ -315,6 +325,8 @@ export default {
               player {
                 display_fname
                 display_lname
+                fname
+                lname
               }
               team {
                 teamid

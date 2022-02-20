@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="type in types" class="statstable overflow-x-auto" :key="`${type}`">
-      <h3 class="font-bold text-xl ml-1 sm:ml-0 mb-2">
+      <h3 class="ml-1 mb-2 text-xl font-bold sm:ml-0">
         {{ $t(`seasontypes.${type}`) }}
       </h3>
       <table v-if="seasons[type] && Object.keys(seasons[type]).length > 0">
@@ -58,7 +58,7 @@
                   : ''
               }}</span>
               <span v-else-if="col === 'team'" class="uppercase">
-                <team-logo-inline class="hidden sm:inline-block" :teamid="stat.team.teamid" />
+                <team-logo-inline class="hidden md:inline-block" :teamid="stat.team.teamid" />
                 {{ stat.team.teamid }}
               </span>
               <span v-else-if="col === 'spercentage'">{{
@@ -114,7 +114,7 @@
       <p v-else class="mb-4">&mdash;</p>
     </div>
     <div class="statstable overflow-x-auto">
-      <h3 class="font-bold text-xl ml-1 sm:ml-0 mb-2">Farm-Team Statistik</h3>
+      <h3 class="ml-1 mb-2 text-xl font-bold sm:ml-0">Farm-Team Statistik</h3>
       <table>
         <thead>
           <tr>
@@ -192,6 +192,7 @@ export default {
         'points',
         'plusminus',
         'pim',
+        'hits',
         'ejections',
         'evg',
         'ppg',
@@ -204,7 +205,6 @@ export default {
         'spercentage',
         'icetime',
         'averageicetime',
-        'hits',
         'injuries'
       ]
     }
