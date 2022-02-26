@@ -195,5 +195,8 @@ export default {
     'G-1': 'Starting Goalie',
     'EA-1': 'Erster extra Angreifer',
     'EA-2': 'Zweiter extra Angreifer'
+  },
+  board: {
+    postCount: 'Keine Beiträge | Ein Beitrag | {count} Beiträge'
   }
 }
