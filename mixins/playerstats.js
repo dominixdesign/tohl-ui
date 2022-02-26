@@ -1,6 +1,9 @@
 export default {
   methods: {
     shotpercentage(spercentage) {
+      if (spercentage === null) {
+        spercentage = 0
+      }
       return (
         spercentage?.toLocaleString(undefined, {
           minimumFractionDigits: 1,

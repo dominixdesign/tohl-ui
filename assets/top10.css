@@ -43,3 +43,6 @@
 .dark .top10__table tbody tr td:nth-child(4) {
   @apply text-gray-400;
 }
+.dark .top10__table tbody tr:hover {
+  @apply bg-primary-700;
+}

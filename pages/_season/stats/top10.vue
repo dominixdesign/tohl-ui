@@ -1,14 +1,14 @@
 <template>
-  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl">
+  <div class="mx-auto max-w-screen-2xl py-2 sm:p-6 xl:px-12">
     <div
-      class="font-bold text-xl ml-1 sm:ml-0 mb-3 mt-5"
+      class="ml-1 mb-3 mt-5 text-xl font-bold sm:ml-0"
       v-for="list of Object.keys(top)"
       :key="list"
     >
-      <h3 class="text-3xl font-bold my-5">{{ $t(`top10.${list}`) }}</h3>
+      <h3 class="my-5 text-3xl font-bold">{{ $t(`top10.${list}`) }}</h3>
       <ul
         role="list"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-full"
+        class="grid max-w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
         v-if="season"
       >
         <li v-for="sortby in top[list]" :key="`${list}-${sortby}`" class="xl:shadow">
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 export default {
   async asyncData({ params }) {
     const season = params.season

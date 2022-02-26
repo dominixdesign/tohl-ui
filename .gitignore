@@ -93,3 +93,5 @@ sw.*
 
 resources/android/icon
 resources/android/splash
+localhost-key.pem
+localhost.pem

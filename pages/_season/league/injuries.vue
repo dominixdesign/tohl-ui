@@ -1,33 +1,34 @@
 <template>
-  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl" v-if="injuries">
-    <div class="xl:shadow mt-4" v-for="team of teams" :key="`injuries-${team.teamsim}`">
+  <div class="mx-auto max-w-screen-2xl py-2 sm:p-6 xl:px-12" v-if="injuries">
+    <div class="mt-4 xl:shadow" v-for="team of teams" :key="`injuries-${team.teamsim}`">
       <div
         class="
+          bg-primary-500
           p-3
           text-lg
           font-bold
-          bg-primary-500
-          dark:bg-primary-700
-          text-primary-50
-          dark:text-primary-200
           uppercase
+          text-primary-50
+          dark:bg-primary-700 dark:text-primary-200
         "
       >
         <team-logo-inline :teamid="team.teamid" /> {{ team.teamsim }}
       </div>
-      <table class="table-fixed w-full" v-if="injuries[team.teamid]">
+      <table class="w-full table-fixed" v-if="injuries[team.teamid]">
         <tbody>
           <tr
             v-for="(injured, index) of injuries[team.teamid]"
             :key="`${team.teamid}-${injured.player.lname}-${injured.player.fname}`"
-            :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+            :class="
+              index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-gray-900'
+            "
           >
-            <td class="p-2 w-3/12"><player-linked-name :player="injured.player" /></td>
-            <td class="p-2 w-1/12">{{ injured.position }}</td>
-            <td class="p-2 w-8/12" v-if="injured.cd > 0">
+            <td class="w-3/12 p-2"><player-linked-name :player="injured.player" /></td>
+            <td class="w-1/12 p-2">{{ injured.position }}</td>
+            <td class="w-8/12 p-2" v-if="injured.cd > 0">
               {{ injured.ij }} (CD: {{ injured.cd }} )
             </td>
-            <td class="p-2 w-8/12" v-if="injured.ij.indexOf('S') >= 0">
+            <td class="w-8/12 p-2" v-if="injured.ij.indexOf('S') >= 0">
               noch für {{ $tc('sperre', parseInt(injured.ij.replace('S', ''))) }} gesperrt.
             </td>
           </tr>

@@ -130,6 +130,8 @@ export default {
             first_stars
             second_stars
             third_stars
+            shotspercentage
+            itg
             spercentage @client
             averageicetime @client
           }

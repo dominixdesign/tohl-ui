@@ -9,14 +9,14 @@
           top-0
           z-9
           bg-primary-500
-          text-right text-base
+          text-right
           uppercase
           tracking-wider
           text-primary-50
           dark:bg-primary-700 dark:text-primary-200
         "
       >
-        <tr class="font-serif text-sm font-extralight uppercase md:text-xl">
+        <tr class="font-serif text-sm font-extralight uppercase">
           <th></th>
           <th
             v-for="col in cols"
@@ -95,9 +95,14 @@
             "
             :key="row.team.teamid + col"
           >
-            <player-linked-name v-if="col === 'name'" :player="row.player" />
-            <span v-else-if="col === 'spercentage'">{{ shotpercentage(row[col]) }}</span>
-            <span v-else-if="col === 'averageicetime'">{{ averageicetime(row[col]) }}</span>
+            <player-team-and-name
+              v-if="col === 'name'"
+              :player="row.player"
+              :team="row.team"
+              :totalTeams="row.total_teams"
+            />
+            <span v-else-if="col === 'shotspercentage'">{{ shotpercentage(row[col]) }}</span>
+            <span v-else-if="col === 'itg'">{{ averageicetime(row[col]) }}</span>
             <span v-else>{{ row[col] }}</span>
           </td>
         </tr>
@@ -153,9 +158,9 @@ export default {
         'ppa',
         'sha',
         'shots',
-        'spercentage',
+        'shotspercentage',
         'icetime',
-        'averageicetime',
+        'itg',
         'hits',
         'injuries'
       ]
