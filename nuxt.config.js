@@ -1,4 +1,7 @@
-export default {
+import path from 'path'
+import fs from 'fs'
+
+const config = {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -104,7 +107,31 @@ export default {
       short_name: 'TOHL',
       description: 'Einfach installieren.',
       lang: 'de',
-      background_color: '#111827'
+      background_color: '#111827',
+      start_url: '/?standalone=true',
+      display: 'standalone',
+      theme_color: 'white',
+      scope: '/'
+    },
+    workbox: {
+      // enabled: true,
+      runtimeCaching: [
+        {
+          urlPattern: 'https://localhost:3001/.*',
+          strategyOptions: {
+            cacheName: 'tohl-cache'
+          },
+          strategyPlugins: [
+            {
+              use: 'Expiration',
+              config: {
+                maxEntries: 10,
+                maxAgeSeconds: 300
+              }
+            }
+          ]
+        }
+      ]
     }
   },
   colorMode: {
@@ -128,3 +155,14 @@ export default {
     }
   }
 }
+
+if (process.env.NODE_ENV === 'development') {
+  config.server = {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem'))
+    }
+  }
+}
+
+export default config
