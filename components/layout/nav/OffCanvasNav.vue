@@ -43,13 +43,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'OffCanvasNav',
   computed: {
+    ...mapGetters({
+      nav:  'navigation/nav'
+    }),
     ...mapState({
-      nav: (state) => state.navigation.mainNav,
       openNav: (state) => state.layout.navOpen
     })
   },

@@ -38,6 +38,12 @@ export const state = () => ({
     { title: 'Spieler', path: '/players' },
     { title: 'Office', path: '/office' },
     { title: 'Lines', path: '/lines' },
+    {
+      title: 'Admin',
+      role: 'ADMIN',
+      path: '/admin',
+      children: [{ title: 'Tools', path: '/admin/tools' }]
+    },
     { title: 'Forum', path: '/board' }
   ]
 })
@@ -57,5 +63,13 @@ export const getters = {
       return state.season
     }
     return [...state.availableSeasons].pop()
+  },
+  nav(state, _getters, _rootState, rootGetters) {
+    return state.mainNav.filter((n) => {
+      if (n.role) {
+        return rootGetters['user/hasRole'](n.role)
+      }
+      return true
+    })
   }
 }
