@@ -14,16 +14,36 @@
         </tr>
       </tbody>
     </table>
+    <board-editor v-model="someText" />
+    <pre class="mt-12 bg-gray-300 p-4">{{ someText }}</pre>
   </section>
 </template>
 
 <script>
 import gql from 'graphql-tag'
+import boardEditor from '~/components/board/boardEditor.vue'
 
 export default {
+  components: { boardEditor },
   async asyncData({ params }) {
     const board = params.board
     return { board }
+  },
+  data() {
+    return {
+      someText: `# Hello, world!
+
+**Lorem ipsum dolor** _sit amet_
+
+* Some
+* Unordered
+* List
+
+
+1. Some
+1. Ordered
+1. List`
+    }
   },
   apollo: {
     board: {

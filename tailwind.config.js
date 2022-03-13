@@ -11,6 +11,7 @@ module.exports = {
     './nuxt.config.{js,ts}'
   ],
   plugins: [
+    require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     ({ addUtilities, e, theme, variants }) => {
       let colors = flattenColorPalette(theme('borderColor'))

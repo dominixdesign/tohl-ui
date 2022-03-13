@@ -43,6 +43,9 @@
         />
       </layout-modals-modal>
     </div>
+    <div v-else class="py-4 text-center text-gray-500">
+      {{ $t(`lines.${$store.getters['lines/getSelected']}-${block}`) }} - {{ pos.toUpperCase() }}
+    </div>
   </li>
 </template>
 

@@ -5,7 +5,8 @@
     </td>
     <td class="w-2/12 p-2">{{ $tc(`board.postCount`, board.postCount) }}</td>
     <td class="w-4/12 p-2" v-if="latestPostTitle">
-      {{ latestPostTitle }}<br /><span>{{ latestCommentDate }}</span>
+      <span class="font-bold">{{ latestPostTitle }}</span
+      ><br /><span>{{ latestCommentDate }}</span>
     </td>
     <td class="w-4/12 p-2" v-else></td>
   </tr>
