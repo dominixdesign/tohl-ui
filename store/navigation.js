@@ -36,8 +36,12 @@ export const state = () => ({
     },
     { title: 'Teams', path: '/${season}/teams' },
     { title: 'Spieler', path: '/players' },
-    { title: 'Office', path: '/office' },
-    { title: 'Lines', path: '/lines' },
+    {
+      title: 'Office',
+      role: 'GM',
+      path: '/office',
+      children: [{ title: 'Verträge', path: '/gm/contracts' }]
+    },
     {
       title: 'Admin',
       role: 'ADMIN',
@@ -58,11 +62,18 @@ export const mutations = {
 }
 
 export const getters = {
-  season(state) {
+  season(state, getters) {
     if (state.season) {
       return state.season
     }
+    return getters.latestSeason
+  },
+  latestSeason(state) {
     return [...state.availableSeasons].pop()
+  },
+  previousSeason(state) {
+    console.log([...state.availableSeasons])
+    return 'TOHL12'
   },
   nav(state, _getters, _rootState, rootGetters) {
     return state.mainNav.filter((n) => {
