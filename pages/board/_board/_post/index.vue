@@ -3,33 +3,30 @@
     <layout-headline>{{ board.title }}</layout-headline>
     <table class="w-full table-fixed" v-if="board.posts">
       <tbody>
-        <post-row
+        <tr
           v-for="(post, index) of board.posts"
           :key="`board-${post.id}`"
-          :post="post"
           :class="index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-gray-900'"
-        />
+        >
+          {{
+            post
+          }}
+        </tr>
       </tbody>
     </table>
-    <board-new-topic :board="boardid" :onSubmit="onSubmit" />
+    <board-new-topic :board="boardid" />
   </section>
 </template>
 
 <script>
 import gql from 'graphql-tag'
 import boardEditor from '~/components/board/boardEditor.vue'
-import PostRow from '~/components/board/postRow.vue'
 
 export default {
-  components: { boardEditor, PostRow },
+  components: { boardEditor },
   async asyncData({ params }) {
     const boardid = params.board
     return { boardid }
-  },
-  methods: {
-    onSubmit() {
-      this.$apollo.queries.board.refetch()
-    }
   },
   apollo: {
     board: {
@@ -44,9 +41,6 @@ export default {
             postCount
             posts(limit: $limit) {
               id
-              board {
-                id
-              }
               title
               comments(limit: 1) {
                 id
