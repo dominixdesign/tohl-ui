@@ -35,10 +35,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      season: 'navigation/season'
+      season: 'navigation/season',
+      nav:  'navigation/nav'
     }),
     ...mapState({
-      nav: (state) => state.navigation.mainNav,
       active: (state) => state.route.path
     })
   },
