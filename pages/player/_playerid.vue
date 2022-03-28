@@ -60,11 +60,15 @@
             <td class="hidden text-5xl font-bold sm:table-cell" rowspan="2">
               {{ player.seasondata.ov }}
             </td>
+            <th class="table-cell !bg-secondary-600 uppercase sm:hidden">OV</th>
             <th v-for="skill in skills" :key="skill" class="uppercase">
               {{ skill }}
             </th>
           </tr>
           <tr>
+            <td class="table-cell !bg-secondary-600 font-bold text-white sm:hidden">
+              {{ player.seasondata.ov }}
+            </td>
             <td v-for="skill in skills" :key="skill" class="uppercase">
               {{ player.seasondata[skill] > 0 ? player.seasondata[skill] : '&mdash;' }}
             </td>
