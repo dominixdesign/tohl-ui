@@ -84,10 +84,10 @@
               <span v-if="col === 'season'"></span>
               <span v-else-if="col === 'team'" class="uppercase"> {{ name }} </span>
               <span v-else-if="col === 'spercentage'">{{
-                shotpercentage(get(stat, col)) || '&mdash;'
+                shotpercentage((get(stat, 'goals') / get(stat, 'shots')) * 100) || '&mdash;'
               }}</span>
               <span v-else-if="col === 'averageicetime'">{{
-                averageicetime(get(stat, col)) || '&mdash;'
+                averageicetime(get(stat, 'icetime') / get(stat, 'games')) || '&mdash;'
               }}</span>
               <span v-else>{{ get(stat, col, '&mdash;') }}</span>
             </td>
@@ -100,11 +100,19 @@
             >
               <span v-if="col === 'season'"></span>
               <span v-else-if="col === 'team'" class="uppercase">Career</span>
-              <span v-else-if="col === 'spercentage'">{{
-                shotpercentage(get(seasons.career.all[type], col)) || '&mdash;'
-              }}</span>
+              <span v-else-if="col === 'spercentage'">
+                {{
+                  shotpercentage(
+                    (get(seasons.career.all[type], 'goals') /
+                      get(seasons.career.all[type], 'shots')) *
+                      100
+                  ) || '&mdash;'
+                }}</span
+              >
               <span v-else-if="col === 'averageicetime'">{{
-                averageicetime(get(seasons.career.all[type], col)) || '&mdash;'
+                averageicetime(
+                  get(seasons.career.all[type], 'icetime') / get(seasons.career.all[type], 'games')
+                ) || '&mdash;'
               }}</span>
               <span v-else>{{ get(seasons.career.all[type], col, '&mdash;') }}</span>
             </td>
@@ -264,12 +272,13 @@ export default {
         }
         for (const number of this.cols) {
           if (!isNaN(playerstat[number])) {
-            seasons.career[type][playerstat.team.teamid][number] += playerstat[number]
-            seasons.career.all[type][number] += playerstat[number]
+            if (number !== 'spercentage' && number !== 'averageicetime') {
+              seasons.career[type][playerstat.team.teamid][number] += playerstat[number]
+              seasons.career.all[type][number] += playerstat[number]
+            }
           }
         }
       })
-      console.log(seasons.career.all.farm)
       this.seasons = seasons
     }
   },
