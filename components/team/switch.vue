@@ -1,6 +1,5 @@
 <template>
-  <h3 class="font-bold text-2xl font-mono flex items-center">
-    <team-logo-middle :teamid="currentTeam" />
+  <h3 class="flex items-center font-mono text-2xl font-bold">
     <div class="relative inline-block text-left" v-click-outside="hide">
       <div>
         <button
@@ -8,20 +7,19 @@
           @click="() => (dropdown = !dropdown)"
           class="
             inline-flex
+            items-center
             justify-center
-            px-3
-            py-1
             rounded-md
             bg-gray-50
-            dark:bg-gray-700
-            ml-5
-            items-center
+            px-3
+            py-1
             hover:bg-gray-200
             focus:outline-none
             focus:ring-2
+            focus:ring-indigo-500
             focus:ring-offset-2
             focus:ring-offset-gray-100
-            focus:ring-indigo-500
+            dark:bg-gray-700
           "
           id="menu-button"
           aria-expanded="true"
@@ -54,19 +52,19 @@
         <div
           v-if="dropdown"
           class="
-            transition
-            origin-top-right
             absolute
             right-0
+            z-50
             mt-2
             w-56
-            z-50
+            origin-top-right
             rounded-md
-            shadow-lg
             bg-white
-            dark:bg-primary-700 dark:text-white
+            shadow-lg
             ring-1 ring-black ring-opacity-5
+            transition
             focus:outline-none
+            dark:bg-primary-700 dark:text-white
           "
           role="menu"
           aria-orientation="vertical"
@@ -80,13 +78,12 @@
               :key="team.teamid"
               :to="getLink(team.teamid)"
               class="
-                text-gray-700
                 block
                 px-4
                 py-2
-                text-sm
+                text-sm text-gray-700
                 hover:bg-gray-100
-                dark:hover:bg-primary-500 dark:text-white
+                dark:text-white dark:hover:bg-primary-500
               "
               role="menuitem"
               tabindex="-1"
@@ -96,66 +93,6 @@
           </div>
         </div>
       </transition>
-    </div>
-
-    <div>
-      <div class="sm:hidden">
-        <label for="tabs" class="sr-only">Select a tab</label>
-        <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-        <select
-          id="tabs"
-          name="tabs"
-          class="
-            block
-            w-full
-            focus:ring-indigo-500 focus:border-indigo-500
-            border-gray-300
-            rounded-md
-          "
-        >
-          <option>My Account</option>
-
-          <option>Company</option>
-
-          <option selected>Team Members</option>
-
-          <option>Billing</option>
-        </select>
-      </div>
-      <div class="hidden sm:block ml-5">
-        <nav class="flex space-x-4" aria-label="Tabs">
-          <!-- Current: "bg-gray-200 text-gray-800", Default: "text-gray-600 hover:text-gray-800" -->
-          <a
-            href="#"
-            aria-current="page"
-            class="bg-gray-200 text-gray-800 px-3 py-2 font-medium text-sm rounded-md"
-            :style="`background-color: ${backgroundColor}; color: ${foregroundColor};`"
-          >
-            Roster
-          </a>
-
-          <a
-            href="#"
-            class="text-gray-600 hover:text-gray-800 px-3 py-2 font-medium text-sm rounded-md"
-          >
-            Lines
-          </a>
-
-          <a
-            href="#"
-            class="text-gray-600 hover:text-gray-800 px-3 py-2 font-medium text-sm rounded-md"
-          >
-            Vitals
-          </a>
-
-          <a
-            href="#"
-            class="text-gray-600 hover:text-gray-800 px-3 py-2 font-medium text-sm rounded-md"
-          >
-            Finanzen
-          </a>
-        </nav>
-      </div>
     </div>
   </h3>
 </template>

@@ -1,33 +1,33 @@
 <template>
   <div class="overflow-y-auto">
     <table
-      class="font-mono text-right relative min-w-full divide-y divide-gray-200 dark:divide-gray-600"
+      class="relative min-w-full divide-y divide-gray-200 text-right font-mono dark:divide-gray-600"
     >
       <thead
         class="
           sticky
-          z-9
           top-0
+          z-9
           bg-primary-500
-          dark:bg-primary-700
-          text-primary-50 text-right text-base
-          dark:text-primary-200
+          text-right text-base
           uppercase
           tracking-wider
+          text-primary-50
+          dark:bg-primary-700 dark:text-primary-200
         "
       >
         <tr class="text-base">
           <th
             v-for="col in cols"
             scope="col"
-            class="px-1 py-3 cursor-pointer whitespace-nowrap"
+            class="cursor-pointer whitespace-nowrap px-1 py-3"
             @click="() => sortColumn(col)"
             :key="'headline-' + col"
             :class="col === 'name' ? 'text-left' : ''"
           >
             {{ col === 'name' && title ? title : $t(`column.${col}`) }}
             <span
-              class="w-1 h-1 inline-block border-4 border-transparent"
+              class="inline-block h-1 w-1 border-4 border-transparent"
               :class="
                 sortCol === col && direction === 'asc'
                   ? 'border-t-primary-100'
@@ -41,7 +41,7 @@
       </thead>
       <tbody>
         <tr v-if="error">
-          <td colspan="12" class="text-secondary-500 text-center font-medium py-4">
+          <td colspan="12" class="py-4 text-center font-medium text-secondary-500">
             Spieler können nicht geladen werden.
           </td>
         </tr>
@@ -55,15 +55,15 @@
           <!-- eslint-enable -->
           <td class="p-1">
             <div
-              class="bg-gray-200 dark:bg-primary-700 w-8 h-6 animate-pulse float-right rounded-sm"
+              class="float-right h-6 w-8 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700"
             />
           </td>
           <td class="p-1">
-            <div class="bg-gray-200 dark:bg-primary-700 w-40 h-6 animate-pulse rounded-sm" />
+            <div class="h-6 w-40 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700" />
           </td>
           <td v-for="c in 19" :key="`playerlist-${n}-${c}`" class="px-2 py-1">
             <div
-              class="bg-gray-200 dark:bg-primary-700 w-6 h-6 animate-pulse float-right rounded-sm"
+              class="float-right h-6 w-6 animate-pulse rounded-sm bg-gray-200 dark:bg-primary-700"
             />
           </td>
         </tr>
@@ -72,15 +72,15 @@
           :class="
             index % 2 === 0 ? 'bg-white dark:bg-primary-800' : 'bg-gray-50 dark:bg-primary-900'
           "
-          class="text-base dark:hover:bg-primary-700 hover:bg-gray-100"
+          class="player-row"
           :key="row.fname + row.lname"
         >
           <td
             v-for="col in cols"
-            class="p-1 whitespace-nowrap text-gray-600 dark:text-gray-400"
+            class="whitespace-nowrap p-1 text-gray-600 dark:text-gray-400"
             :class="
               sortCol === col
-                ? 'bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700 hover:bg-gray-100'
+                ? 'bg-gray-100 hover:bg-gray-100 dark:bg-secondary-900 dark:hover:bg-primary-700'
                 : ''
             "
             :key="row.fname + row.lname + col"
@@ -250,3 +250,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.player-row:hover td {
+  @apply bg-gray-100;
+}
+.dark .player-row:hover td {
+  @apply bg-primary-700;
+}
+</style>

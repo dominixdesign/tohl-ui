@@ -1,7 +1,6 @@
 <template>
-  <div class="py-2 sm:p-6 xl:px-12 mx-auto max-w-screen-2xl">
+  <div class="mx-auto max-w-screen-2xl py-2 sm:p-6 xl:px-12">
     <div class="flex flex-col space-y-6">
-      <team-switch :current-team="team" />
       <div class="bg-gray-100 dark:bg-primary-800 xl:shadow">
         <div class="block">
           <div class="border-b border-gray-200 px-2">
@@ -16,18 +15,17 @@
                     : `/${season}/team/${team}/roster/${table}`
                 "
                 class="
-                  border-transparent
-                  hover:text-primary-200 hover:border-primary-200
                   whitespace-nowrap
+                  border-b-2 border-transparent
                   py-4
                   px-1
-                  border-b-2
-                  font-medium
                   text-sm
+                  font-medium
+                  hover:border-primary-200 hover:text-primary-200
                 "
                 :class="
                   table === roster
-                    ? 'text-primary-200 border-primary-200 font-bold'
+                    ? 'border-primary-200 font-bold text-primary-200'
                     : 'text-primary-400'
                 "
               >
@@ -46,9 +44,9 @@
         :selectedRoster="roster"
         :positions="new Set([position])"
       />
-      <div class="bg-gray-100 dark:bg-primary-800 xl:shadow p-6" v-if="!$apollo.loading">
-        <h3 class="font-serif font-mono font-extralight uppercase pb-4 text-xl">Legende</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-gray-100 p-6 dark:bg-primary-800 xl:shadow" v-if="!$apollo.loading">
+        <h3 class="font-serif pb-4 font-mono text-xl font-extralight uppercase">Legende</h3>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           <div v-for="(dd, dt) in legend" :key="dt">
             <span class="font-medium">{{ dt }}</span> <span>&ndash; {{ dd }}</span>
           </div>
