@@ -116,6 +116,9 @@ export default {
     season: String,
     selectedRoster: String,
     positions: Set,
+    columns: Array,
+    sorting: String,
+    sortingDirection: String,
     team: String,
     title: String,
     filter: Object
@@ -123,7 +126,7 @@ export default {
   data() {
     return {
       error: false,
-      cols: [
+      cols: this.columns || [
         'number',
         'name',
         'pos',
@@ -147,8 +150,8 @@ export default {
         'salary'
       ],
       filtertedRoster: [],
-      sortCol: 'name',
-      direction: 'desc'
+      sortCol: this.sorting || 'name',
+      direction: this.sortingDirection || 'desc'
     }
   },
   apollo: {
