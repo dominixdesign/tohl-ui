@@ -1,48 +1,75 @@
 <template>
   <div class="isolate mx-auto max-w-screen-2xl py-2 sm:p-6 xl:px-12">
     <div class="flex flex-col space-y-6">
-      <div
-        class="
-          relative
-          isolate
-          h-12
-          overflow-hidden
-          rounded
-          bg-gray-100
-          dark:bg-primary-800
-          xl:shadow
-        "
-      >
-        <div
-          class="absolute z-10 h-12 bg-secondary-300 dark:bg-secondary-600"
-          :style="`width: ${currentSalaries / 100000}%`"
-        ></div>
-        <div
-          class="absolute z-10 h-12 bg-secondary-400 dark:bg-secondary-800"
-          :style="`width: ${expenses / 100000}%; left: ${currentSalaries / 100000}%`"
-        ></div>
-        <div
-          class="
-            absolute
-            z-20
-            flex
-            h-12
-            w-full
-            bg-gradient-to-r
-            from-slate-500
-            to-slate-50
-            opacity-25
-            dark:from-slate-50 dark:to-slate-500
-          "
-        ></div>
-        <div class="absolute z-30 flex h-12 w-full items-center justify-center text-center">
-          Gehälter: ${{ currentSalaries.toLocaleString() }} | Ausgaben: ${{
-            expenses.toLocaleString()
-          }}
-          | Cap-Space: ${{ (10000000 - expenses - currentSalaries).toLocaleString() }}
+      <div class="flex flex-col sm:flex-row" v-if="currentSalaries">
+        <div class="m-4 flex items-center sm:w-1/2">
+          <div class="w-1/3 md:w-1/4 lg:w-1/5">
+            <team-salary-cap
+              :chartdata="{
+                labels: ['Gehälter', 'Ausgaben', 'Cap Space'],
+                datasets: [
+                  {
+                    backgroundColor: [
+                      getColor('secondary', 500),
+                      getColor('secondary', 700),
+                      getColor('primary', 700)
+                    ],
+                    data: [currentSalaries, expenses, 10000000 - currentSalaries - expenses]
+                  }
+                ]
+              }"
+              :options="{
+                responsive: true,
+                legend: {
+                  display: false
+                }
+              }"
+            />
+          </div>
+          <div class="pl-4 md:text-lg">
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-secondary-500"></span
+            >Gehälter: ${{ currentSalaries.toLocaleString() }}<br />
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-secondary-700"></span
+            >Ausgaben: ${{ expenses.toLocaleString() }}<br />
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-primary-700"></span
+            >Cap-Space: ${{ (10000000 - expenses - currentSalaries).toLocaleString() }}
+          </div>
+        </div>
+        <div class="m-4 flex items-center sm:w-1/2">
+          <div class="w-1/3 md:w-1/4 lg:w-1/5">
+            <team-salary-cap
+              :chartdata="{
+                labels: ['Defense', 'Goalies', 'Forwards'],
+                datasets: [
+                  {
+                    backgroundColor: [
+                      getColor('primary', 300),
+                      getColor('primary', 500),
+                      getColor('primary', 700)
+                    ],
+                    data: [salariesGoalies, salariesDefense, salariesForwards]
+                  }
+                ]
+              }"
+              :options="{
+                responsive: true,
+                legend: {
+                  display: false
+                }
+              }"
+            />
+          </div>
+          <div class="pl-4 md:text-lg">
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-primary-300"></span
+            >Goalies: ${{ salariesGoalies.toLocaleString() }}<br />
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-primary-500"></span
+            >Defense: ${{ salariesDefense.toLocaleString() }}<br />
+            <span class="mr-1 inline-block h-4 w-4 border border-white bg-primary-700"></span
+            >Forwards: ${{ salariesForwards.toLocaleString() }}
+          </div>
         </div>
       </div>
-      <div>
+      <div class="overflow-y-auto">
         <table
           class="
             relative
@@ -195,6 +222,7 @@
 </template>
 
 <script>
+import { theme } from '~/tailwind.config.js'
 import gql from 'graphql-tag'
 import { get } from 'lodash-es'
 
@@ -208,7 +236,10 @@ export default {
       cols: ['name', 'pos', 'ov', 'age', 'contract', 'salary', 'salary1', 'salary2', 'salary3'],
       filtertedRoster: [],
       expenses: 700000,
-      currentSalaries: 0
+      currentSalaries: 0,
+      salariesGoalies: 0,
+      salariesDefense: 0,
+      salariesForwards: 0
     }
   },
   apollo: {
@@ -261,6 +292,9 @@ export default {
     }
   },
   methods: {
+    getColor(name, shade) {
+      return theme.extend.colors[name][shade]
+    },
     updateRoster() {
       let sorting = 'seasondata.salary'
       const filtertedRoster = [...this.roster]
@@ -269,6 +303,28 @@ export default {
         if (get(a, sorting) < get(b, sorting)) return -1
         return 0
       })
+      this.salariesGoalies = this.filtertedRoster.reduce((pv, player) => {
+        if (player.seasondata.pos === 'G') {
+          return pv + player.seasondata.salary
+        }
+        return pv
+      }, 0)
+      this.salariesDefense = this.filtertedRoster.reduce((pv, player) => {
+        if (player.seasondata.pos === 'D') {
+          return pv + player.seasondata.salary
+        }
+        return pv
+      }, 0)
+      this.salariesForwards = this.filtertedRoster.reduce((pv, player) => {
+        if (
+          player.seasondata.pos === 'LW' ||
+          player.seasondata.pos === 'RW' ||
+          player.seasondata.pos === 'C'
+        ) {
+          return pv + player.seasondata.salary
+        }
+        return pv
+      }, 0)
       this.currentSalaries = this.filtertedRoster.reduce(
         (pv, player) => pv + player.seasondata.salary,
         0

@@ -3,8 +3,17 @@
     <div class="relative isolate z-10 overflow-hidden shadow">
       <team-select :current-team="team" />
       <team-bg :foreground="foregroundColor" :background="backgroundColor" />
-      <div class="container mx-auto flex flex-col p-6 sm:flex-row">
-        <div class="w-full sm:w-40">
+      <div
+        class="
+          container
+          mx-auto
+          flex flex-col
+          place-items-center
+          p-6
+          sm:flex-row sm:place-items-start
+        "
+      >
+        <div class="w-40">
           <team-logo-big :teamid="team" />
         </div>
         <div class="flex grow flex-col place-items-center gap-1 sm:place-items-start sm:pl-6">
