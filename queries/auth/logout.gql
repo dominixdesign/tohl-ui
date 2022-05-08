@@ -1,3 +1,0 @@
-mutation managerLogout($refresh_token: String) {
-  logout(refresh_token: $refresh_token)
-}

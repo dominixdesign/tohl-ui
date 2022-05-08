@@ -2,52 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.25s;
+body {
+  background: #dcdcdc url("https://images.unsplash.com/photo-1545471977-94cac22e71ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80") repeat-x;
+  background-size: cover;
+  background-attachment: fixed;
 }
-.page-enter,
-.page-leave-to {
-  opacity: 0;
-}
-
-.statstable table {
-  @apply mb-5;
-}
-
-.statstable td,
-.statstable th {
-  @apply font-mono;
-  @apply py-0.5 px-2;
-  @apply border border-gray-300;
-}
-@media (min-width: 640px) {
-  .statstable td,
-  .statstable th {
-    @apply px-2 text-sm;
-  }
-}
-.statstable th {
-  @apply bg-gray-200;
-  @apply text-secondary-500;
-}
-.statstable td {
-  @apply py-0.5;
-  @apply text-right;
-}
-.statstable tr:hover {
-  @apply bg-primary-200;
-}
-.dark .statstable tr {
-  @apply bg-gray-900;
-}
-.dark .statstable tr th {
-  @apply bg-primary-800;
-}
-.dark .statstable td,
-.dark .statstable th {
-  @apply border-gray-700;
-}
-.dark .statstable tr:hover {
-  @apply bg-primary-700;
+body, html {
+  @apply h-full;
 }

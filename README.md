@@ -1,31 +1,44 @@
-# tohl-ui
+# Nuxt 3 Minimal Starter
 
-## Build Setup
+Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+
+## Setup
+
+Make sure to install the dependencies:
 
 ```bash
-# install dependencies
-$ yarn install
+# yarn
+yarn install
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+# npm
+npm install
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+# pnpm
+pnpm install --shamefully-hoist
 ```
 
-## ssl
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
 ```
-mkcert -install
-mkcert localhost
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Locally preview production build:
 
-Photo by <a href="https://unsplash.com/@klim11?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Klim Musalimov</a> on <a href="https://unsplash.com/s/photos/hockey-arena?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+```bash
+npm run preview
+```
 
-Icons u.a.: https://icofont.com/icons
-https://tabler-icons.io/
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+
+https://themeforest.net/item/midone-vuejs-admin-dashboard-template/28123408
