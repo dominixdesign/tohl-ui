@@ -10,6 +10,7 @@ import {
 } from "@headlessui/vue";
 import { SearchIcon } from "@heroicons/vue/solid";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/vue/outline";
+import TOHLLogo from "./assets/logo.svg?component";
 
 const user = {
   name: "Tom Cook",
@@ -41,23 +42,19 @@ const userNavigation = [
     ```
   -->
   <div class="min-h-full">
-    <div class="bg-indigo-600 pb-32">
+    <div class="bg-primary-600 pb-32">
       <Disclosure
         as="nav"
-        class="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none"
+        class="bg-primary-600 border-b border-primary-300 border-opacity-25 lg:border-none"
         v-slot="{ open }"
       >
         <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div
-            class="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25"
+            class="relative h-16 flex items-center justify-between lg:border-b lg:border-primary-400 lg:border-opacity-25"
           >
             <div class="px-2 flex items-center lg:px-0">
               <div class="flex-shrink-0">
-                <img
-                  class="block h-8 w-8"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
-                  alt="Workflow"
-                />
+                <TOHLLogo class="h-8" />
               </div>
               <div class="hidden lg:block lg:ml-10">
                 <div class="flex space-x-4">
