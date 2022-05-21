@@ -1,44 +1,35 @@
-# Nuxt 3 Minimal Starter
+# tohl-ui
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+This template should help get you started developing with Vue 3 in Vite.
 
-## Setup
+## Recommended IDE Setup
 
-Make sure to install the dependencies:
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
-```bash
-# yarn
-yarn install
+## Customize configuration
 
-# npm
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
 
-## Development Server
+### Compile and Hot-Reload for Development
 
-Start the development server on http://localhost:3000
-
-```bash
+```sh
 npm run dev
 ```
 
-## Production
+### Compile and Minify for Production
 
-Build the application for production:
-
-```bash
+```sh
 npm run build
 ```
 
-Locally preview production build:
+### Lint with [ESLint](https://eslint.org/)
 
-```bash
-npm run preview
+```sh
+npm run lint
 ```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
-
-https://themeforest.net/item/midone-vuejs-admin-dashboard-template/28123408

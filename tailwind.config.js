@@ -1,11 +1,12 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
-  content: [
-    "./pages/**/*.{vue,js}",
-    "./components/**/*.{vue,js}",
-    "./layouts/**/*.{vue,js}",
-  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         primary: {
           DEFAULT: "#1C3362",
