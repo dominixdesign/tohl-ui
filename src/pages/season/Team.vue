@@ -23,23 +23,41 @@
                 {{ team.teamsim }}
               </h1>
             </div>
-            <div
-              class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
-            >
-              <button
-                type="button"
-                class="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-              >
-                <MailIcon class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-                <span>Message</span>
-              </button>
-              <button
-                type="button"
-                class="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-              >
-                <PhoneIcon class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-                <span>Call</span>
-              </button>
+            <div>
+              <div class="sm:hidden">
+                <label for="tabs" class="sr-only">Select a tab</label>
+                <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                <select
+                  id="tabs"
+                  name="tabs"
+                  class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                >
+                  <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
+                    {{ tab.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="hidden sm:block">
+                <nav class="flex space-x-4" aria-label="Tabs">
+                  <router-link
+                    v-for="tab in tabs"
+                    :key="tab.name"
+                    :to="tab.href"
+                    :style="[
+                      tab.current
+                        ? `background: ${team.background}; color: ${team.foreground};`
+                        : ''
+                    ]"
+                    :class="[
+                      tab.current ? '' : 'text-gray-500 hover:text-gray-700',
+                      'px-3 py-2 font-medium text-sm rounded-md'
+                    ]"
+                    :aria-current="tab.current ? 'page' : undefined"
+                  >
+                    {{ tab.name }}
+                  </router-link>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
@@ -62,6 +80,7 @@ import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 const route = useRoute()
+const { currentRoute } = useRouter()
 
 const { result, loading, error } = useQuery(
   gql`
@@ -88,6 +107,22 @@ const backgroundImage = computed(() =>
     ? `https://www.my-tohl.org/tohl/img/teams/${result.value.team.teamid.toUpperCase()}_head.png`
     : ''
 )
+
+const tabs = computed(() => [
+  {
+    name: 'Roster',
+    href: `/${route.params.season}/team/${route.params.team}/roster`,
+    current: `/${route.params.season}/team/${route.params.team}/roster` === currentRoute.value.path
+  },
+  {
+    name: 'Finanzen',
+    href: `/${route.params.season}/team/${route.params.team}/finances`,
+    current:
+      `/${route.params.season}/team/${route.params.team}/finances` === currentRoute.value.path
+  },
+  { name: 'Team Members', href: '#' },
+  { name: 'Billing', href: '#' }
+])
 
 const profile = {
   name: 'Ricardo Cooper',

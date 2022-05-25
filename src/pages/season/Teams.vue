@@ -47,7 +47,7 @@ const teams = computed(() => result.value.teams || [])
             :src="`/teams/${team.teamid}.svg`"
             :alt="team.teamsim"
           />
-          <div class="font-medium text-lg leading-6 space-y-1">
+          <div class="font-medium text-lg leading-6 space-x-1 space-y-1">
             <h3 class="uppercase">{{ team.teamsim }}</h3>
             <router-link
               type="button"
