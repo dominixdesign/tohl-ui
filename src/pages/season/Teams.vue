@@ -33,7 +33,7 @@ const teams = computed(() => result.value.teams || [])
     <ul
       v-else
       role="list"
-      class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-4 lg:gap-8"
+      class="space-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6 sm:space-y-0 lg:grid-cols-3 xl:grid-cols-4 lg:gap-8"
     >
       <li
         v-for="team in teams"

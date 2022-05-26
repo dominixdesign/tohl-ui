@@ -25,14 +25,20 @@
             </div>
             <div>
               <div class="sm:hidden">
-                <label for="tabs" class="sr-only">Select a tab</label>
+                <label for="tabs" class="sr-only">Unterseite wählen</label>
                 <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                 <select
                   id="tabs"
                   name="tabs"
-                  class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  @change="(e) => $router.push(e.target.value)"
+                  class="block w-full bg-gray-100 p-2 border-gray-200 border focus:ring-primary-500 focus:border-primary-500 rounded-md"
                 >
-                  <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
+                  <option
+                    v-for="tab in tabs"
+                    :key="tab.name"
+                    :selected="tab.current"
+                    :value="tab.href"
+                  >
                     {{ tab.name }}
                   </option>
                 </select>

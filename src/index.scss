@@ -1,0 +1,21 @@
+
+$headerBackgroundColor: #B91E1F;
+$headerTextColor: #fff;
+$sortArrowActive: #fff;
+$sortArrowInactive: #E4595A;
+$headerMargin: 1px;
+
+@import "/node_modules/tabulator-tables/src/scss/themes/tabulator_simple.scss";
+
+.tabulator {
+  @apply text-xs;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
+  padding-right: 20px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

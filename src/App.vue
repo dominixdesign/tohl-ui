@@ -173,7 +173,7 @@
                 About
               </router-link>
               <router-link
-                to="/TOHL13/teams"
+                to="/TOHL13pre/teams"
                 class="text-base font-medium text-gray-300 hover:text-gray-100"
               >
                 Teams
@@ -365,23 +365,15 @@
       </TransitionRoot>
     </Popover>
     <main class="-mt-24 pb-8">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto px-1 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 class="sr-only">Page title</h1>
         <div class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow">
-          <div class="p-6">
+          <div class="p-3 lg:p-6">
             <router-view></router-view>
           </div>
         </div>
       </div>
     </main>
-    <footer>
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
-        <div class="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left">
-          <span class="block sm:inline">&copy; 2021 Tailwind Labs Inc.</span>
-          <span class="block sm:inline">All rights reserved.</span>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
