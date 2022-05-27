@@ -18,6 +18,7 @@ onMounted(() => {
     groupBy: 'seasondata.pos',
     layout: 'fitColumns',
     height: '90vh',
+    responsiveLayout: true,
     resizableColumnFit: true,
     groupHeader: function (value, count, data, group) {
       //value - the value all members of this group share

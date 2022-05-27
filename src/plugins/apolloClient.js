@@ -1,4 +1,10 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  ApolloLink,
+  concat
+} from '@apollo/client/core'
 
 const colors = {
   kni: { f: '#000', b: '#27A349' },
@@ -31,6 +37,19 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql'
 })
 
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = localStorage.getItem('tohl-token')
+  if (token) {
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  }
+  return forward(operation)
+})
+
 // foreground: (team) => colors[team.teamid]?.f || '#fff',
 // background: (team) => colors[team.teamid]?.b || '#000'
 //
@@ -38,7 +57,7 @@ const cache = new InMemoryCache()
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: concat(authMiddleware, httpLink),
   cache,
   resolvers: {
     Team: {

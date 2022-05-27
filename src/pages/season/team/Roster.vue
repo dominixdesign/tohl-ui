@@ -51,8 +51,7 @@ const { result, loading, error } = useQuery(
 const players = computed(() => result.value.roster || [])
 </script>
 <template>
-  <div>
-    <h1>Roster</h1>
+  <div class="mt-3">
     <div v-if="loading">laden...</div>
     <div v-else-if="error">oops {{ error }}</div>
     <div v-else>
@@ -66,7 +65,8 @@ const players = computed(() => result.value.roster || [])
             hozAlign: 'right',
             width: 47,
             resizable: false,
-            frozen: true
+            frozen: true,
+            responsive: 2
           },
           {
             title: 'Name',
@@ -75,6 +75,7 @@ const players = computed(() => result.value.roster || [])
             width: 150,
             resizable: false,
             frozen: true,
+            responsive: 0,
             formatter: function (cell, formatterParams, onRendered) {
               var data = cell.getRow().getData()
               return `${data.display_fname} <b>${data.display_lname}</b>`
@@ -87,7 +88,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'IT',
@@ -95,7 +97,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'SP',
@@ -103,7 +106,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'ST',
@@ -111,7 +115,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'EN',
@@ -119,7 +124,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'DU',
@@ -127,7 +133,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'DI',
@@ -135,7 +142,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'SK',
@@ -143,7 +151,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'PA',
@@ -151,7 +160,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'PC',
@@ -159,7 +169,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'DF',
@@ -167,7 +178,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'SC',
@@ -175,7 +187,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'EX',
@@ -183,7 +196,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'LD',
@@ -191,7 +205,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'OV',
@@ -199,14 +214,16 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'Age',
             field: 'seasondata.age',
             sorter: 'number',
             hozAlign: 'right',
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: 'CT',
@@ -214,7 +231,8 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             width: 47,
-            resizable: false
+            resizable: false,
+            responsive: 0
           },
           {
             title: '$',
@@ -222,6 +240,7 @@ const players = computed(() => result.value.roster || [])
             sorter: 'number',
             hozAlign: 'right',
             resizable: false,
+            responsive: 0,
             width: 100,
             sorterParams: {
               thousandSeparator: '.',

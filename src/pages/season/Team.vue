@@ -18,15 +18,9 @@
           <div
             class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
           >
-            <div class="sm:hidden md:block mt-6 min-w-0 flex-1">
-              <h1 class="text-2xl font-bold text-gray-900 truncate uppercase">
-                {{ team.teamsim }}
-              </h1>
-            </div>
             <div>
               <div class="sm:hidden">
                 <label for="tabs" class="sr-only">Unterseite wählen</label>
-                <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                 <select
                   id="tabs"
                   name="tabs"
