@@ -26,13 +26,23 @@
             </button>
 
             <!-- Profile dropdown -->
-            <Menu as="div" class="ml-4 relative flex-shrink-0">
+            <div v-if="!isLoggedIn" class="ml-4 relative flex-shrink-0">
+              <button
+                type="button"
+                @click="() => setLoginModal(true)"
+                class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
+              >
+                <span class="sr-only">Login</span>
+                <img class="h-8 w-8 rounded-full" :src="`/teams/tohl.svg`" alt="" />
+              </button>
+            </div>
+            <Menu v-else as="div" class="ml-4 relative flex-shrink-0">
               <div>
                 <MenuButton
                   class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
                 >
                   <span class="sr-only">Open user menu</span>
-                  <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                  <img class="h-8 w-8 rounded-full" :src="`/teams/${loggedInTeam}.svg`" alt="" />
                 </MenuButton>
               </div>
               <transition
@@ -51,6 +61,11 @@
                         'block px-4 py-2 text-sm text-gray-700'
                       ]"
                       >{{ item.name }}</a
+                    >
+                  </MenuItem>
+                  <MenuItem>
+                    <span class="block px-4 py-2 text-sm text-gray-700" @click="logout"
+                      >Logout</span
                     >
                   </MenuItem>
                 </MenuItems>
@@ -327,17 +342,21 @@
                     >
                   </div>
                 </div>
-                <div class="pt-4 pb-2">
+                <div class="pt-4 pb-2" v-if="isLoggedIn">
                   <div class="flex items-center px-5">
                     <div class="flex-shrink-0">
-                      <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+                      <img
+                        class="h-10 w-10 rounded-full"
+                        :src="`/teams/${loggedInTeam}.svg`"
+                        alt=""
+                      />
                     </div>
                     <div class="ml-3 min-w-0 flex-1">
                       <div class="text-base font-medium text-gray-800 truncate">
-                        {{ user.name }}
+                        {{ userStore.username }}
                       </div>
                       <div class="text-sm font-medium text-gray-500 truncate">
-                        {{ user.email }}
+                        {{ userStore.mail }}
                       </div>
                     </div>
                     <button
@@ -349,12 +368,14 @@
                     </button>
                   </div>
                   <div class="mt-3 px-2 space-y-1">
-                    <a
+                    <component
                       v-for="item in userNavigation"
+                      :is="item.href ? 'a' : 'button'"
                       :key="item.name"
+                      @click="item.action"
                       :href="item.href"
                       class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >{{ item.name }}</a
+                      >{{ item.name }}</component
                     >
                   </div>
                 </div>
@@ -374,10 +395,15 @@
         </div>
       </div>
     </main>
+    <Modal :isOpen="loginModal" :closeModal="() => setLoginModal(false)">
+      <LoginForm :submitAction="() => setLoginModal(false)" />
+    </Modal>
   </div>
 </template>
 
 <script setup>
+import { ref, computed, inject } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
 import {
   Menu,
   MenuButton,
@@ -393,8 +419,27 @@ import {
 } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon, ChartBarIcon } from '@heroicons/vue/outline'
 import { SearchIcon } from '@heroicons/vue/solid'
-import TOHLLogo from './assets/logo.svg?component'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
+import TOHLLogo from './assets/logo.svg?component'
+import Modal from '@/components/Modal.vue'
+import LoginForm from '@/components/form/Login.vue'
+import { useUserStore } from '@/stores/user'
+
+const authService = inject('authService')
+
+const userStore = useUserStore()
+const loginModal = ref(false)
+
+const loggedInTeam = computed(() => userStore.getTeam || 'tohl')
+const isLoggedIn = computed(() => userStore.isLoggedIn || false)
+
+function setLoginModal(value) {
+  loginModal.value = value
+}
+
+function logout() {
+  authService.logout()
+}
 
 const solutions = [
   {
@@ -431,9 +476,7 @@ const solutions = [
 
 const user = {
   name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+  email: 'tom@example.com'
 }
 const resources = [
   { name: 'Home', href: '#', current: true },
@@ -445,6 +488,6 @@ const resources = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' }
+  { name: 'Sign out', action: logout }
 ]
 </script>

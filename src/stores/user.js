@@ -1,3 +1,4 @@
+import jwt_decode from 'jwt-decode'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore({
@@ -10,14 +11,14 @@ export const useUserStore = defineStore({
     token: null
   }),
   getters: {
-    token: (state) => state.token,
+    getToken: (state) => state.token,
     hasRole: (state) => (role) => state.roles.includes(role),
-    team: (state) => state.team,
+    getTeam: (state) => state.team,
     isLoggedIn: (state) => state.username !== null && state.team !== null
   },
   actions: {
     login({ access_token, manager }) {
-      const { username, roles, mail } = jwt.decode(access_token)
+      const { username, roles, mail } = jwt_decode(access_token)
       this.token = access_token
       this.username = username
       this.mail = mail
