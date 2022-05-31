@@ -95,13 +95,14 @@
           <!-- Menu button -->
           <div class="absolute right-0 flex-shrink-0 lg:hidden">
             <!-- Mobile menu button -->
-            <PopoverButton
+            <Button
               class="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-primary-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white"
+              @click="offCanvas = true"
             >
               <span class="sr-only">Open main menu</span>
               <MenuIcon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
               <XIcon v-else class="block h-6 w-6" aria-hidden="true" />
-            </PopoverButton>
+            </Button>
           </div>
         </div>
         <div class="hidden lg:block border-t border-white border-opacity-20 py-5">
@@ -266,128 +267,10 @@
         </div>
       </div>
 
-      <TransitionRoot as="template" :show="open">
-        <div class="lg:hidden">
-          <TransitionChild
-            as="template"
-            enter="duration-150 ease-out"
-            enter-from="opacity-0"
-            enter-to="opacity-100"
-            leave="duration-150 ease-in"
-            leave-from="opacity-100"
-            leave-to="opacity-0"
-          >
-            <PopoverOverlay class="z-20 fixed inset-0 bg-black bg-opacity-25" />
-          </TransitionChild>
-
-          <TransitionChild
-            as="template"
-            enter="duration-150 ease-out"
-            enter-from="opacity-0 scale-95"
-            enter-to="opacity-100 scale-100"
-            leave="duration-150 ease-in"
-            leave-from="opacity-100 scale-100"
-            leave-to="opacity-0 scale-95"
-          >
-            <PopoverPanel
-              focus
-              class="z-30 absolute top-0 inset-x-0 max-w-3xl mx-auto w-full p-2 transition transform origin-top"
-            >
-              <div
-                class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y divide-gray-200"
-              >
-                <div class="pt-3 pb-2">
-                  <div class="flex items-center justify-between px-4">
-                    <div>
-                      <img
-                        class="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-primary-600.svg"
-                        alt="Workflow"
-                      />
-                    </div>
-                    <div class="-mr-2">
-                      <PopoverButton
-                        class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
-                      >
-                        <span class="sr-only">Close menu</span>
-                        <XIcon class="h-6 w-6" aria-hidden="true" />
-                      </PopoverButton>
-                    </div>
-                  </div>
-                  <div class="mt-3 px-2 space-y-1">
-                    <a
-                      href="#"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >Home</a
-                    >
-                    <a
-                      href="#"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >Profile</a
-                    >
-                    <a
-                      href="#"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >Resources</a
-                    >
-                    <a
-                      href="#"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >Company Directory</a
-                    >
-                    <a
-                      href="#"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >Openings</a
-                    >
-                  </div>
-                </div>
-                <div class="pt-4 pb-2" v-if="isLoggedIn">
-                  <div class="flex items-center px-5">
-                    <div class="flex-shrink-0">
-                      <img
-                        class="h-10 w-10 rounded-full"
-                        :src="`/teams/${loggedInTeam}.svg`"
-                        alt=""
-                      />
-                    </div>
-                    <div class="ml-3 min-w-0 flex-1">
-                      <div class="text-base font-medium text-gray-800 truncate">
-                        {{ userStore.username }}
-                      </div>
-                      <div class="text-sm font-medium text-gray-500 truncate">
-                        {{ userStore.mail }}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      class="ml-auto flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                    >
-                      <span class="sr-only">View notifications</span>
-                      <BellIcon class="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <div class="mt-3 px-2 space-y-1">
-                    <component
-                      v-for="item in userNavigation"
-                      :is="item.href ? 'a' : 'button'"
-                      :key="item.name"
-                      @click="item.action"
-                      :href="item.href"
-                      class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                      >{{ item.name }}</component
-                    >
-                  </div>
-                </div>
-              </div>
-            </PopoverPanel>
-          </TransitionChild>
-        </div>
-      </TransitionRoot>
+      <OffCanvasNav :isOpen="offCanvas" :closeNav="() => (offCanvas = false)" />
     </Popover>
     <main class="-mt-24 pb-8">
       <div class="max-w-3xl mx-auto px-1 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h1 class="sr-only">Page title</h1>
         <div class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow">
           <div class="p-3 lg:p-6">
             <router-view></router-view>
@@ -423,12 +306,14 @@ import { ChevronDownIcon } from '@heroicons/vue/solid'
 import TOHLLogo from './assets/logo.svg?component'
 import Modal from '@/components/Modal.vue'
 import LoginForm from '@/components/form/Login.vue'
+import OffCanvasNav from '@/components/nav/OffCanvasNav.vue'
 import { useUserStore } from '@/stores/user'
 
 const authService = inject('authService')
 
 const userStore = useUserStore()
 const loginModal = ref(false)
+const offCanvas = ref(false)
 
 const loggedInTeam = computed(() => userStore.getTeam || 'tohl')
 const isLoggedIn = computed(() => userStore.isLoggedIn || false)
