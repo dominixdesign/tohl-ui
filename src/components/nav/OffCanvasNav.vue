@@ -45,20 +45,23 @@
                       </div>
                     </div>
                   </div>
-                  <div class="relative mt-6 flex-1 px-4 sm:px-6">
+                  <div class="relative mt-6 flex-1">
                     <!-- Replace with your content -->
-                    <ul class="divide-primary-50 divide-y">
+                    <ul class="divide-primary-100 divide-y">
                       <li v-for="nav in navigationStore.nav" :key="nav.title">
                         <router-link
                           :to="nav.path"
-                          class="block px-3 py-2 text-base text-gray-800 uppercase hover:bg-gray-100 hover:text-gray-800"
+                          class="block px-3 py-2 text-base sm:px-6 text-gray-800 font-bold bg-gray-200 uppercase hover:bg-gray-100 hover:text-gray-800"
                           >{{ nav.title }}</router-link
                         >
-                        <ul v-if="nav.children" class="divide-gray-100 divide-y">
+                        <ul
+                          v-if="nav.children"
+                          class="divide-primary-50 divide-y border-t border-primary-50"
+                        >
                           <li v-for="subnav in nav.children" :key="subnav.title">
                             <router-link
                               :to="subnav.path"
-                              class="block px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-800"
+                              class="block pl-7 pr-3 py-2 text-base text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-800"
                               >{{ subnav.title }}</router-link
                             >
                           </li>
