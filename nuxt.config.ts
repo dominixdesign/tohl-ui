@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       link: [{ rel: "stylesheet", href: "https://rsms.me/inter/inter.css" }],
     },
   },
-  buildModules: ["@nuxtjs/tailwindcss"],
+  buildModules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
   vite: {
     plugins: [svgLoader()],
   },

@@ -8,11 +8,22 @@
   },
   "devDependencies": {
     "nuxt": "3.0.0-rc.3",
+    "prettier": "^2.6.2",
     "vite-svg-loader": "^3.3.0"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.6.1",
+    "@apollo/client": "^3.6.4",
+    "@headlessui/vue": "^1.6.2",
     "@heroicons/vue": "^1.0.6",
-    "@nuxtjs/tailwindcss": "5.0.4"
+    "@nuxtjs/composition-api": "^0.32.0",
+    "@nuxtjs/tailwindcss": "5.0.4",
+    "@pinia/nuxt": "^0.1.9",
+    "@tailwindcss/forms": "^0.5.2",
+    "@vue/apollo-composable": "^4.0.0-alpha.17",
+    "graphql": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "jwt-decode": "^3.1.2",
+    "pinia": "^2.0.14",
+    "tabulator-tables": "^5.2.4"
   }
 }
