@@ -36,8 +36,8 @@
                       <div class="ml-3 flex h-7 items-center">
                         <button
                           type="button"
-                          class="rounded-md bg-primary-700 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                          @click="open = false"
+                          class="rounded-md bg-primary-700 text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          @click="closeNav"
                         >
                           <span class="sr-only">Close panel</span>
                           <XIcon class="h-6 w-6" aria-hidden="true" />
