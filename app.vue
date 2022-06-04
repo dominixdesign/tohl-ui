@@ -6,15 +6,13 @@
       v-slot="{ open }"
     >
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div
-          class="relative py-5 flex items-center justify-center lg:justify-between"
-        >
+        <div class="relative py-5 flex items-center justify-center lg:justify-between">
           <!-- Logo -->
           <div class="absolute left-0 flex-shrink-0 lg:static">
-            <router-link to="/">
+            <NuxtLink to="/">
               <span class="sr-only">TOHL</span>
               <TOHLLogo class="h-8 w-auto" alt="TOHL Logo" />
-            </router-link>
+            </NuxtLink>
           </div>
 
           <!-- Right section on desktop -->
@@ -35,11 +33,7 @@
                 class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
               >
                 <span class="sr-only">Login</span>
-                <img
-                  class="h-8 w-8 rounded-full"
-                  :src="`/teams/tohl.svg`"
-                  alt=""
-                />
+                <img class="h-8 w-8 rounded-full" :src="`/teams/tohl.svg`" alt="" />
               </button>
             </div>
             <Menu v-else as="div" class="ml-4 relative flex-shrink-0">
@@ -48,11 +42,7 @@
                   class="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
                 >
                   <span class="sr-only">Open user menu</span>
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    :src="`/teams/${loggedInTeam}.svg`"
-                    alt=""
-                  />
+                  <img class="h-8 w-8 rounded-full" :src="`/teams/${loggedInTeam}.svg`" alt="" />
                 </MenuButton>
               </div>
               <transition
@@ -63,24 +53,18 @@
                 <MenuItems
                   class="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
-                  <MenuItem
-                    v-for="item in userNavigation"
-                    :key="item.name"
-                    v-slot="{ active }"
-                  >
+                  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
                     <a
                       :href="item.href"
                       :class="[
                         active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm text-gray-700',
+                        'block px-4 py-2 text-sm text-gray-700'
                       ]"
                       >{{ item.name }}</a
                     >
                   </MenuItem>
                   <MenuItem>
-                    <span
-                      class="block px-4 py-2 text-sm text-gray-700"
-                      @click="logout"
+                    <span class="block px-4 py-2 text-sm text-gray-700" @click="logout"
                       >Logout</span
                     >
                   </MenuItem>
@@ -94,9 +78,7 @@
             <div class="max-w-xs w-full mx-auto">
               <label for="desktop-search" class="sr-only">Search</label>
               <div class="relative text-white focus-within:text-gray-600">
-                <div
-                  class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center"
-                >
+                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                   <SearchIcon class="h-5 w-5" aria-hidden="true" />
                 </div>
                 <input
@@ -113,33 +95,31 @@
           <!-- Menu button -->
           <div class="absolute right-0 flex-shrink-0 lg:hidden">
             <!-- Mobile menu button -->
-            <Button
+            <button
               class="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-primary-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white"
               @click="offCanvas = true"
             >
               <span class="sr-only">Open main menu</span>
               <MenuIcon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
               <XIcon v-else class="block h-6 w-6" aria-hidden="true" />
-            </Button>
+            </button>
           </div>
         </div>
-        <div
-          class="hidden lg:block border-t border-white border-opacity-20 py-5"
-        >
+        <div class="hidden lg:block border-t border-white border-opacity-20 py-5">
           <div class="grid grid-cols-3 gap-8 items-center">
             <PopoverGroup as="nav" class="flex space-x-10 col-span-2">
               <Popover class="relative" v-slot="{ open }">
                 <PopoverButton
                   :class="[
                     open ? 'text-gray-900' : 'text-gray-200',
-                    'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-300',
+                    'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-300'
                   ]"
                 >
                   <span>Solutions</span>
                   <ChevronDownIcon
                     :class="[
                       open ? 'text-gray-600' : 'text-gray-400',
-                      'ml-2 h-5 w-5 group-hover:text-gray-100',
+                      'ml-2 h-5 w-5 group-hover:text-gray-100'
                     ]"
                     aria-hidden="true"
                   />
@@ -171,11 +151,7 @@
                           <div
                             class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12"
                           >
-                            <component
-                              :is="item.icon"
-                              class="h-6 w-6"
-                              aria-hidden="true"
-                            />
+                            <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
                           </div>
                           <div class="ml-4">
                             <p class="text-base font-medium text-gray-900">
@@ -188,14 +164,9 @@
                         </a>
                       </div>
                       <div class="p-5 bg-gray-50 sm:p-8">
-                        <a
-                          href="#"
-                          class="-m-3 p-3 flow-root rounded-md hover:bg-gray-100"
-                        >
+                        <a href="#" class="-m-3 p-3 flow-root rounded-md hover:bg-gray-100">
                           <div class="flex items-center">
-                            <div class="text-base font-medium text-gray-900">
-                              Enterprise
-                            </div>
+                            <div class="text-base font-medium text-gray-900">Enterprise</div>
                             <span
                               class="ml-3 inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium leading-5 bg-indigo-100 text-indigo-800"
                             >
@@ -203,8 +174,7 @@
                             </span>
                           </div>
                           <p class="mt-1 text-sm text-gray-500">
-                            Empower your entire team with even more advanced
-                            tools.
+                            Empower your entire team with even more advanced tools.
                           </p>
                         </a>
                       </div>
@@ -212,31 +182,28 @@
                   </PopoverPanel>
                 </transition>
               </Popover>
-              <router-link
-                to="/about"
-                class="text-base font-medium text-gray-300 hover:text-gray-100"
-              >
+              <NuxtLink to="/about" class="text-base font-medium text-gray-300 hover:text-gray-100">
                 About
-              </router-link>
-              <router-link
+              </NuxtLink>
+              <NuxtLink
                 to="/TOHL13pre/teams"
                 class="text-base font-medium text-gray-300 hover:text-gray-100"
               >
                 Teams
-              </router-link>
+              </NuxtLink>
 
               <Popover class="relative" v-slot="{ open }">
                 <PopoverButton
                   :class="[
                     open ? 'text-gray-100' : 'text-gray-300',
-                    'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-300',
+                    'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-300'
                   ]"
                 >
                   <span>More</span>
                   <ChevronDownIcon
                     :class="[
                       open ? 'text-gray-100' : 'text-gray-300',
-                      'ml-2 h-5 w-5 group-hover:text-gray-100',
+                      'ml-2 h-5 w-5 group-hover:text-gray-100'
                     ]"
                     aria-hidden="true"
                   />
@@ -256,9 +223,7 @@
                     <div
                       class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"
                     >
-                      <div
-                        class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
-                      >
+                      <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                         <a
                           v-for="item in resources"
                           :key="item.name"
@@ -282,9 +247,7 @@
               <div class="max-w-md w-full mx-auto">
                 <label for="mobile-search" class="sr-only">Search</label>
                 <div class="relative text-white focus-within:text-gray-600">
-                  <div
-                    class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center"
-                  >
+                  <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                     <SearchIcon class="h-5 w-5" aria-hidden="true" />
                   </div>
                   <input
@@ -301,16 +264,11 @@
         </div>
       </div>
 
-      <nav-off-canvas-nav
-        :isOpen="offCanvas"
-        :closeNav="() => (offCanvas = false)"
-      />
+      <nav-off-canvas-nav :isOpen="offCanvas" :closeNav="() => (offCanvas = false)" />
     </Popover>
     <main class="-mt-24 pb-8">
       <div class="max-w-3xl mx-auto px-1 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div
-          class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow"
-        >
+        <div class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow">
           <div class="p-3 lg:p-6">
             <NuxtPage />
           </div>
@@ -324,8 +282,8 @@
 </template>
 
 <script setup>
-import { ref, computed, inject } from "vue";
-import { useMutation } from "@vue/apollo-composable";
+import { ref, computed, inject } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
 import {
   Menu,
   MenuButton,
@@ -337,86 +295,78 @@ import {
   PopoverPanel,
   PopoverGroup,
   TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import {
-  BellIcon,
-  MenuIcon,
-  XIcon,
-  ChartBarIcon,
-} from "@heroicons/vue/outline";
-import { SearchIcon } from "@heroicons/vue/solid";
-import { ChevronDownIcon } from "@heroicons/vue/solid";
-import TOHLLogo from "~/assets/logo.svg?component";
-import { useUserStore } from "~/stores/user";
+  TransitionRoot
+} from '@headlessui/vue'
+import { BellIcon, MenuIcon, XIcon, ChartBarIcon } from '@heroicons/vue/outline'
+import { SearchIcon } from '@heroicons/vue/solid'
+import { ChevronDownIcon } from '@heroicons/vue/solid'
+import TOHLLogo from '~/assets/logo.svg?component'
+import { useUserStore } from '~/stores/user'
 
-const authService = inject("authService");
+const authService = inject('authService')
 
-const userStore = useUserStore();
-const loginModal = ref(false);
-const offCanvas = ref(false);
+const userStore = useUserStore()
+const loginModal = ref(false)
+const offCanvas = ref(false)
 
-const loggedInTeam = computed(() => userStore.getTeam || "tohl");
-const isLoggedIn = computed(() => userStore.isLoggedIn || false);
+const loggedInTeam = computed(() => userStore.getTeam || 'tohl')
+const isLoggedIn = computed(() => userStore.isLoggedIn || false)
 
 function setLoginModal(value) {
-  loginModal.value = value;
+  loginModal.value = value
 }
 
 function logout() {
-  authService.logout();
+  authService.logout()
 }
 
 const solutions = [
   {
-    name: "Blog",
-    description: "Learn about tips, product updates and company culture.",
-    href: "#",
-    icon: ChartBarIcon,
+    name: 'Blog',
+    description: 'Learn about tips, product updates and company culture.',
+    href: '#',
+    icon: ChartBarIcon
   },
   {
-    name: "Help Center",
-    description:
-      "Get all of your questions answered in our forums of contact support.",
-    href: "#",
-    icon: ChartBarIcon,
+    name: 'Help Center',
+    description: 'Get all of your questions answered in our forums of contact support.',
+    href: '#',
+    icon: ChartBarIcon
   },
   {
-    name: "Guides",
-    description:
-      "Learn how to maximize our platform to get the most out of it.",
-    href: "#",
-    icon: ChartBarIcon,
+    name: 'Guides',
+    description: 'Learn how to maximize our platform to get the most out of it.',
+    href: '#',
+    icon: ChartBarIcon
   },
   {
-    name: "Events",
-    description:
-      "Check out webinars with experts and learn about our annual conference.",
-    href: "#",
-    icon: ChartBarIcon,
+    name: 'Events',
+    description: 'Check out webinars with experts and learn about our annual conference.',
+    href: '#',
+    icon: ChartBarIcon
   },
   {
-    name: "Security",
-    description: "Understand how we take your privacy seriously.",
-    href: "#",
-    icon: ChartBarIcon,
-  },
-];
+    name: 'Security',
+    description: 'Understand how we take your privacy seriously.',
+    href: '#',
+    icon: ChartBarIcon
+  }
+]
 
 const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-};
+  name: 'Tom Cook',
+  email: 'tom@example.com'
+}
 const resources = [
-  { name: "Home", href: "#", current: true },
-  { name: "Profile", href: "#", current: false },
-  { name: "Resources", href: "#", current: false },
-  { name: "Company Directory", href: "#", current: false },
-  { name: "Openings", href: "#", current: false },
-];
+  { name: 'Home', href: '#', current: true },
+  { name: 'Profile', href: '#', current: false },
+  { name: 'Resources', href: '#', current: false },
+  { name: 'Company Directory', href: '#', current: false },
+  { name: 'Openings', href: '#', current: false }
+]
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", action: logout },
-];
+  { name: 'Your Profile', href: '#' },
+  { name: 'Settings', href: '#' },
+  { name: 'Sign out', action: logout }
+]
 </script>

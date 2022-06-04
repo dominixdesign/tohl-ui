@@ -1,0 +1,23 @@
+
+$headerBackgroundColor: #CDCDCD;
+$headerTextColor: #B91E1F;
+$headerMargin: 1px;
+
+@import "/node_modules/tabulator-tables/src/scss/themes/tabulator_simple.scss";
+
+.tabulator {
+  @apply text-xs;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
+  padding-right: 0px;
+}
+
+.tabulator .tabulator-header .tabulator-col[aria-sort="ascending"], .tabulator .tabulator-header .tabulator-col[aria-sort="descending"] {
+  background: #B91E1F;
+  color: #f4f4f4;
+}
+
+.tabulator .tabulator-group {
+  background: #eee;
+}

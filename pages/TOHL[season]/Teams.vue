@@ -51,22 +51,22 @@ const teams = computed(() => result.value.teams || [])
           />
           <div class="font-medium text-lg leading-6 space-x-1 space-y-1">
             <h3 class="uppercase">{{ team.teamsim }}</h3>
-            <router-link
+            <NuxtLink
               type="button"
               :to="`/TOHL${$route.params.season}/team/${team.teamid}/roster`"
               class="inline-flex items-center px-2 py-1 border border-transparent shadow-sm text-xs leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <UserGroupIcon class="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
               Roster
-            </router-link>
-            <router-link
+            </NuxtLink>
+            <NuxtLink
               type="button"
               :to="`/TOHL${$route.params.season}/team/${team.teamid}/finances`"
               class="inline-flex items-center px-2 py-1 border border-transparent shadow-sm text-xs leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <CurrencyDollarIcon class="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
               Finanzen
-            </router-link>
+            </NuxtLink>
           </div>
         </div>
       </li>

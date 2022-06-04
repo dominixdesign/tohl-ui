@@ -11,16 +11,12 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-        />
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-hidden">
         <div class="absolute inset-0 overflow-hidden">
-          <div
-            class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
-          >
+          <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
             <TransitionChild
               as="template"
               enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -31,9 +27,7 @@
               leave-to="translate-x-full"
             >
               <DialogPanel class="pointer-events-auto w-screen max-w-md">
-                <div
-                  class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
-                >
+                <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                   <div class="bg-primary-500 py-6 px-4 sm:px-6">
                     <div class="flex items-center justify-between">
                       <DialogTitle class="text-lg font-medium text-white">
@@ -55,23 +49,20 @@
                     <!-- Replace with your content -->
                     <ul class="divide-primary-100 divide-y">
                       <li v-for="nav in navigationStore.nav" :key="nav.title">
-                        <router-link
+                        <NuxtLink
                           :to="nav.path"
                           class="block px-3 py-2 text-base sm:px-6 text-gray-800 font-bold bg-gray-200 uppercase hover:bg-gray-100 hover:text-gray-800"
-                          >{{ nav.title }}</router-link
+                          >{{ nav.title }}</NuxtLink
                         >
                         <ul
                           v-if="nav.children"
                           class="divide-primary-50 divide-y border-t border-primary-50"
                         >
-                          <li
-                            v-for="subnav in nav.children"
-                            :key="subnav.title"
-                          >
-                            <router-link
+                          <li v-for="subnav in nav.children" :key="subnav.title">
+                            <NuxtLink
                               :to="subnav.path"
                               class="block pl-7 pr-3 py-2 text-base text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-800"
-                              >{{ subnav.title }}</router-link
+                              >{{ subnav.title }}</NuxtLink
                             >
                           </li>
                         </ul>
@@ -90,22 +81,16 @@
 </template>
 
 <script setup>
-import { toRefs } from "vue";
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import { XIcon } from "@heroicons/vue/outline";
-import { useNavigation } from "~/stores/navigation";
+import { toRefs } from 'vue'
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { XIcon } from '@heroicons/vue/outline'
+import { useNavigation } from '~/stores/navigation'
 
-const navigationStore = useNavigation();
+const navigationStore = useNavigation()
 
 const props = defineProps({
   isOpen: Boolean,
-  closeNav: Function,
-});
-const { isOpen, closeNav } = toRefs(props);
+  closeNav: Function
+})
+const { isOpen, closeNav } = toRefs(props)
 </script>
