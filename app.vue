@@ -142,10 +142,10 @@
                       <div
                         class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2"
                       >
-                        <a
+                        <NuxtLink
                           v-for="item in solutions"
                           :key="item.name"
-                          :href="item.href"
+                          to="/TOHL13pre/standings"
                           class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                         >
                           <div
@@ -161,7 +161,7 @@
                               {{ item.description }}
                             </p>
                           </div>
-                        </a>
+                        </NuxtLink>
                       </div>
                       <div class="p-5 bg-gray-50 sm:p-8">
                         <a href="#" class="-m-3 p-3 flow-root rounded-md hover:bg-gray-100">

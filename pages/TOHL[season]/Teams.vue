@@ -6,7 +6,7 @@ import { UserGroupIcon, CurrencyDollarIcon } from '@heroicons/vue/solid'
 
 const route = useRoute()
 
-const { result, loading, error } = useQuery(
+const { result, loading, error } = await useQuery(
   gql`
     query getTeams($season: String!) {
       teams(filter: { season: $season }) {

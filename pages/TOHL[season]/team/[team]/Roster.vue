@@ -74,6 +74,7 @@ const columns = [
     minWidth: 100,
     resizable: false,
     frozen: true,
+    cssClass: 'text-tohl-500 underline',
     responsive: 0,
     cellClick: function (e, cell) {
       var data = cell.getRow().getData()
@@ -291,5 +292,7 @@ const columns = [
     <div v-else>
       <Datatable :tabledata="players" :columns="columns" />
     </div>
+    <span class="text-secondary-500 font-bold"></span>
+    <span class="text-tohl-500 font-bold underline"></span>
   </div>
 </template>

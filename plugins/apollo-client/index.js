@@ -6,7 +6,7 @@ import {
   ApolloLink,
   concat
 } from '@apollo/client/core'
-import { DefaultApolloClient } from '@vue/apollo-composable'
+import { ApolloClients } from '@vue/apollo-composable'
 import { AuthService } from './auth.class'
 
 const colors = {
@@ -35,11 +35,6 @@ const colors = {
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const httpLink = createHttpLink({
-    // You should use an absolute URL here
-    uri: 'http://localhost:3000/graphql'
-  })
-
   const authMiddleware = new ApolloLink((operation, forward) => {
     // add the authorization to the headers
     const token = localStorage.getItem('tohl-token')
@@ -53,25 +48,53 @@ export default defineNuxtPlugin((nuxtApp) => {
     return forward(operation)
   })
 
-  // foreground: (team) => colors[team.teamid]?.f || '#fff',
-  // background: (team) => colors[team.teamid]?.b || '#000'
-  //
-  const cache = new InMemoryCache()
+  const apolloClients = {}
 
-  // Create the apollo client
-  const apolloClient = new ApolloClient({
-    link: concat(authMiddleware, httpLink),
-    cache,
-    resolvers: {
-      Team: {
-        foreground: (team) => colors[team.teamid]?.f || '#fff',
-        background: (team) => colors[team.teamid]?.b || '#000'
-      }
+  const resolvers = {
+    Team: {
+      foreground: (team) => colors[team.teamid]?.f || '#fff',
+      background: (team) => colors[team.teamid]?.b || '#000'
     }
+  }
+
+  const key = 'default'
+
+  const httpLink = createHttpLink({
+    // You should use an absolute URL here
+    uri: 'http://localhost:3000/graphql'
   })
 
-  nuxtApp.vueApp.provide(DefaultApolloClient, apolloClient)
+  const cache = new InMemoryCache()
+  if (process.server) {
+    const apolloClient = new ApolloClient({
+      ssrMode: true,
+      link: httpLink,
+      cache: new InMemoryCache(),
+      resolvers
+    })
+    nuxtApp.hook('app:rendered', () => {
+      // store the result
+      // eslint-disable-next-line prefer-template
+      nuxtApp.payload.data['apollo-' + key] = apolloClient.extract()
+    })
+    apolloClients[key] = apolloClient
+  } else {
+    // restore to cache, so the client won't request
+    // eslint-disable-next-line prefer-template
+    cache.restore(JSON.parse(JSON.stringify(nuxtApp.payload.data['apollo-' + key])))
+    const apolloClient = new ApolloClient({
+      link: concat(authMiddleware, httpLink),
+      cache: cache,
+      ssrForceFetchDelay: 100,
+      resolvers
+    })
+    apolloClients[key] = apolloClient
+  }
 
-  const authService = new AuthService(apolloClient)
+  // provide client, used in useQuery()
+  nuxtApp.vueApp.provide(ApolloClients, apolloClients)
+  nuxtApp.provide('apollo', apolloClients)
+
+  const authService = new AuthService(apolloClients[key])
   nuxtApp.vueApp.provide('authService', authService)
 })
