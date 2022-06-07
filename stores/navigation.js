@@ -56,12 +56,17 @@ export const useNavigation = defineStore({
       { title: 'Forum', path: '/board' }
     ]
   }),
+  actions: {
+    setSeasons(seasons) {
+      this.availableSeasons = [...seasons]
+    }
+  },
   getters: {
-    getSeason(state, getters) {
+    getSeason(state) {
       if (state.season) {
         return state.season
       }
-      return getters.latestSeason
+      return this.latestSeason
     },
     latestSeason(state) {
       return [...state.availableSeasons].pop()

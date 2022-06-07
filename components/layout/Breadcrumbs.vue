@@ -66,7 +66,6 @@ const crumbs = computed(() => {
       })
     }
   })
-  console.log(crumbs)
   return crumbs
 })
 

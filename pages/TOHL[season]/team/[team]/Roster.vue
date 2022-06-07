@@ -319,7 +319,6 @@ watch(
         groupBy.push(group.id)
       }
     }
-    console.log(groupBy)
     datatableOptions.value = {
       groupBy,
       groupHeader: function (value, count) {
