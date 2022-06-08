@@ -50,7 +50,7 @@
                     <ul class="divide-primary-100 divide-y">
                       <li v-for="nav in navigationStore.nav" :key="nav.title">
                         <NuxtLink
-                          :to="nav.path"
+                          :to="getPath(nav.path)"
                           class="block px-3 py-2 text-base sm:px-6 text-gray-800 font-bold bg-gray-200 uppercase hover:bg-gray-100 hover:text-gray-800"
                           >{{ nav.title }}</NuxtLink
                         >
@@ -60,7 +60,7 @@
                         >
                           <li v-for="subnav in nav.children" :key="subnav.title">
                             <NuxtLink
-                              :to="subnav.path"
+                              :to="getPath(subnav.path)"
                               class="block pl-7 pr-3 py-2 text-base text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-800"
                               >{{ subnav.title }}</NuxtLink
                             >
@@ -81,16 +81,25 @@
 </template>
 
 <script setup>
+import { template } from 'lodash-es'
 import { toRefs } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { XIcon } from '@heroicons/vue/outline'
 import { useNavigation } from '~/stores/navigation'
 
 const navigationStore = useNavigation()
+const route = useRoute()
 
 const props = defineProps({
   isOpen: Boolean,
   closeNav: Function
 })
 const { isOpen, closeNav } = toRefs(props)
+
+watch(route, closeNav.value)
+
+const getPath = (path) => {
+  const compiled = template(path)
+  return compiled({ season: navigationStore.getSeason })
+}
 </script>
