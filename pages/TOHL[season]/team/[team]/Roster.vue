@@ -73,7 +73,7 @@ const columns = [
     title: 'Name',
     field: 'display_lname',
     sorter: 'string',
-    minWidth: 100,
+    minWidth: 200,
     resizable: false,
     frozen: true,
     cssClass: 'text-tohl-500 underline',
@@ -334,6 +334,7 @@ watch(
     <div v-if="loading">laden...</div>
     <div v-else-if="error">oops {{ error }}</div>
     <div v-else>
+      <layout-headline :showSeasonSelect="true">{{ $route.params.team }} Roster</layout-headline>
       <Popover class="z-10 relative" v-slot="{ open }">
         <div class="max-w-7xl mx-auto flex justify-end">
           <PopoverButton

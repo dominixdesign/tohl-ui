@@ -29,7 +29,7 @@ const teams = computed(() => result.value.teams || [])
 
 <template>
   <main>
-    <h2>Teams of {{ $route.params.season }}</h2>
+    <layout-headline :showSeasonSelect="true">Teams</layout-headline>
     <div v-if="loading">laden...</div>
     <div v-else-if="error">oops {{ error }}</div>
     <ul
