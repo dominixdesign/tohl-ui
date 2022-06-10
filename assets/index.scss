@@ -1,4 +1,11 @@
 
+html {
+  @apply bg-gray-100 h-full;
+}
+body {
+  @apply overflow-y-scroll h-full;
+}
+
 $headerBackgroundColor: #CDCDCD;
 $headerTextColor: #B91E1F;
 $headerMargin: 1px;

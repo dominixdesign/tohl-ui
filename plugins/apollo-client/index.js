@@ -9,6 +9,14 @@ import {
 import { ApolloClients } from '@vue/apollo-composable'
 import { AuthService } from './auth.class'
 
+const positions = {
+  C: 'Center',
+  LW: 'Left-Wing',
+  RW: 'Right-Wing',
+  D: 'Defender',
+  G: 'Goalie'
+}
+
 const colors = {
   kni: { f: '#000', b: '#27A349' },
   np: { f: '#000', b: '#558148' },
@@ -54,6 +62,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     Team: {
       foreground: (team) => colors[team.teamid]?.f || '#fff',
       background: (team) => colors[team.teamid]?.b || '#000'
+    },
+    Playerdata: {
+      position: (playerdata) => positions[playerdata.pos]
     }
   }
 
