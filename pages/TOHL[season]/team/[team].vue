@@ -3,9 +3,10 @@
     <div v-if="loading">lädt...</div>
     <div v-else-if="error">oops {{ error }}</div>
     <div v-else>
-      <div>
-        <img class="h-32 w-full object-cover lg:h-48" :src="backgroundImage" alt="" />
-      </div>
+      <div
+        class="h-24 w-full"
+        :style="`background: ${team.background}; color: ${team.foreground};`"
+      ></div>
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex">
@@ -61,11 +62,6 @@
             </div>
           </div>
         </div>
-        <div class="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
-          <h1 class="text-2xl font-bold text-gray-900 truncate">
-            {{ profile.name }}
-          </h1>
-        </div>
       </div>
     </div>
     <NuxtPage />
@@ -101,11 +97,6 @@ const { result, loading, error } = useQuery(
   }
 )
 const team = computed(() => result.value.team || {})
-const backgroundImage = computed(() =>
-  result.value?.team?.teamid
-    ? `https://www.my-tohl.org/tohl/img/teams/${result.value.team.teamid.toUpperCase()}_head.png`
-    : ''
-)
 
 const tabs = computed(() => [
   {
@@ -119,25 +110,6 @@ const tabs = computed(() => [
     href: `/TOHL${route.params.season}/team/${route.params.team}/finances`,
     current:
       `/TOHL${route.params.season}/team/${route.params.team}/finances` === currentRoute.value.path
-  },
-  { name: 'Team Members', href: '#' },
-  { name: 'Billing', href: '#' }
+  }
 ])
-
-const profile = {
-  name: 'Ricardo Cooper',
-  email: 'ricardo.cooper@example.com',
-  avatar:
-    'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-  fields: [
-    ['Phone', '(555) 123-4567'],
-    ['Email', 'ricardocooper@example.com'],
-    ['Title', 'Senior Front-End Developer'],
-    ['Team', 'Product Development'],
-    ['Location', 'San Francisco'],
-    ['Sits', 'Oasis, 4th floor'],
-    ['Salary', '$145,000'],
-    ['Birthday', 'June 8, 1990']
-  ]
-}
 </script>

@@ -73,10 +73,10 @@ const columns = [
     title: 'Name',
     field: 'display_lname',
     sorter: 'string',
-    minWidth: 200,
+    width: 200,
     resizable: false,
     frozen: true,
-    cssClass: 'text-tohl-500 underline',
+    cssClass: 'text-tohl-500 underline !cursor-pointer',
     responsive: 0,
     cellClick: function (e, cell) {
       var data = cell.getRow().getData()
@@ -396,7 +396,7 @@ watch(
       </Popover>
       <Datatable :tabledata="players" :columns="columns" :options="datatableOptions" />
     </div>
-    <span class="text-secondary-500 font-bold"></span>
+    <span class="text-secondary-500 font-bold !cursor-pointer"></span>
     <span class="text-tohl-500 font-bold underline"></span>
   </div>
 </template>
