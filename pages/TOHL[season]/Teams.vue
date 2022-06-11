@@ -30,10 +30,11 @@ const teams = computed(() => result.value.teams || [])
 <template>
   <main>
     <layout-headline :showSeasonSelect="true">Teams</layout-headline>
-    <div v-if="loading">laden...</div>
-    <div v-else-if="error">oops {{ error }}</div>
+    <div v-if="loading" key="teams-loading">laden...</div>
+    <div v-else-if="error" key="teams-error">oops {{ error }}</div>
     <ul
       v-else
+      key="teams-display"
       role="list"
       class="space-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6 sm:space-y-0 lg:grid-cols-3 xl:grid-cols-4 lg:gap-8"
     >

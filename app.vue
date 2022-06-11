@@ -115,7 +115,7 @@
         <div class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow">
           <layout-breadcrumbs />
           <div class="p-3 lg:p-6 !pt-1">
-            <NuxtPage />
+            <NuxtPage :key="`root-${$route.fullPath}`" />
           </div>
         </div>
       </div>

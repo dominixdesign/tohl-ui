@@ -1,8 +1,8 @@
 <template>
   <main>
-    <div v-if="loading">lädt...</div>
-    <div v-else-if="error">oops {{ error }}</div>
-    <div v-else>
+    <div v-if="loading" key="team-loading">lädt...</div>
+    <div v-else-if="error" key="team-error">oops {{ error }}</div>
+    <div v-else key="team-display">
       <div
         class="h-24 w-full"
         :style="`background: ${team.background}; color: ${team.foreground};`"
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <NuxtPage />
+    <NuxtPage :key="`team-${$route.fullPath}`" />
   </main>
 </template>
 

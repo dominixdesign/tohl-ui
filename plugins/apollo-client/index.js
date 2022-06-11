@@ -65,6 +65,28 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     Playerdata: {
       position: (playerdata) => positions[playerdata.pos]
+    },
+    Playerstats: {
+      spercentage: (stat) => {
+        if (stat.games <= 0) {
+          return 0
+        }
+        let sp = 0
+        if (stat.goals > 0) {
+          sp = (100 * stat.goals) / stat.shots
+        }
+        return sp
+      },
+      averageicetime: (stat) => {
+        if (stat.games <= 0) {
+          return false
+        }
+        let atoi = 0
+        if (stat.icetime > 0) {
+          atoi = stat.icetime / stat.games
+        }
+        return atoi
+      }
     }
   }
 

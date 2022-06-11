@@ -27,6 +27,7 @@
     "lodash-es": "^4.17.21",
     "pinia": "^2.0.14",
     "sass": "^1.52.2",
+    "@nuxtjs/i18n": "npm:@nuxtjs/i18n-edge",
     "tabulator-tables": "^5.2.4"
   }
 }
