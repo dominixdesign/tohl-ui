@@ -266,7 +266,7 @@ const tabs = [
 
 <style scoped>
 .ratings-table {
-  @apply border border-gray-200 text-xs mt-2 ml-0 font-mono;
+  @apply border border-gray-200 text-xs mt-2 ml-0;
 }
 .ratings-table th,
 .ratings-table td {
@@ -285,6 +285,6 @@ const tabs = [
   padding: 0 2px;
 }
 .ratings-table td.ov {
-  @apply text-3xl -tracking-[.1em] font-bold pr-2 pt-2 leading-3;
+  @apply text-3xl -tracking-[.1em] font-bold pr-2 leading-3;
 }
 </style>

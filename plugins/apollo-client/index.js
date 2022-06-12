@@ -3,6 +3,7 @@ import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
+  defaultDataIdFromObject,
   ApolloLink,
   concat
 } from '@apollo/client/core'
@@ -97,12 +98,23 @@ export default defineNuxtPlugin((nuxtApp) => {
     uri: 'http://localhost:3000/graphql'
   })
 
-  const cache = new InMemoryCache()
+  const cacheOptions = {
+    typePolicies: {
+      Playerstats: {
+        keyFields: ['season', 'team', 'player']
+      },
+      Team: {
+        keyFields: ['teamid']
+      }
+    }
+  }
+
+  const cache = new InMemoryCache(cacheOptions)
   if (process.server) {
     const apolloClient = new ApolloClient({
       ssrMode: true,
       link: httpLink,
-      cache: new InMemoryCache(),
+      cache: new InMemoryCache(cacheOptions),
       resolvers
     })
     nuxtApp.hook('app:rendered', () => {
