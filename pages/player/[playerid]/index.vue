@@ -5,7 +5,7 @@
     <div v-if="allSeasons" key="player-career-display">
       <div v-for="typer in types" class="statstable overflow-x-auto" :key="`${typer}`">
         <h3 class="ml-1 mb-2 text-xl font-bold sm:ml-0">
-          {{ `seasontypes.${typer}` }}
+          {{ $t(`seasontypes.${typer}`) }}
         </h3>
         <table v-if="allSeasons[typer] && Object.keys(allSeasons[typer]).length > 0">
           <thead>
