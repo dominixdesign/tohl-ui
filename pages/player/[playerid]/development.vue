@@ -16,7 +16,7 @@
 <script setup>
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import tailwind from '~/tailwind.config.js'
+import colors from '~/tailwind.colors.json'
 
 const route = useRoute()
 
@@ -82,7 +82,7 @@ watch(
           return {
             label: s.season,
             borderColor: 'rgba(0,0,0,0.5)',
-            backgroundColor: tailwind.theme.extend.colors[schema][color],
+            backgroundColor: colors[schema][color],
             borderWidth: 1,
             data: [
               s.it,
@@ -106,7 +106,7 @@ watch(
           return {
             label: s.season,
             borderColor: 'rgba(0,0,0,0.5)',
-            backgroundColor: tailwind.theme.extend.colors[schema][color],
+            backgroundColor: colors[schema][color],
             borderWidth: 1,
             data: [
               s.it - prev.it,

@@ -52,7 +52,7 @@
             <li class="pl-2">{{ 'draft' }}</li>
           </ul>
           <table
-            class="ratings-table hidden sm:block"
+            class="ratings-table hidden sm:table"
             border="0"
             cellspacing="0"
             cellpadding="0"
