@@ -32,17 +32,17 @@ export default {
     RW: 'Right-Wings'
   },
   leader: {
-    goals: '0 Tore | Ein Tor | {count} Tore',
-    points: '0 Punkte | Ein Punkt | {count} Punkte',
-    assists: '0 Assists | Ein Assist | {count} Assists',
-    plusminus: '+/- 0 | +1 | +{count}',
-    pim: '0 Strafminuten | Eine Strafminute | {count} Strafminuten',
-    hits: '0 Hits | Ein Hit | {count} Hits',
-    shots: '0 Schüsse | Ein Schuss | {count} Schüsse',
-    icetime: 'Keine Eiszeit | Ein Minute Eiszeit | {count} Minuten Eiszeit',
-    gaa: '{count} Gegentore pro Spiel',
-    shutout: '0 Shutouts | 1 Shutout | {count} Shutouts',
-    savepercentage: '0% Fangquote | 1% Fangquote | {count}% Fangquote'
+    goals: '0 Tore | Ein Tor | ${count} Tore',
+    points: '0 Punkte | Ein Punkt | ${count} Punkte',
+    assists: '0 Assists | Ein Assist | ${count} Assists',
+    plusminus: '+/- 0 | +1 | +${count}',
+    pim: '0 Strafminuten | Eine Strafminute | ${count} Strafminuten',
+    hits: '0 Hits | Ein Hit | ${count} Hits',
+    shots: '0 Schüsse | Ein Schuss | ${count} Schüsse',
+    icetime: 'Keine Eiszeit | Ein Minute Eiszeit | ${count} Minuten Eiszeit',
+    gaa: '${count} Gegentore pro Spiel',
+    shutout: '0 Shutouts | 1 Shutout | ${count} Shutouts',
+    savepercentage: '0% Fangquote | 1% Fangquote | ${count}% Fangquote'
   },
   top10: {
     offense: 'Offensive Statistiken',
@@ -68,7 +68,7 @@ export default {
     savepercentage: 'Fangquote (in %)',
     shotsfaced: 'Schüsse aufs Tor'
   },
-  sperre: '0 Spiele | ein Spiel | {count} Spiele',
+  sperre: '0 Spiele | ein Spiel | ${count} Spiele',
   playersubs: {
     career: 'Karrieredaten',
     farm: 'Farmstatistik',
@@ -197,6 +197,6 @@ export default {
     'EA-2': 'Zweiter extra Angreifer'
   },
   board: {
-    postCount: 'Keine Beiträge | Ein Beitrag | {count} Beiträge'
+    postCount: 'Keine Beiträge | Ein Beitrag | ${count} Beiträge'
   }
 }

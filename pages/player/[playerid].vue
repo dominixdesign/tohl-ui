@@ -9,23 +9,7 @@
     <div class="md:flex md:items-center md:justify-between">
       <div class="flex items-start space-x-5">
         <div class="flex-shrink-0">
-          <div class="relative">
-            <img
-              class="h-32 w-28 object-contain"
-              :src="`https://my-tohl.org/img/player/${player.id}.jpg`"
-              alt=""
-            />
-            <span class="absolute inset-0 shadow-inner border border-gray-100" aria-hidden="true" />
-            <span
-              class="absolute bottom-0 right-0 transform block border-2 border-white rounded-full translate-x-2 translate-y-2"
-            >
-              <img
-                class="block h-10 w-10 rounded-full p-1 bg-white"
-                :src="`/teams/${player.seasondata.team.teamid}.svg`"
-                alt=""
-              />
-            </span>
-          </div>
+          <player-photo :playerid="player.id" :teamid="player.seasondata.team.teamid" />
         </div>
         <div>
           <h1 class="text-2xl font-bold text-gray-900">
