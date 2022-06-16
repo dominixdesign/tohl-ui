@@ -40,7 +40,7 @@ export default {
     hits: '0 Hits | Ein Hit | ${count} Hits',
     shots: '0 Schüsse | Ein Schuss | ${count} Schüsse',
     icetime: 'Keine Eiszeit | Ein Minute Eiszeit | ${count} Minuten Eiszeit',
-    gaa: '${count} Gegentore pro Spiel',
+    gaa: '${count} Gegentore pro Spiel | ${count} Gegentore pro Spiel | ${count} Gegentore pro Spiel',
     shutout: '0 Shutouts | 1 Shutout | ${count} Shutouts',
     savepercentage: '0% Fangquote | 1% Fangquote | ${count}% Fangquote'
   },

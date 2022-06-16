@@ -32,3 +32,44 @@ $headerMargin: 1px;
 .tabulator-row {
   cursor: text !important;
 }
+
+.top10__table {
+  @apply relative w-full min-w-full divide-y divide-gray-200 font-light;
+}
+
+
+.top10__table thead {
+  @apply sticky top-0 bg-primary-500 text-right text-xs uppercase tracking-wider text-primary-50;
+}
+
+
+.top10__table thead th {
+  @apply px-6 py-3 text-left;
+}
+
+.top10__table tbody tr {
+  @apply text-right text-sm bg-gray-100;
+}
+
+.top10__table tbody tr:hover {
+  @apply bg-gray-200;
+}
+
+.top10__table tbody tr td:nth-child(1) {
+  @apply whitespace-nowrap py-0.5 pl-2 text-gray-900;
+}
+
+
+.top10__table tbody tr td:nth-child(2) {
+  @apply whitespace-nowrap px-3 py-0.5 text-left text-gray-900;
+}
+
+.top10__table tbody tr td:nth-child(3) {
+  @apply whitespace-nowrap py-0.5 pl-2 pr-4 text-xs italic text-gray-600;
+}
+
+
+.top10__table tbody tr td:nth-child(4) {
+  @apply whitespace-nowrap py-0.5 pl-2 pr-4 text-gray-600;
+}
+

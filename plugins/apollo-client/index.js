@@ -40,7 +40,9 @@ const colors = {
   rap: { f: '#D71920', b: '#3B4D81' },
   ali: { f: '#73BF44', b: '#E00885' },
   voo: { f: '#B7AB94', b: '#C52839' },
-  bro: { f: '#000', b: '#7D241E' }
+  bro: { f: '#000', b: '#7D241E' },
+  wol: { f: '#fff', b: '#bfa57f' },
+  adm: { f: '#dad265', b: '#197fbd' }
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
