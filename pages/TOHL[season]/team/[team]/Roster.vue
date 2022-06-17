@@ -302,7 +302,9 @@ const columns = [
 const grouping = ref(false)
 const open = ref(false)
 
-const datatableOptions = ref({})
+const datatableOptions = ref({
+  height: '90vh'
+})
 
 const groups = reactive([
   { id: 'seasondata.cd', name: 'Fitness', active: ref(false) },

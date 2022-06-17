@@ -63,8 +63,8 @@ export default {
     enforcerpoints: 'Enforcerpunkte',
     enforcer: 'Enforcer',
     fightswon: 'Gewonnene Fights',
-    players: 'Top 10 Feldspieler',
-    positions: 'Top 10 nach Positionen',
+    players: 'Feldspieler',
+    positions: 'Nach Positionen',
     savepercentage: 'Fangquote (in %)',
     shotsfaced: 'Schüsse aufs Tor'
   },

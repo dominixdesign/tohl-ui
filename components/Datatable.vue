@@ -7,7 +7,10 @@ const datatable = ref(null)
 const props = defineProps({
   tabledata: Array,
   columns: Array,
-  options: Object
+  options: {
+    type: Object,
+    default: () => ({})
+  }
 })
 const { tabledata, columns, options } = toRefs(props)
 
@@ -21,7 +24,6 @@ watchEffect(() => {
         headerSortElement: '',
         layout: 'fitColumns',
         groupToggleElement: 'header',
-        height: '90vh',
         responsiveLayout: true,
         resizableColumnFit: true
       },
