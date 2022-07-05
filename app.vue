@@ -113,7 +113,7 @@
     <main class="-mt-24 pb-8">
       <div class="max-w-5xl mx-auto px-1 sm:px-6 lg:max-w-7xl lg:px-8">
         <div class="grid grid-cols-1 gap-4 items-start rounded-lg bg-white overflow-hidden shadow">
-          <layout-breadcrumbs />
+          <layout-teamlist />
           <div class="p-3 lg:p-6 !pt-1">
             <NuxtPage :key="`root-${$route.fullPath}`" />
           </div>
